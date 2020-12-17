@@ -161,4 +161,28 @@ app.get("/category/:select", (req, res) => {
     );
   });
 
+  
+app.put("/users/:id", (req, res) => {
+    try {
+      let x = Object.keys(req.body);
+      console.log("x", x);
+      var myQuery = `UPDATE artists_users SET `;
+      for (let i = 0; i < x.length; i++) {
+        if (i == x.length - 1) {
+          myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'`; // req.body.name === req.body[name]
+        } else {
+          myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'` + ", ";
+        }
+      }
+      myQuery = myQuery + ` WHERE id = ${req.params.id}`;
+      console.log(myQuery);
+      sql.query(myQuery, function(err, result) {
+        if (err) throw err;
+        res.status(200).send("it is ok ");
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
 module.exports = app;
