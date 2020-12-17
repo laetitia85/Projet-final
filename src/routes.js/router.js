@@ -147,4 +147,18 @@ app.get("/category", (req, res) => {
     });
   });
 
+  
+
+app.get("/category/:select", (req, res) => {
+    sql.query(
+      `SELECT * FROM contents WHERE contents.category = '${req.params.select}'`,
+      (err, response) => {
+        if (err) {
+          throw err;
+        }
+        res.send(response);
+      }
+    );
+  });
+
 module.exports = app;
