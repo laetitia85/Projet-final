@@ -97,4 +97,32 @@ app.post("/contents", (req, res) => {
     }
   });
 
+  
+
+app.get("/users/:id", (req, res) => {
+    sql.query(
+      `SELECT artists_users.id_a, artists_users.name , artists_users.email, artists_users.password, artists_users.picture_profil , contents.title, contents.id_c, contents.date, contents.duration, contents.category, contents.content_type  FROM artists_users INNER JOIN contents ON contents.id_user_a = artists_users.id_a WHERE contents.id_user_a = ${req.params.id}`,
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        if (result.length != 0) {
+          res.json(result);
+        } else {
+          sql.query(
+            `SELECT artists_users.name, artists_users.email, artists_users.password, artists_users.picture_profil FROM artists_users WHERE artists_users.id_a = ${req.params.id}`,
+            (err, resultat) => {
+              if (err) {
+                throw err;
+              }
+              if (resultat) {
+                res.json(resultat);
+              }
+            }
+          );
+        }
+      }
+    );
+  });
+
 module.exports = app;
