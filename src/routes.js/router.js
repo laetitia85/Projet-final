@@ -125,4 +125,16 @@ app.get("/users/:id", (req, res) => {
     );
   });
 
+  app.get("/contents/:id", (req, res) => {
+    sql.query(
+      `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.name FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_c = ${req.params.id}`,
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        res.send(result);
+      }
+    );
+  });
+
 module.exports = app;
