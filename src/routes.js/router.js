@@ -137,4 +137,14 @@ app.get("/users/:id", (req, res) => {
     );
   });
 
+  
+app.get("/category", (req, res) => {
+    sql.query("SELECT category FROM contents", (err, response) => {
+      if (err) {
+        throw err;
+      }
+      res.send(response);
+    });
+  });
+
 module.exports = app;
