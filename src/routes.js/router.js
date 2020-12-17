@@ -78,4 +78,23 @@ app.get("/contents", (req, res) => {
     );
   });
 
+  
+
+app.post("/contents", (req, res) => {
+    try {
+      let resul = sql.query(
+        `INSERT INTO contents (title,id_user_a,date,category,duration,content_type) VALUES ('${req.body.title}','${req.body.id_user_a}','${req.body.date}','${req.body.category}','${req.body.duration}','${req.body.content_type}')`,
+        (error, result) => {
+          console.log(resul);
+          res.status(200).json({
+            msg: "Le contenu a bien été ajouter",
+            id: result.insertId,
+          });
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
 module.exports = app;
