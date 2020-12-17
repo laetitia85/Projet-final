@@ -65,4 +65,17 @@ app.post("/users/sign-in", (req, res) => {
     );
   });
 
+  
+app.get("/contents", (req, res) => {
+    sql.query(
+      "SELECT id_c, title, date, id_user_a, category FROM contents",
+      (err, response) => {
+        if (err) {
+          throw err;
+        }
+        res.send(response);
+      }
+    );
+  });
+
 module.exports = app;
