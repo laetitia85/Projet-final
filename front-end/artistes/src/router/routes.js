@@ -18,6 +18,7 @@ const routes = [
     component: Profil,
     meta: {
       requiresAuth: true,
+      layout: "Navbar.vue",
     },
     beforeEnter: (to, from, next) => {
       // console.log(store.state.token);
