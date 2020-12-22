@@ -1,35 +1,41 @@
 <template>
-  <mdb-card>
-    <mdb-card-body>
-      <form @submit="onSubmit" @reset="onReset">
-        <div class="grey-text">
-          <mdb-input
-            label="Email"
-            icon="envelope"
-            type="email"
-            v-model="form.email"
-            required
-            description="Ne donner jamais votre mot de passe."
-          />
-          <mdb-input
-            label="Mot de passe"
-            icon="lock"
-            type="password"
-            v-model="form.password"
-            required
-            description="Entrer votre mot de passe"
-          />
-        </div>
-        <div class="text-center">
-          <mdb-btn type="submit">Se connecter</mdb-btn>
-        </div>
-      </form>
-    </mdb-card-body>
-  </mdb-card>
+  <div class="container">
+    <NavBarSignIn />
+    <mdb-card>
+      <mdb-card-body class="bgcolorform">
+        <form @submit="onSubmit" @reset="onReset">
+          <div class="black-text">
+            <mdb-input
+              label="Email"
+              icon="envelope"
+              type="email"
+              v-model="form.email"
+              required
+              description="Ne donner jamais votre mot de passe."
+            />
+            <mdb-input
+              label="Mot de passe"
+              icon="lock"
+              type="password"
+              v-model="form.password"
+              required
+              description="Entrer votre mot de passe"
+            />
+          </div>
+          <div class="text-center">
+            <mdb-btn type="submit">Se connecter</mdb-btn>
+          </div>
+        </form>
+      </mdb-card-body>
+      <Footer />
+    </mdb-card>
+  </div>
 </template>
 
 <script>
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
+import Footer from "../layouts/Footer";
+import NavBarSignIn from "../layouts/NavBarSignIn";
 
 export default {
   name: "SignIn",
@@ -38,13 +44,15 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
+    Footer,
+    NavBarSignIn
   },
   data() {
     return {
       form: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
 
@@ -58,9 +66,8 @@ export default {
     },
     onSubmit(evt) {
       evt.preventDefault();
-      this.axios.post("http://localhost:8000/users/sign-in", this.form);
-      console
-        .log(this.form)
+      this.axios
+        .post("http://localhost:8000/users/sign-in", this.form)
         .then((response) => {
           console.log(response);
           this.$store.dispatch("token", response.data.token);
@@ -70,7 +77,9 @@ export default {
           this.$store.dispatch("decodeToken", jwt.name);
           this.$store.dispatch("decodeTokenId", jwt.id);
           this.axios
-            .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
+            .get(
+              `http://localhost:8000/add-contents/${this.$store.state.tokenId}`
+            )
             .then((response) => {
               this.$store.dispatch("recContent", response.data);
             });
@@ -92,3 +101,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.container {
+  background-color: rgb(64, 224, 208, 0.25);
+  width: 100%;
+}
+.bgcolorform {
+  background-color: #41d1cc;
+}
+.black-text label {
+  color: #000000 !important;
+}
+</style>

@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 // const isTokenIsValid = require('../middleware/auth');
 
-//ARTISTES_USERS
+//ARTISTS_USERS
 app.get("/users", (req, res) => {
   sql.query("SELECT id_a, name FROM artists_users", (err, response) => {
     if (err) {
@@ -86,7 +86,7 @@ app.post("/add-contents", (req, res) => {
         console.log("error", err);
       }
       res.status(200).json({
-        msg: "Le contenu a bien été ajouter",
+        msg: "Le contenu a bien été ajouté",
         id_c: result.insertId,
       });
     }
@@ -111,8 +111,7 @@ app.post("/add-contents", (req, res) => {
             (err, resultat) => {
               if (err) {
                 throw err;
-              }
-              if (resultat) {
+              } else {
                 res.json(resultat);
               }
             }
@@ -322,5 +321,9 @@ app.delete("/usersPro/:usersProID", (req, res) => {
     }
   );
 });
+
+//admin
+
+
 
 module.exports = app;

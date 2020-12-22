@@ -1,17 +1,15 @@
 <template>
-  <div id="conteneur">
-    <mdb-navbar position="top" dark color="indigo" scrolling>
+  <div>
+    <mdb-navbar class="bgcolornav">
       <mdb-navbar-toggler>
         <mdb-navbar-nav>
-          <mdb-nav-item href="<Profil/>" active>Profil</mdb-nav-item>
-          <mdb-nav-item href="#">Créations</mdb-nav-item>
-          <mdb-nav-item href="#">Mes posts</mdb-nav-item>
+          <mdb-nav-item href="/profil" active>Profil</mdb-nav-item>
+          <mdb-nav-item href="/creations">Créations</mdb-nav-item>
+          <mdb-nav-item href="/mesposts">Mes posts</mdb-nav-item>
         </mdb-navbar-nav>
-        <p>
-          <b-button variant="outline-primary" @click="DeleteToken()"
-            >Sign-Out</b-button
-          >
-        </p>
+        <b-button variant="outline-primary" @click="DeleteToken()"
+          >Sign-Out</b-button
+        >
       </mdb-navbar-toggler>
     </mdb-navbar>
   </div>
@@ -25,7 +23,7 @@ export default {
     mdbNavbar,
     mdbNavItem,
     mdbNavbarNav,
-    mdbNavbarToggler,
+    mdbNavbarToggler
   },
 
   methods: {
@@ -38,18 +36,8 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped>
-#conteneur {
-  display: flex;
-  justify-content: space-between;
-  border: 3px solid black;
-  width: 100%;
-  margin: 0px 0px 0px 0px;
-  background-color: black;
-  box-shadow: 6px 6px 0px blue;
-  color: blue;
-}
-p {
-  margin: auto;
+<style scoped>
+.bgcolornav {
+  background-image: url("../images/bgnavbar.jpg");
 }
 </style>
