@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBarSignIn />
+    <NavBarSignInPro />
     <div class="container">
       <mdb-card>
         <mdb-card-body class="bgcolorform">
@@ -10,7 +10,7 @@
                 label="Email"
                 icon="at"
                 type="email"
-                v-model="form.email"
+                v-model="form_pro.email"
                 required
                 description="Ne donner jamais votre mot de passe."
               />
@@ -18,7 +18,7 @@
                 label="Mot de passe"
                 icon="lock"
                 type="password"
-                v-model="form.password"
+                v-model="form_pro.password"
                 required
                 description="Entrer votre mot de passe"
               />
@@ -37,21 +37,21 @@
 <script>
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 import Footer from "../layouts/Footer";
-import NavBarSignIn from "../layouts/NavBarSignIn";
+import NavBarSignInPro from "../layouts/NavBarSignInPro";
 
 export default {
-  name: "SignIn",
+  name: "SignInPro",
   components: {
     mdbInput,
     mdbBtn,
     mdbCard,
     mdbCardBody,
     Footer,
-    NavBarSignIn,
+    NavBarSignInPro,
   },
   data() {
     return {
-      form: {
+      form_pro: {
         email: "",
         password: "",
       },
@@ -59,33 +59,24 @@ export default {
   },
 
   methods: {
-    parseJwt(token) {
-      console.log(token);
+    parseJwt(tokenPro) {
+      console.log(tokenPro);
 
-      let f = JSON.parse(atob(token.split(".")[1]));
+      let f = JSON.parse(atob(tokenPro.split(".")[1]));
       console.log(f);
       return f;
     },
     onSubmit(evt) {
       evt.preventDefault();
       this.axios
-        .post("http://localhost:8000/users/sign-in", this.form)
+        .post("http://localhost:8000/usersPro/sign-in-pro", this.form_pro)
         .then((response) => {
           console.log(response);
-          this.$store.dispatch("token", response.data.token);
-          let jwt = this.parseJwt(response.data.token);
-          console.log(response.data.token);
-
-          this.$store.dispatch("decodeToken", jwt.name);
-          this.$store.dispatch("decodeTokenId", jwt.id);
-          // this.axios
-          //   .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-          //   .then((response) => {
-          //     this.$store.dispatch("recContent", response.data);
-          //   });
-          // console.log(jwt.name);
-          // alert(JSON.stringify(this.form));
-          this.$router.push("/profil");
+          this.$store.dispatch("tokenPro", response.data.tokenPro);
+          let jwt = this.parseJwt(response.data.tokenPro);
+          console.log(response.data.tokenPro);
+          this.$store.dispatch("decodeTokenIdPro", jwt.id);
+          this.$router.push("/profil-pro");
         })
         .catch(function(error) {
           alert("Cet utilisateur nexiste pas");
@@ -95,10 +86,10 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.email = "";
-      this.form.password = "";
-    },
-  },
+      this.form_pro.email = "";
+      this.form_pro.password = "";
+    }
+  }
 };
 </script>
 

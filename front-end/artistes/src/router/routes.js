@@ -2,8 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SignUp from "../components/SignUp.vue";
+import SignUpPro from "../components/SignUpPro.vue";
 import SignIn from "../components/SignIn.vue";
+import SignInPro from "../components/SignInPro.vue";
 import Profil from "../views/Profil.vue";
+import ProfilPro from "../views/ProfilPro.vue";
+import AddContent from "../components/AddContent.vue";
 import store from "../store/store.js";
 
 Vue.use(VueRouter);
@@ -20,9 +24,24 @@ const routes = [
     component: SignUp
   },
   {
+    path: "/sign-up-pro",
+    name: "SignUpPro",
+    component: SignUpPro
+  },
+  {
     path: "/sign-in",
     name: "SignIn",
     component: SignIn
+  },
+  {
+    path: "/sign-in-pro",
+    name: "SignInPro",
+    component: SignInPro
+  },
+  {
+    path: "/add-contents",
+    name: "AddContent",
+    component: AddContent
   },
   {
     path: "/profil",
@@ -38,6 +57,29 @@ const routes = [
       console.log(x);
 
       if (x == true && store.state.token) {
+        next();
+      } else {
+        next({
+          path: "/"
+          // params: { nextUrl: to.fullPath },
+        });
+      }
+    }
+  },
+  {
+    path: "/profil-pro",
+    name: "ProfilPro",
+    component: ProfilPro,
+    meta: {
+      requiresAuth: true,
+      layout: "Navbarpro.vue"
+    },
+    beforeEnter: (to, from, next) => {
+      // console.log(store.state.tokenPro);
+      let x = to.matched.some((elem) => elem.meta.requiresAuth);
+      console.log(x);
+
+      if (x == true && store.state.tokenPro) {
         next();
       } else {
         next({

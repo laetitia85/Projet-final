@@ -23,6 +23,7 @@
             <mdb-btn tag="a" role="button" class="btn" href="/sign-up"
               >Inscription</mdb-btn
             >
+
             <mdb-btn tag="a" role="button" class="btn" href="/sign-in"
               >Connexion</mdb-btn
             >
@@ -32,10 +33,10 @@
         <mdb-card>
           <mdb-card-body class="cards">
             <p>Je suis une maison de disque ou un indépendant</p>
-            <mdb-btn tag="a" role="button" class="btn" href="/sign-up"
+            <mdb-btn tag="a" role="button" class="btn" href="/sign-up-pro"
               >Inscription</mdb-btn
             >
-            <mdb-btn tag="a" role="button" class="btn" href="/sign-in"
+            <mdb-btn tag="a" role="button" class="btn" href="/sign-in-pro"
               >Connexion</mdb-btn
             >
           </mdb-card-body>
@@ -60,8 +61,8 @@ export default {
     mdbCard,
     mdbBtn,
     mdbCardBody,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
 

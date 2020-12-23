@@ -211,7 +211,7 @@ app.get("/usersPro", (req, res) => {
   });
 });
 
-app.post("/usersPro/sign-up", (req, res) => {
+app.post("/usersPro/sign-up-pro", (req, res) => {
   try {
     bcrypt.hash(req.body.password, saltRounds).then(function(passwordHash) {
       sql.query(
@@ -224,7 +224,7 @@ app.post("/usersPro/sign-up", (req, res) => {
   }
 });
 
-app.post("/usersPro/sign-in", (req, res) => {
+app.post("/usersPro/sign-in-pro", (req, res) => {
   sql.query(
     `SELECT * FROM pro_users WHERE email = '${req.body.email}'`,
     (err, result) => {
@@ -234,7 +234,7 @@ app.post("/usersPro/sign-in", (req, res) => {
           resultat
         ) {
           if (resultat) {
-            let token = jwt.sign(
+            let tokenPro = jwt.sign(
               { id: result[0].id, email: result[0].email },
               "process.env.jwtKey",
               {
@@ -243,7 +243,7 @@ app.post("/usersPro/sign-in", (req, res) => {
             );
             res
               .status(200)
-              .json({ auth: true, token: token, id: result[0].id });
+              .json({ auth: true, tokenPro: tokenPro, id: result[0].id });
           } else {
             res.status(205).send({
               msg: "Le mot de passe est incorrect",

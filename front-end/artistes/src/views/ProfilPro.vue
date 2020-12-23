@@ -1,16 +1,17 @@
 <template>
   <div>
-    <Navbar />
+    <Navbarpro />
     <div class="container">
       <mdb-card>
         <mdb-card-body class="cards">
-          <form @submit="Delete">
+          <form>
             <div class="black-text">
               <mdb-input label="Nom" icon="user" type="text" />
               <mdb-input label="Prénom" icon="user" type="text" />
               <mdb-input label="email" icon="envelope" type="email" />
               <mdb-input label="Mot de passe" icon="lock" type="password" />
-              <mdb-input label="Photo de profil" icon="image" type="text" />
+                <mdb-input label="Nom de l'entreprise" icon="user" type="text" />
+              <mdb-input label="Photo" icon="image" type="text" />
             </div>
             <div class="text-center">
               <mdb-btn class="btn">Modifier</mdb-btn>
@@ -27,14 +28,14 @@
 </template>
 
 <script>
-import Navbar from "../layouts/Navbar.vue";
+import Navbarpro from "../layouts/Navbarpro.vue";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 import Footer from "../layouts/Footer.vue";
 
 export default {
-  name: "Profil",
+  name: "Profil_pro",
   components: {
-    Navbar,
+    Navbarpro,
     Footer,
     mdbInput,
     mdbBtn,
@@ -48,42 +49,13 @@ export default {
         first_name: "",
         email: "",
         password: "",
-        picture_profil: "",
-      },
-      deleteUser: {
-        id_a: this.$store.state.token,
-        name: "",
-        first_name: "",
-        email: "",
-        password: "",
-        picture_profil: "",
+        picture: "",
       },
     };
   },
   methods: {
     Delete() {
-      const headers = {
-        Authorization: `${this.$store.state.token}`,
-      };
-      console.log(headers);
-      this.axios
-        .delete("http://localhost:8000/users", this.deleteUser, {
-          headers: headers,
-        })
-        .then(
-          this.$store
-            .dispatch("deleteToken", {
-              name: this.deleteUser.name,
-              first_name: this.deleteUser.first_name,
-              email: this.deleteUser.email,
-              password: this.deleteUser.password,
-              picture_profil: this.deleteUser.picture_profil,
-              id_user_a: this.deleteUser.id_user_a,
-            })
-            .catch(function(error) {
-              console.log(error);
-            })
-        );
+      
     },
   },
 };

@@ -26,3 +26,4 @@ export default {
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
 }
+</style>
