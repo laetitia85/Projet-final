@@ -1,8 +1,17 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div>
       <router-link to="/"></router-link>
+      <router-link to="/sign-up"></router-link>
+      <router-link to="/sign-up-pro"></router-link>
+      <router-link to="/sign-in"></router-link>
+      <router-link to="/sign-in-pro"></router-link>
       <router-link to="/profil"></router-link>
+      <router-link to="/profil-pro"></router-link>
+      <router-link to="/creations"></router-link>
+      <router-link to="/add-contents"></router-link>
+      <router-link to="/mesposts"></router-link>
+       <router-link to="/contact"></router-link>
     </div>
     <router-view />
   </div>
@@ -10,7 +19,7 @@
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

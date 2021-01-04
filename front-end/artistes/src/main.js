@@ -13,9 +13,15 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbvue/lib/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
+import Navbar from "./layouts/Navbar.vue";
+import Footer from "./layouts/Footer.vue";
+
 Vue.use(BootstrapVue);
 Vue.use(VueAxios, axios);
 Vue.use(Vuelidate);
+
+Vue.component(Navbar);
+Vue.component(Footer);
 
 Vue.config.productionTip = false;
 
