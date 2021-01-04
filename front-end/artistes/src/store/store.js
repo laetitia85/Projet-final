@@ -88,6 +88,6 @@ export default new Vuex.Store({
     },
     AllContent: (state) => {
       return state.contents;
-    },
-  },
+    }
+  }
 });

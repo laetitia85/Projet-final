@@ -2,7 +2,9 @@
   <div class="bgcolornav">
     <mdb-navbar>
       <mdb-navbar-nav>
-        <mdb-nav-item href="/" active>Bienvenue</mdb-nav-item>
+        <mdb-nav-item active
+          ><router-link to="/">Bienvenue</router-link></mdb-nav-item
+        >
       </mdb-navbar-nav>
       <h1 class="title">
         ART<img class="micro" src="../images/micro titre.png" alt="" />STES
@@ -19,8 +21,8 @@ export default {
   components: {
     mdbNavbar,
     mdbNavbarNav,
-    mdbNavItem,
-  },
+    mdbNavItem
+  }
 };
 </script>
 
@@ -30,7 +32,7 @@ export default {
 }
 
 mdb-nav-item:active {
-  color:white !important;
+  color: white !important;
 }
 
 .title {

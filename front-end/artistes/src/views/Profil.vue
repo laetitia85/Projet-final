@@ -80,6 +80,11 @@ export default {
     };
   },
   methods: {
+Update() {
+  this.axios.put()
+},
+
+
     Delete() {
       this.axios
         .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)

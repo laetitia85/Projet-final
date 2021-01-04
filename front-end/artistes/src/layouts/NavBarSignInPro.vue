@@ -2,8 +2,12 @@
   <div class="bgcolornav">
     <mdb-navbar>
       <mdb-navbar-nav>
-        <mdb-nav-item href="/" active>Bienvenue</mdb-nav-item>
-        <mdb-nav-item href="/sign-up-pro" active>S'inscrire</mdb-nav-item>
+        <mdb-nav-item active
+          ><router-link to="/">Bienvenue</router-link></mdb-nav-item
+        >
+        <mdb-nav-item
+          ><router-link to="/sign-up-pro">S'inscrire</router-link></mdb-nav-item
+        >
       </mdb-navbar-nav>
     </mdb-navbar>
   </div>
