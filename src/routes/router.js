@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-// const isTokenIsValid = require('../middleware/auth');
+// const isTokenIsValid = require('../middlewares/auth');
 
 //ARTISTS_USERS
 app.get("/users", (req, res) => {
@@ -34,14 +34,16 @@ app.post("/users/sign-in", (req, res) => {
   sql.query(
     `SELECT * FROM artists_users WHERE email = '${req.body.email}'`,
     (err, result) => {
+      console.log(result)
       if (result[0]) {
         bcrypt.compare(req.body.password, result[0].password, function(
           erro,
           resultat
         ) {
           if (resultat) {
+            console.log(resultat)
             let token = jwt.sign(
-              { id: result[0].id, email: result[0].email },
+              { id_a: result[0].id_a, email: result[0].email },
               "process.env.jwtKey",
               {
                 expiresIn: 86400, // expires in 24 hours
@@ -49,7 +51,7 @@ app.post("/users/sign-in", (req, res) => {
             );
             res
               .status(200)
-              .json({ auth: true, token: token, id: result[0].id });
+              .json({ auth: true, token: token, id_a: result[0].id_a });
           } else {
             res.status(205).send({
               msg: "Le mot de passe est incorrect",
@@ -77,7 +79,7 @@ app.get("/contents", (req, res) => {
   );
 });
 
-app.post("/add-contents", (req, res) => {
+app.post("/add-contents",  function (req, res) {
   try {
   sql.query(
     `INSERT INTO contents (title,id_user_a,date,category,duration,content_type) VALUES ('${req.body.title}','${req.body.id_user_a}','${req.body.date}','${req.body.category}','${req.body.duration}','${req.body.content_type}')`,
@@ -123,7 +125,7 @@ app.post("/add-contents", (req, res) => {
 
 app.get("/contents/:id", (req, res) => {
   sql.query(
-    `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.name FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_c = ${req.params.id}`,
+    `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.picture_profil FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_c = ${req.params.id}`,
     (err, result) => {
       if (err) {
         throw err;
@@ -235,7 +237,7 @@ app.post("/usersPro/sign-in-pro", (req, res) => {
         ) {
           if (resultat) {
             let tokenPro = jwt.sign(
-              { id: result[0].id, email: result[0].email },
+              { id_p: result[0].id_p, email: result[0].email },
               "process.env.jwtKey",
               {
                 expiresIn: 86400, // expires in 24 hours
@@ -243,7 +245,7 @@ app.post("/usersPro/sign-in-pro", (req, res) => {
             );
             res
               .status(200)
-              .json({ auth: true, tokenPro: tokenPro, id: result[0].id });
+              .json({ auth: true, tokenPro: tokenPro, id_p: result[0].id_p });
           } else {
             res.status(205).send({
               msg: "Le mot de passe est incorrect",

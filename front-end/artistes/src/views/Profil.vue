@@ -2,18 +2,44 @@
   <div>
     <Navbar />
     <div class="container">
+      <br /><br />
       <mdb-card>
         <mdb-card-body class="cards">
-          <form @submit="Delete">
+          <form @click="Delete">
             <div class="black-text">
-              <mdb-input label="Nom" icon="user" type="text" />
-              <mdb-input label="Prénom" icon="user" type="text" />
-              <mdb-input label="email" icon="envelope" type="email" />
-              <mdb-input label="Mot de passe" icon="lock" type="password" />
-              <mdb-input label="Photo de profil" icon="image" type="text" />
+              <mdb-input
+                v-model="formUpdate.name"
+                label="Nom"
+                icon="user"
+                type="text"
+              />
+              <mdb-input
+                v-model="formUpdate.first_name"
+                label="Prénom"
+                icon="user"
+                type="text"
+              />
+              <mdb-input
+                v-model="formUpdate.email"
+                label="email"
+                icon="envelope"
+                type="email"
+              />
+              <mdb-input
+                v-model="formUpdate.password"
+                label="Mot de passe"
+                icon="lock"
+                type="password"
+              />
+              <mdb-input
+                v-model="formUpdate.picture_profil"
+                label="Photo de profil"
+                icon="image"
+                type="text"
+              />
             </div>
             <div class="text-center">
-              <mdb-btn class="btn">Modifier</mdb-btn>
+              <mdb-btn class="btn" @click="Update()">Modifier</mdb-btn>
             </div>
             <div class="text-center">
               <mdb-btn class="btn" @click="Delete()">Supprimer</mdb-btn>
@@ -49,41 +75,24 @@ export default {
         email: "",
         password: "",
         picture_profil: "",
-      },
-      deleteUser: {
-        id_a: this.$store.state.token,
-        name: "",
-        first_name: "",
-        email: "",
-        password: "",
-        picture_profil: "",
-      },
+        id_a: this.$store.state.tokenId
+      }
     };
   },
   methods: {
     Delete() {
-      const headers = {
-        Authorization: `${this.$store.state.token}`,
-      };
-      console.log(headers);
       this.axios
-        .delete("http://localhost:8000/users", this.deleteUser, {
-          headers: headers,
+        .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            this.$store.dispatch("deleteToken", response.data.tokenId);
+            this.$router.push("/");
+          }
         })
-        .then(
-          this.$store
-            .dispatch("deleteToken", {
-              name: this.deleteUser.name,
-              first_name: this.deleteUser.first_name,
-              email: this.deleteUser.email,
-              password: this.deleteUser.password,
-              picture_profil: this.deleteUser.picture_profil,
-              id_user_a: this.deleteUser.id_user_a,
-            })
-            .catch(function(error) {
-              console.log(error);
-            })
-        );
+        .catch(function(error) {
+          console.log(error);
+        });
     },
   },
 };

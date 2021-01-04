@@ -11,7 +11,8 @@
         <p href="#!">CGU</p>
       </mdb-col>
       <mdb-col sm="4">
-        <p href="#!">contact</p>
+       <a href="/contact">Contact</a>
+        <!-- <p  href="/contact">Contact</p> -->
 
         <ul class="list-unstyled list-inline">
           <li class="list-inline-item">

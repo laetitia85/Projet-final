@@ -7,6 +7,8 @@ import SignIn from "../components/SignIn.vue";
 import SignInPro from "../components/SignInPro.vue";
 import Profil from "../views/Profil.vue";
 import ProfilPro from "../views/ProfilPro.vue";
+import Contact from "../views/Contact.vue";
+import Creations from "../components/Creations.vue";
 import AddContent from "../components/AddContent.vue";
 import store from "../store/store.js";
 
@@ -42,6 +44,16 @@ const routes = [
     path: "/add-contents",
     name: "AddContent",
     component: AddContent
+  },
+  {
+    path: "/creations",
+    name: "Creations",
+    component: Creations
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact
   },
   {
     path: "/profil",

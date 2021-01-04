@@ -2,6 +2,7 @@
   <div>
     <NavBarSignUp />
     <div class="container">
+      <br><br>
       <mdb-card>
         <mdb-card-body class="bgcolorform">
           <form
@@ -204,7 +205,7 @@ export default {
       email: { required, email },
       password: { required, minLength: minLength(6) },
       passwordcheck: { required, sameAsPassword: sameAs("password") },
-      picture_profil: { required, minLength: minLength(6) },
+      picture_profil: { required, minLength: minLength(6) }
     },
   },
   methods: {
@@ -217,6 +218,7 @@ export default {
           console.log(response);
           this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
+          this.$router.push("/sign-in");
         })
         .catch(function(error) {
           console.log(error);

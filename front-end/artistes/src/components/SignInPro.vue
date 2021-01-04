@@ -74,8 +74,8 @@ export default {
           console.log(response);
           this.$store.dispatch("tokenPro", response.data.tokenPro);
           let jwt = this.parseJwt(response.data.tokenPro);
-          console.log(response.data.tokenPro);
-          this.$store.dispatch("decodeTokenIdPro", jwt.id);
+          console.log(jwt);
+          this.$store.dispatch("decodeTokenIdPro", jwt.id_p);
           this.$router.push("/profil-pro");
         })
         .catch(function(error) {

@@ -4,8 +4,8 @@ module.exports = (req, res, next) => {
   if (req.headers.authorization) {
     let token = req.headers.authorization;
     jwt.verify(token, process.env.jwtKey, (err, decoded) => {
-      //  console.log(decoded)
-      if (decoded.id === req.body.user_affiliate) {
+       console.log(decoded)
+      if (decoded.id === req.body.id_user_a) {
         console.log("cccccccc");
         next();
       } else {

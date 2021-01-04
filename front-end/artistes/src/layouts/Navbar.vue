@@ -4,11 +4,13 @@
       <mdb-navbar-toggler>
         <mdb-navbar-nav>
           <mdb-nav-item href="/profil" active>Profil</mdb-nav-item>
-          <mdb-nav-item href="/add-contents">Créations</mdb-nav-item>
+          <mdb-nav-item href="/creations">Créations</mdb-nav-item>
           <mdb-nav-item href="/rec-contents">Mes posts</mdb-nav-item>
+           <mdb-nav-item href="/contact">Contact</mdb-nav-item>
         </mdb-navbar-nav>
+        <img class="picture_profil" alt="" src="{TokenPicture_profil}" />
         <b-button variant="outline-primary" @click="DeleteToken()"
-          >Sign-Out</b-button
+          >Deconnexion</b-button
         >
       </mdb-navbar-toggler>
     </mdb-navbar>
@@ -16,6 +18,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler } from "mdbvue";
 export default {
   name: "Navbar",
@@ -23,7 +27,11 @@ export default {
     mdbNavbar,
     mdbNavItem,
     mdbNavbarNav,
-    mdbNavbarToggler
+    mdbNavbarToggler,
+  },
+
+  computed: {
+    ...mapGetters(["TokenPicture_profil"]),
   },
 
   methods: {
@@ -39,5 +47,11 @@ export default {
 <style scoped>
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
+}
+
+.picture_profil {
+  border-radius: 50px;
+  height: 40px;
+  width: 40px;
 }
 </style>

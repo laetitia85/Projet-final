@@ -67,7 +67,7 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
-    Footer
+    Footer,
   },
 
   data() {
@@ -78,20 +78,20 @@ export default {
         category: "",
         duration: "",
         content_type: "",
-        id_user_a: this.$store.state.tokenId
-      }
+        id_user_a: this.$store.state.tokenId,
+      },
     };
   },
   methods: {
     addContent(evt) {
       evt.preventDefault();
       const headers = {
-        Authorization: `${this.$store.state.token}`
+        Authorization: `${this.$store.state.token}`,
       };
       console.log(headers);
       this.axios
         .post("http://localhost:8000/add-contents", this.content, {
-          headers: headers
+          headers: headers,
         })
         .then(
           this.$store
@@ -101,11 +101,21 @@ export default {
               category: this.content.category,
               duration: this.content.duration,
               content_type: this.content.content_type,
-              id_user_a: this.content.id_user_a
+              id_user_a: this.content.id_user_a,
             })
+            // this.axios
+            //   .get(`http://localhost:8000/contents/${this.$store.state.tokenIdContent}`)
+            //   .then((response) => {
+            //     let jwt = this.parseJwt(response.data.tokenIdContent);
+            //     console.log(jwt);
+            //     this.$store.dispatch("decodeTokenIdContent", jwt.id_c),
+            //       this.$store.dispatch("recContent", response.data);
+            //   })
+
             .catch(function(error) {
               console.log(error);
-            })
+            }),
+          alert("Contenu ajouté avec succès")
         );
     },
 
@@ -117,8 +127,8 @@ export default {
       this.content.duration = "";
       this.content.content_type = "";
       this.content.id_user_a = "";
-    }
-  }
+    },
+  },
 };
 </script>
 

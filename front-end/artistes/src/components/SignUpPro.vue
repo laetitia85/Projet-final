@@ -13,13 +13,17 @@
               Vous etes enregistrer ! Vous pouvez vous connecter
             </p>
 
-            <!-- <div class="black-text">
-              <mdb-select
-                v-model="userPro.pro_type"
-                placeholder="Je suis"
-                label=""
-              />
-            </div> -->
+            <div>
+              <b-form-group label="Je suis" v-slot="{ ariaDescribedby }">
+                <b-form-radio-group
+                  id="radio-group-1"
+                  v-model="userPro.pro_type"
+                  :options="options"
+                  :aria-describedby="ariaDescribedby"
+                  name="radio-options"
+                ></b-form-radio-group>
+              </b-form-group>
+            </div>
 
             <div class="black-text">
               <mdb-input
@@ -128,7 +132,7 @@
                 class="invalid-feedback"
               >
                 <span v-if="!$v.userPro.passwordcheck.required"
-                  >Le mot de passe est requis</span
+                  >Confirmation du mot de passe requis</span
                 >
                 <span v-if="!$v.userPro.passwordcheck.sameAsPassword"
                   >Vous devez fournir le meme mot de passe.</span
@@ -157,7 +161,7 @@
                 v-if="submitted && !$v.userPro.enterprise_name.required"
                 class="invalid-feedback"
               >
-                Le prénom est requis
+                Le nom de l'entreprise est requis
                 <span v-if="!$v.userPro.enterprise_name.minLength"
                   >Le nom de l'entreprise doit contenir au moins 3 lettres</span
                 >
@@ -181,7 +185,7 @@
                 class="invalid-feedback"
               >
                 <span v-if="!$v.userPro.siret_number.required"
-                  >Mot de passe requis</span
+                  >Numéro de siret requis</span
                 >
                 <span v-if="!$v.userPro.siret_number.minLength"
                   >Le numéro de siret doit contenir au minimum 6
@@ -234,8 +238,8 @@ export default {
   name: "SignUpPro",
   components: {
     NavBarSignUpPro,
-    // mdbSelect,
     mdbInput,
+
     mdbBtn,
     mdbCard,
     mdbCardBody,
@@ -260,6 +264,11 @@ export default {
         siret_number: "",
         picture: "",
       },
+      selected: "first",
+      options: [
+        { text: "Une maison de disque", value: "une maison de disque" },
+        { text: "Un indépendant", value: "un indépendant" },
+      ],
       submitted: false,
       lol: false,
     };
@@ -286,6 +295,7 @@ export default {
           console.log(response);
           this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
+          this.$router.push("/sign-in-pro");
         })
         .catch(function(error) {
           console.log(error);

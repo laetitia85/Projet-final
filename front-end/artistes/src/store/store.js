@@ -8,8 +8,10 @@ export default new Vuex.Store({
   state: {
     token: "",
     tokenPro: "",
-    tokenName: "",
+    tokenPicture_profil: "",
     tokenId: "",
+    tokenIdPro: "",
+    tokenIdContent: "",
     contents: []
   },
   plugins: [createPersistedState()],
@@ -24,18 +26,23 @@ export default new Vuex.Store({
     DELETETOKEN(state) {
       state.token = "";
       state.tokenPro = "";
-      state.tokenName = "";
+      state.tokenPicture_profil = "";
       state.tokenId = "";
+      state.tokenIdPro = "";
+      state.tokenIdContent = "";
       state.contents = [];
     },
     DECODETOKEN(state, myDecodeToken) {
-      state.tokenName = myDecodeToken;
+      state.tokenPicture_profil = myDecodeToken;
     },
     DECODETOKENID(state, myDecodeTokenId) {
       state.tokenId = myDecodeTokenId;
     },
     DECODETOKENIDPRO(state, myDecodeTokenIdPro) {
       state.tokenIdPro = myDecodeTokenIdPro;
+    },
+    DECODETOKENIDCONTENT(state, myDecodeTokenIdContent) {
+      state.tokenIdContent = myDecodeTokenIdContent;
     },
     ADDCONTENT(state, myAddContent) {
       state.contents.push(myAddContent);
@@ -64,6 +71,9 @@ export default new Vuex.Store({
     decodeTokenIdPro(context, myDecodeTokenIdPro) {
       context.commit("DECODETOKENIDPRO", myDecodeTokenIdPro);
     },
+    decodeTokenIdContent(context, myDecodeTokenIdContent) {
+      context.commit("DECODETOKENIDCONTENT", myDecodeTokenIdContent);
+    },
     addContent(context, myAddContent) {
       context.commit("ADDCONTENT", myAddContent);
     },
@@ -73,8 +83,8 @@ export default new Vuex.Store({
   },
 
   getters: {
-    TokenName: (state) => {
-      return state.tokenName;
+    TokenPicture_profil: (state) => {
+      return state.tokenPicture_profil;
     },
     AllContent: (state) => {
       return state.contents;

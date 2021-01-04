@@ -2,6 +2,7 @@
   <div>
     <NavBarSignIn />
     <div class="container">
+      <br /><br />
       <mdb-card>
         <mdb-card-body class="bgcolorform">
           <form @submit="onSubmit" @reset="onReset">
@@ -60,10 +61,10 @@ export default {
 
   methods: {
     parseJwt(token) {
-      console.log(token);
+      // console.log(token);
 
       let f = JSON.parse(atob(token.split(".")[1]));
-      console.log(f);
+      // console.log(f);
       return f;
     },
     onSubmit(evt) {
@@ -74,17 +75,17 @@ export default {
           console.log(response);
           this.$store.dispatch("token", response.data.token);
           let jwt = this.parseJwt(response.data.token);
-          console.log(response.data.token);
+          console.log(jwt);
 
-          this.$store.dispatch("decodeToken", jwt.name);
-          this.$store.dispatch("decodeTokenId", jwt.id);
+          this.$store.dispatch("decodeToken", jwt.picture_profil);
+          this.$store.dispatch("decodeTokenId", jwt.id_a);
           // this.axios
           //   .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
           //   .then((response) => {
           //     this.$store.dispatch("recContent", response.data);
+          //     alert("Contenu ajouté avec succès");
           //   });
-          // console.log(jwt.name);
-          // alert(JSON.stringify(this.form));
+          // console.log(jwt.picture_profil);
           this.$router.push("/profil");
         })
         .catch(function(error) {
