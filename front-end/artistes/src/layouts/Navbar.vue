@@ -3,10 +3,20 @@
     <mdb-navbar class="bgcolornav">
       <mdb-navbar-toggler>
         <mdb-navbar-nav>
-          <mdb-nav-item href="/profil" active>Profil</mdb-nav-item>
-          <mdb-nav-item href="/creations">Créations</mdb-nav-item>
-          <mdb-nav-item href="/rec-contents">Mes posts</mdb-nav-item>
-           <mdb-nav-item href="/contact">Contact</mdb-nav-item>
+          <mdb-nav-item
+            ><router-link to="/profil" active>Profil</router-link></mdb-nav-item
+          >
+          <mdb-nav-item
+            ><router-link to="/creations">Créations</router-link></mdb-nav-item
+          >
+          <mdb-nav-item
+            ><router-link to="/rec-contents"
+              >Mes posts</router-link
+            ></mdb-nav-item
+          >
+          <mdb-nav-item
+            ><router-link to="/contact">Contact</router-link></mdb-nav-item
+          >
         </mdb-navbar-nav>
         <img class="picture_profil" alt="" src="{TokenPicture_profil}" />
         <b-button variant="outline-primary" @click="DeleteToken()"

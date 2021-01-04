@@ -3,9 +3,20 @@
     <mdb-navbar class="bgcolornav">
       <mdb-navbar-toggler>
         <mdb-navbar-nav>
-          <mdb-nav-item href="/profil" active>Profil</mdb-nav-item>
-          <mdb-nav-item href="/ecouter">Ecouter</mdb-nav-item>
-          <mdb-nav-item href="/lire">Lire</mdb-nav-item>
+          <mdb-nav-item
+            ><router-link to="/profil" active>Profil</router-link></mdb-nav-item
+          >
+          <mdb-nav-item
+            ><router-link to="/posts">Posts</router-link></mdb-nav-item
+          >
+          <mdb-nav-item
+            ><router-link to="/comments"
+              >Commentaires</router-link
+            ></mdb-nav-item
+          >
+          <mdb-nav-item
+            ><router-link to="/contact">Contact</router-link></mdb-nav-item
+          >
         </mdb-navbar-nav>
         <b-button variant="outline-primary" @click="DeleteTokenPro()"
           >Sign-Out</b-button
