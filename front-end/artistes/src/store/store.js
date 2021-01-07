@@ -12,7 +12,9 @@ export default new Vuex.Store({
     tokenId: "",
     tokenIdPro: "",
     tokenIdContent: "",
-    contents: []
+    contents: [],
+    users: [],
+    usersPro: []
   },
   plugins: [createPersistedState()],
 
@@ -23,6 +25,18 @@ export default new Vuex.Store({
     STORE_TOKENPRO(state, myTokenPro) {
       state.tokenPro = myTokenPro;
     },
+    ADDUSERS(state, AddUsers) {
+      state.users = AddUsers;
+    },
+    ADDUSERSPRO(state, AddUsersPro) {
+      state.usersPro = AddUsersPro;
+    },
+    UPDATEUSERS(state, myAddUsers) {
+      state.users.push(myAddUsers);
+    },
+    UPDATEUSERSPRO(state, myAddUsersPro) {
+      state.usersPro.push(myAddUsersPro);
+    },
     DELETETOKEN(state) {
       state.token = "";
       state.tokenPro = "";
@@ -31,6 +45,7 @@ export default new Vuex.Store({
       state.tokenIdPro = "";
       state.tokenIdContent = "";
       state.contents = [];
+      state.users = [];
     },
     DECODETOKEN(state, myDecodeToken) {
       state.tokenPicture_profil = myDecodeToken;
@@ -59,6 +74,18 @@ export default new Vuex.Store({
     tokenPro(context, myTokenPro) {
       context.commit("STORE_TOKENPRO", myTokenPro);
     },
+    addUsers(context, AddUsers) {
+      context.commit("ADDUSERS", AddUsers);
+    },
+    addUsersPro(context, AddUsersPro) {
+      context.commit("ADDUSERSPRO", AddUsersPro);
+    },
+    updateUsers(context) {
+      context.commit("UPDATEUSERS");
+    },
+    updateUsersPro(context) {
+      context.commit("UPDATEUSERSPRO");
+    },
     deleteToken(context) {
       context.commit("DELETETOKEN");
     },
@@ -83,10 +110,13 @@ export default new Vuex.Store({
   },
 
   getters: {
-    TokenPicture_profil: (state) => {
+    TokenPicture_profil: state => {
       return state.tokenPicture_profil;
     },
-    AllContent: (state) => {
+    AllContent: state => {
+      return state.contents;
+    },
+    ContentId: state => {
       return state.contents;
     }
   }

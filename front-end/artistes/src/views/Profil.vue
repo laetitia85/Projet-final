@@ -5,36 +5,41 @@
       <br /><br />
       <mdb-card>
         <mdb-card-body class="cards">
-          <form @click="Delete">
+          <form>
             <div class="black-text">
               <mdb-input
-                v-model="formUpdate.name"
+                v-model="users.name"
                 label="Nom"
                 icon="user"
+                value="users.name"
                 type="text"
               />
               <mdb-input
-                v-model="formUpdate.first_name"
+                v-model="users.first_name"
                 label="Prénom"
                 icon="user"
+                value="users.first_name"
                 type="text"
               />
               <mdb-input
-                v-model="formUpdate.email"
+                v-model="users.email"
                 label="email"
                 icon="envelope"
+                value="users.email"
                 type="email"
               />
               <mdb-input
-                v-model="formUpdate.password"
+                v-model="users.password"
                 label="Mot de passe"
                 icon="lock"
+                value="users.password"
                 type="password"
               />
               <mdb-input
-                v-model="formUpdate.picture_profil"
+                v-model="users.picture_profil"
                 label="Photo de profil"
                 icon="image"
+                value="users.picture_profil"
                 type="text"
               />
             </div>
@@ -69,36 +74,57 @@ export default {
   },
   data() {
     return {
-      formUpdate: {
+      users: {
         name: "",
         first_name: "",
         email: "",
         password: "",
         picture_profil: "",
-        id_a: this.$store.state.tokenId
-      }
+        id_a: this.$store.state.tokenId,
+      },
     };
   },
   methods: {
-Update() {
-  this.axios.put()
-},
-
-
-    Delete() {
-      this.axios
-        .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteToken", response.data.tokenId);
-            this.$router.push("/");
+    async Update() {
+      try {
+        let x = this.users;
+        console.log(x);
+        for (let key in x) {
+          if (x[key] === "") {
+            delete x[key];
           }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+        }
+        if (x) {
+          let result = await this.axios.put(
+            `http://localhost:8000/users/${this.$store.state.tokenId}`,
+            x
+          );
+          console.log(result);
+          if (result.status === 200) {
+            alert("Vos données ont été modifiées avec succès");
+            console.log("aaaaa");
+            this.$store.dispatch(x, "updateUsers", result.data.tokenId);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+
+  Delete() {
+    this.axios
+      .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          this.$store.dispatch("deleteToken", response.data.tokenId);
+          this.$router.push("/");
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   },
 };
 </script>

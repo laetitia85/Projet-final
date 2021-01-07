@@ -2,15 +2,17 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import SignUp from "../components/SignUp.vue";
-import SignUpPro from "../components/SignUpPro.vue";
 import SignIn from "../components/SignIn.vue";
-import SignInPro from "../components/SignInPro.vue";
 import Profil from "../views/Profil.vue";
-import ProfilPro from "../views/ProfilPro.vue";
-import Contact from "../views/Contact.vue";
 import Creations from "../components/Creations.vue";
 import AddContent from "../components/AddContent.vue";
+import MesPosts from "../components/MesPosts.vue";
+import Contact from "../views/Contact.vue";
 import store from "../store/store.js";
+import SignUpPro from "../components/SignUpPro.vue";
+import SignInPro from "../components/SignInPro.vue";
+import ProfilPro from "../views/ProfilPro.vue";
+import ContentList from "../components/ContentList.vue";
 
 Vue.use(VueRouter);
 
@@ -51,6 +53,16 @@ const routes = [
     component: Creations
   },
   {
+    path: "/mesposts",
+    name: "MesPosts",
+    component: MesPosts
+  },
+  {
+    path: "/posts",
+    name: "ContentList",
+    component: ContentList
+  },
+  {
     path: "/contact",
     name: "Contact",
     component: Contact
@@ -65,7 +77,7 @@ const routes = [
     },
     beforeEnter: (to, from, next) => {
       // console.log(store.state.token);
-      let x = to.matched.some((elem) => elem.meta.requiresAuth);
+      let x = to.matched.some(elem => elem.meta.requiresAuth);
       console.log(x);
 
       if (x == true && store.state.token) {
@@ -88,7 +100,7 @@ const routes = [
     },
     beforeEnter: (to, from, next) => {
       // console.log(store.state.tokenPro);
-      let x = to.matched.some((elem) => elem.meta.requiresAuth);
+      let x = to.matched.some(elem => elem.meta.requiresAuth);
       console.log(x);
 
       if (x == true && store.state.tokenPro) {
@@ -96,20 +108,10 @@ const routes = [
       } else {
         next({
           path: "/"
-          // params: { nextUrl: to.fullPath },
         });
       }
     }
   }
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  // }
 ];
 
 const router = new VueRouter({

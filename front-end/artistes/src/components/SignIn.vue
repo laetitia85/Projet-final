@@ -72,7 +72,7 @@ export default {
       this.axios
         .post("http://localhost:8000/users/sign-in", this.form)
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.$store.dispatch("token", response.data.token);
           let jwt = this.parseJwt(response.data.token);
           console.log(jwt);

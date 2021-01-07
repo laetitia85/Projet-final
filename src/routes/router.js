@@ -82,7 +82,7 @@ app.get("/contents", (req, res) => {
 app.post("/add-contents",  function (req, res) {
   try {
   sql.query(
-    `INSERT INTO contents (title,id_user_a,date,category,duration,content_type) VALUES ('${req.body.title}','${req.body.id_user_a}','${req.body.date}','${req.body.category}','${req.body.duration}','${req.body.content_type}')`,
+    `INSERT INTO contents (title,id_user_a,date,category,duration,content_type,content) VALUES ('${req.body.title}','${req.body.id_user_a}','${req.body.date}','${req.body.category}','${req.body.duration}','${req.body.content_type}','${req.body.content}')`,
     (err, result) => {
       if (err) {
         console.log("error", err);
@@ -100,7 +100,7 @@ app.post("/add-contents",  function (req, res) {
 
   app.get("/users/:id", (req, res) => {
     sql.query(
-      `SELECT artists_users.id_a, artists_users.name , artists_users.email, artists_users.password, artists_users.picture_profil , contents.title, contents.id_c, contents.date, contents.duration, contents.category, contents.content_type  FROM artists_users INNER JOIN contents ON contents.id_user_a = artists_users.id_a WHERE contents.id_user_a = ${req.params.id}`,
+      `SELECT artists_users.id_a, artists_users.name , artists_users.email, artists_users.password, artists_users.picture_profil , contents.title, contents.id_c, contents.date, contents.duration, contents.category, contents.content_type, contents.content  FROM artists_users INNER JOIN contents ON contents.id_user_a = artists_users.id_a WHERE contents.id_user_a = ${req.params.id}`,
       (err, result) => {
         if (err) {
           throw err;
@@ -125,7 +125,7 @@ app.post("/add-contents",  function (req, res) {
 
 app.get("/contents/:id", (req, res) => {
   sql.query(
-    `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.picture_profil FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_c = ${req.params.id}`,
+    `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.picture_profil FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_user_a = ${req.params.id}`,
     (err, result) => {
       if (err) {
         throw err;

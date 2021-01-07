@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>
+    <!-- <div>
       <router-link to="/"></router-link>
       <router-link to="/sign-up"></router-link>
       <router-link to="/sign-up-pro"></router-link>
@@ -12,7 +12,7 @@
       <router-link to="/add-contents"></router-link>
       <router-link to="/mesposts"></router-link>
        <router-link to="/contact"></router-link>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>

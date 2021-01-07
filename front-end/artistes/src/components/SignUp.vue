@@ -2,13 +2,14 @@
   <div>
     <NavBarSignUp />
     <div class="container">
-      <br><br>
+      <br /><br />
       <mdb-card>
         <mdb-card-body class="bgcolorform">
           <form
             @input.prevent="handleSubmit"
             @submit="onSubmit"
             @reset="onReset"
+            @onChange="setChange"
           >
             <p v-if="lol == true">
               Vous etes enregistrer ! Vous pouvez vous connecter
@@ -20,6 +21,7 @@
                 type="text"
                 icon="user"
                 v-model="user.name"
+                value="user.name"
                 id="name"
                 name="name"
                 @input="$v.user.name.$touch()"
@@ -42,6 +44,7 @@
                 type="text"
                 icon="user"
                 v-model="user.first_name"
+                value="user.first_name"
                 id="first_name"
                 name="first_name"
                 @input="$v.user.first_name.$touch()"
@@ -66,6 +69,7 @@
                 type="email"
                 icon="at"
                 v-model="user.email"
+                value="user.email"
                 id="email"
                 name="email"
                 :class="{ 'is-invalid': submitted && $v.user.email.$error }"
@@ -85,6 +89,7 @@
                 type="password"
                 icon="lock"
                 v-model="user.password"
+                value="user.password"
                 id="password"
                 name="password"
                 :class="{
@@ -110,6 +115,7 @@
                 type="password"
                 icon="exclamation-triangle"
                 v-model="user.passwordcheck"
+                value="user.passwordcheck"
                 id="passwordcheck"
                 name="passwordcheck"
                 :class="{
@@ -139,6 +145,7 @@
                 type="text"
                 icon="image"
                 v-model="user.picture_profil"
+                value="user.picture_profil"
                 id="pictureprofil"
                 name="picture_profil"
                 @input="$v.user.picture_profil.$touch()"
@@ -193,6 +200,7 @@ export default {
         password: "",
         passwordcheck: "",
         picture_profil: "",
+        id_a: this.$store.state.tokenId,
       },
       submitted: false,
       lol: false,
@@ -205,17 +213,33 @@ export default {
       email: { required, email },
       password: { required, minLength: minLength(6) },
       passwordcheck: { required, sameAsPassword: sameAs("password") },
-      picture_profil: { required, minLength: minLength(6) }
+      picture_profil: { required, minLength: minLength(6) },
     },
   },
   methods: {
-    onSubmit(evt) {
-      // console.log("lol");
+    setChange(event) {
+      let myinput = event.target;
+      let inputname = myinput.name;
+      let value = myinput.value;
+      this.$store.dispatch({
+        [inputname]: value
+      });
+    },
+    async onSubmit(evt) {
       evt.preventDefault();
+      // console.log("lol");
       this.axios
         .post("http://localhost:8000/users/sign-up", this.user)
         .then((response) => {
           console.log(response);
+          this.$store.dispatch("addUsers", {
+            name: "",
+            first_name: "",
+            email: "",
+            password: "",
+            picture_profil: "",
+            id_a: "",
+          });
           this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
           this.$router.push("/sign-in");
@@ -224,6 +248,38 @@ export default {
           console.log(error);
         });
     },
+    //     try {
+    //       let result = await this.axios.post(
+    //         "http://localhost:8000/users/sign-up",
+    //         this.user
+    //       );
+    //       console.log(result);
+    //       if (result.status === 200) {
+    //         this.$store.dispatch("addUsers", {
+    //           name: "",
+    //           first_name: "",
+    //           email: "",
+    //           password: "",
+    //           picture_profil: "",
+    //           id_a: ""
+    //         });
+    //         this.lol = true;
+    //         alert("Vous etes enregistrer! vous pouvez vous connecter");
+    //         this.$router.push("/sign-in");
+    //       }
+    //     } catch (error) {
+    //       this.$store.dispatch({
+    //         name: "",
+    //         email: "",
+    //         first_name: "",
+    //         password: "",
+    //         picture_profil: "",
+    //         id_a: ""
+    //       });
+    //       console.log(error);
+    //     }
+    //   }
+    // },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
@@ -235,7 +291,6 @@ export default {
       this.user.picture_profil = "";
       this.$v.$reset();
     },
-
     handleSubmit(e) {
       console.log(e);
       this.submitted = true;

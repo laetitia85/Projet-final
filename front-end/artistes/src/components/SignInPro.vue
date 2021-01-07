@@ -47,13 +47,13 @@ export default {
     mdbCard,
     mdbCardBody,
     Footer,
-    NavBarSignInPro,
+    NavBarSignInPro
   },
   data() {
     return {
       form_pro: {
         email: "",
-        password: "",
+        password: ""
       },
     };
   },
@@ -70,7 +70,7 @@ export default {
       evt.preventDefault();
       this.axios
         .post("http://localhost:8000/usersPro/sign-in-pro", this.form_pro)
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.$store.dispatch("tokenPro", response.data.tokenPro);
           let jwt = this.parseJwt(response.data.tokenPro);
