@@ -1,9 +1,13 @@
 <template>
   <div>
-    <Navbarpro />
-    <div class="container" v-for= "content in AllContent" :key="content.title">
+    <Navbar />
+    <div
+      class="container"
+      v-for="content in ContentId"
+      :key="content.id_user_a"
+    >
       <p><strong>Titre:</strong> {{ content.title }}</p>
-       <p><strong>Date:</strong> {{ content.date }}</p>
+      <p><strong>Date:</strong> {{ content.date }}</p>
       <p><strong>Durée:</strong> {{ content.duration }}</p>
       <p><strong>Contenu:</strong> {{ content.content_type }}</p>
     </div>
@@ -12,24 +16,19 @@
 </template>
 
 <script>
-import Navbarpro from "../layouts/Navbarpro.vue";
+import Navbar from "../layouts/Navbar.vue";
 import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
 
 export default {
-  name: "ContentList",
+  name: "MesPosts",
   components: {
-    Navbarpro,
+    Navbar,
     Footer
   },
-
   computed: {
-    ...mapGetters(["AllContent"])
+    ...mapGetters(["ContentId"])
   }
-
-  //  computed: {
-  //       Contents: function() {return this.$store.state.contents}
-  //     },
 };
 </script>
 

@@ -8,6 +8,7 @@
             @input.prevent="handleSubmit"
             @submit="onSubmit"
             @reset="onReset"
+            @onChange="setChange"
           >
             <p v-if="lol == true">
               Vous etes enregistrer ! Vous pouvez vous connecter
@@ -239,7 +240,6 @@ export default {
   components: {
     NavBarSignUpPro,
     mdbInput,
-
     mdbBtn,
     mdbCard,
     mdbCardBody,
@@ -248,11 +248,6 @@ export default {
 
   data() {
     return {
-      // pro_type: [
-      //   { text: "Une maison de disque", value: "mdd" },
-      //   { text: "Un indépendant", value: "in" },
-      // ],
-
       userPro: {
         pro_type: "",
         name: "",
@@ -263,6 +258,7 @@ export default {
         enterprise_name: "",
         siret_number: "",
         picture: "",
+        id_p: this.$store.state.tokenIdPro,
       },
       selected: "first",
       options: [
@@ -286,13 +282,33 @@ export default {
     },
   },
   methods: {
-    onSubmit(evt) {
+       setChange(event) {
+      let myinput = event.target;
+      let inputname = myinput.name;
+      let value = myinput.value;
+      this.$store.dispatch({
+        [inputname]: value
+      });
+    },
+
+    async onSubmit(evt) {
       // console.log("lol");
       evt.preventDefault();
-      this.axios
+      await this.axios
         .post("http://localhost:8000/usersPro/sign-up-pro", this.userPro)
         .then((response) => {
           console.log(response);
+            this.$store.dispatch("addUsersPro", {
+            pro_type: "",
+            name: "",
+            first_name: "",
+            email: "",
+            password: "",
+            enterprise_name: "",
+            siret_number: "",
+            picture: "",
+            id_p: "",
+          });
           this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
           this.$router.push("/sign-in-pro");

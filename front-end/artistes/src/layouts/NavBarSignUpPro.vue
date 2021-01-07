@@ -23,8 +23,8 @@ export default {
   components: {
     mdbNavbar,
     mdbNavbarNav,
-    mdbNavItem,
-  },
+    mdbNavItem
+  }
 };
 </script>
 

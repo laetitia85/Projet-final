@@ -2,7 +2,7 @@
   <div>
     <Navbar />
     <div class="container">
-        <br /><br />
+      <br /><br />
       <div class="propos">
         <h2>A propos</h2>
         <p>
@@ -42,9 +42,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 2rem;
 }
 h2 {
   color: magenta;

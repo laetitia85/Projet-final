@@ -61,8 +61,8 @@ export default {
     mdbCard,
     mdbBtn,
     mdbCardBody,
-    Footer,
-  },
+    Footer
+  }
 };
 </script>
 
@@ -79,7 +79,7 @@ export default {
   transform-style: preserve-3d;
   transform: rotateY(calc(var(--i * 45deg)) translateZ(400px));
 }
-@-webkit-keyframes rotating {
+@keyframes rotating {
   from {
     -webkit-transform: rotate(0deg);
   }

@@ -10,15 +10,15 @@
             ><router-link to="/creations">Créations</router-link></mdb-nav-item
           >
           <mdb-nav-item
-            ><router-link to="/rec-contents"
-              >Mes posts</router-link
-            ></mdb-nav-item
+            ><router-link to="/mesposts">Mes posts</router-link></mdb-nav-item
           >
           <mdb-nav-item
             ><router-link to="/contact">Contact</router-link></mdb-nav-item
           >
         </mdb-navbar-nav>
-        <img class="picture_profil" alt="" src="{TokenPicture_profil}" />
+        <img class="picture_profil" alt="" :src="`{{TokenPicture_profil}}`" />
+        />
+
         <b-button variant="outline-primary" @click="DeleteToken()"
           >Deconnexion</b-button
         >

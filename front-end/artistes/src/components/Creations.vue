@@ -43,6 +43,9 @@ export default {
 <style >
 .container {
   background-color: rgb(64, 224, 208, 0.25);
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 2rem;
 }
 
 .img {
