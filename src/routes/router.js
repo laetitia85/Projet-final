@@ -43,7 +43,7 @@ app.post("/users/sign-in", (req, res) => {
           if (resultat) {
             console.log(resultat)
             let token = jwt.sign(
-              { id_a: result[0].id_a, email: result[0].email },
+              { id_a: result[0].id_a, email: result[0].email, picture_profil: result[0].picture_profil },
               "process.env.jwtKey",
               {
                 expiresIn: 86400, // expires in 24 hours
@@ -54,7 +54,7 @@ app.post("/users/sign-in", (req, res) => {
               .json({ auth: true, token: token, id_a: result[0].id_a });
           } else {
             res.status(205).send({
-              msg: "Le mot de passe est incorrect",
+              msg: "Données incorrect",
             });
           }
         });
@@ -69,7 +69,7 @@ app.post("/users/sign-in", (req, res) => {
 
 app.get("/contents", (req, res) => {
   sql.query(
-    "SELECT id_c, title, date, id_user_a, category FROM contents",
+    "SELECT id_c, title, date, id_user_a, category, content FROM contents",
     (err, response) => {
       if (err) {
         throw err;
@@ -125,7 +125,7 @@ app.post("/add-contents",  function (req, res) {
 
 app.get("/contents/:id", (req, res) => {
   sql.query(
-    `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.picture_profil FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_user_a = ${req.params.id}`,
+    `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, artists_users.picture_profil, contents.content FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_user_a = ${req.params.id}`,
     (err, result) => {
       if (err) {
         throw err;
@@ -237,7 +237,7 @@ app.post("/usersPro/sign-in-pro", (req, res) => {
         ) {
           if (resultat) {
             let tokenPro = jwt.sign(
-              { id_p: result[0].id_p, email: result[0].email },
+              { id_p: result[0].id_p, email: result[0].email, picture: result[0].picture },
               "process.env.jwtKey",
               {
                 expiresIn: 86400, // expires in 24 hours

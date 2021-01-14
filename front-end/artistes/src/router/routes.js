@@ -12,7 +12,7 @@ import store from "../store/store.js";
 import SignUpPro from "../components/SignUpPro.vue";
 import SignInPro from "../components/SignInPro.vue";
 import ProfilPro from "../views/ProfilPro.vue";
-import ContentList from "../components/ContentList.vue";
+import AllPosts from "../components/AllPosts.vue";
 
 Vue.use(VueRouter);
 
@@ -58,13 +58,18 @@ const routes = [
     component: MesPosts
   },
   {
-    path: "/posts",
-    name: "ContentList",
-    component: ContentList
+    path: "/allposts",
+    name: "AllPosts",
+    component: AllPosts
   },
   {
     path: "/contact",
     name: "Contact",
+    component: Contact
+  },
+  {
+    path: "/contact-pro",
+    name: "ContactPro",
     component: Contact
   },
   {
@@ -100,10 +105,10 @@ const routes = [
     },
     beforeEnter: (to, from, next) => {
       // console.log(store.state.tokenPro);
-      let x = to.matched.some(elem => elem.meta.requiresAuth);
-      console.log(x);
+      let y = to.matched.some(elem => elem.meta.requiresAuth);
+      console.log(y);
 
-      if (x == true && store.state.tokenPro) {
+      if (y == true && store.state.tokenPro) {
         next();
       } else {
         next({

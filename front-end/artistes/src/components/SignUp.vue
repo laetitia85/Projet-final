@@ -11,9 +11,9 @@
             @reset="onReset"
             @onChange="setChange"
           >
-            <p v-if="lol == true">
+            <!-- <p v-if="lol == true">
               Vous etes enregistrer ! Vous pouvez vous connecter
-            </p>
+            </p> -->
 
             <div class="black-text">
               <mdb-input
@@ -49,7 +49,7 @@
                 name="first_name"
                 @input="$v.user.first_name.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.user.first_name.$error,
+                  'is-invalid': submitted && $v.user.first_name.$error
                 }"
               />
               <div
@@ -93,7 +93,7 @@
                 id="password"
                 name="password"
                 :class="{
-                  'is-invalid': submitted && $v.user.password.$error,
+                  'is-invalid': submitted && $v.user.password.$error
                 }"
               />
               <div
@@ -119,7 +119,7 @@
                 id="passwordcheck"
                 name="passwordcheck"
                 :class="{
-                  'is-invalid': submitted && $v.user.passwordcheck.$error,
+                  'is-invalid': submitted && $v.user.passwordcheck.$error
                 }"
               />
               <div
@@ -150,7 +150,7 @@
                 name="picture_profil"
                 @input="$v.user.picture_profil.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.user.picture_profil.$error,
+                  'is-invalid': submitted && $v.user.picture_profil.$error
                 }"
               />
               <div
@@ -188,7 +188,7 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
-    Footer,
+    Footer
   },
 
   data() {
@@ -200,10 +200,10 @@ export default {
         password: "",
         passwordcheck: "",
         picture_profil: "",
-        id_a: this.$store.state.tokenId,
+        id_a: this.$store.state.tokenId
       },
-      submitted: false,
-      lol: false,
+      submitted: false
+      // lol: false
     };
   },
   validations: {
@@ -213,8 +213,8 @@ export default {
       email: { required, email },
       password: { required, minLength: minLength(6) },
       passwordcheck: { required, sameAsPassword: sameAs("password") },
-      picture_profil: { required, minLength: minLength(6) },
-    },
+      picture_profil: { required, minLength: minLength(6) }
+    }
   },
   methods: {
     setChange(event) {
@@ -225,12 +225,12 @@ export default {
         [inputname]: value
       });
     },
-    async onSubmit(evt) {
+    onSubmit(evt) {
       evt.preventDefault();
       // console.log("lol");
       this.axios
         .post("http://localhost:8000/users/sign-up", this.user)
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.$store.dispatch("addUsers", {
             name: "",
@@ -238,9 +238,9 @@ export default {
             email: "",
             password: "",
             picture_profil: "",
-            id_a: "",
+            id_a: ""
           });
-          this.lol = true;
+          // this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
           this.$router.push("/sign-in");
         })
@@ -248,38 +248,6 @@ export default {
           console.log(error);
         });
     },
-    //     try {
-    //       let result = await this.axios.post(
-    //         "http://localhost:8000/users/sign-up",
-    //         this.user
-    //       );
-    //       console.log(result);
-    //       if (result.status === 200) {
-    //         this.$store.dispatch("addUsers", {
-    //           name: "",
-    //           first_name: "",
-    //           email: "",
-    //           password: "",
-    //           picture_profil: "",
-    //           id_a: ""
-    //         });
-    //         this.lol = true;
-    //         alert("Vous etes enregistrer! vous pouvez vous connecter");
-    //         this.$router.push("/sign-in");
-    //       }
-    //     } catch (error) {
-    //       this.$store.dispatch({
-    //         name: "",
-    //         email: "",
-    //         first_name: "",
-    //         password: "",
-    //         picture_profil: "",
-    //         id_a: ""
-    //       });
-    //       console.log(error);
-    //     }
-    //   }
-    // },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
@@ -299,8 +267,8 @@ export default {
         return;
       }
       alert("Tout les champs sont remplis! Vous pouvez vous inscrire.");
-    },
-  },
+    }
+  }
 };
 </script>
 

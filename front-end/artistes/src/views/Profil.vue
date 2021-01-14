@@ -3,6 +3,8 @@
     <Navbar />
     <div class="container">
       <br /><br />
+      <p>Bienvenue</p>
+      <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
           <form>
@@ -46,6 +48,11 @@
             <div class="text-center">
               <mdb-btn class="btn" @click="Update()">Modifier</mdb-btn>
             </div>
+            <br /><br />
+            <p>
+              Tu peux supprimer définitivement ton compte ainsi que toutes tes
+              données en cliquant sur le bouton ci dessous
+            </p>
             <div class="text-center">
               <mdb-btn class="btn" @click="Delete()">Supprimer</mdb-btn>
             </div>
@@ -60,6 +67,7 @@
 <script>
 import Navbar from "../layouts/Navbar.vue";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
+// import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
 
 export default {
@@ -80,8 +88,8 @@ export default {
         email: "",
         password: "",
         picture_profil: "",
-        id_a: this.$store.state.tokenId,
-      },
+        id_a: this.$store.state.tokenId
+      }
     };
   },
   methods: {
@@ -102,29 +110,29 @@ export default {
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
-            console.log("aaaaa");
+            // console.log("aaaaa");
             this.$store.dispatch(x, "updateUsers", result.data.tokenId);
           }
         }
       } catch (error) {
         console.log(error);
       }
-    }
-  },
+    },
 
-  Delete() {
-    this.axios
-      .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          this.$store.dispatch("deleteToken", response.data.tokenId);
-          this.$router.push("/");
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    Delete() {
+      this.axios
+        .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            this.$store.dispatch("deleteToken", response.data.tokenId);
+            this.$router.push("/");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

@@ -2,6 +2,10 @@
   <div>
     <Navbarpro />
     <div class="container">
+   <br>
+      <p>Bienvenue</p>
+      <br>
+      <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
           <form @click="Delete">
@@ -65,14 +69,17 @@
             <div class="text-center">
               <mdb-btn class="btn" @click="Update()">Modifier</mdb-btn>
             </div>
+            <br /><br />
+            <p>
+              Tu peux supprimer définitivement ton compte ainsi que toutes tes
+              données en cliquant sur le bouton ci dessous
+            </p>
             <div class="text-center">
               <mdb-btn class="btn" @click="Delete()">Supprimer</mdb-btn>
             </div>
           </form>
         </mdb-card-body>
       </mdb-card>
-      <ContentList />
-      <div></div>
     </div>
     <Footer />
   </div>
@@ -105,7 +112,7 @@ export default {
         picture: "",
         id_p: this.$store.state.tokenIdPro,
       },
-        selected: "first",
+      selected: "first",
       options: [
         { text: "Une maison de disque", value: "une maison de disque" },
         { text: "Un indépendant", value: "un indépendant" },

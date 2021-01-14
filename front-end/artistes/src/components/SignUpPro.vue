@@ -278,16 +278,16 @@ export default {
       passwordcheck: { required, sameAsPassword: sameAs("password") },
       enterprise_name: { required, minLength: minLength(3) },
       siret_number: { required, minLength: minLength(6) },
-      picture: { required, minLength: minLength(6) },
+      picture: { required, minLength: minLength(6) }
     },
   },
   methods: {
-       setChange(event) {
+    setChange(event) {
       let myinput = event.target;
       let inputname = myinput.name;
       let value = myinput.value;
       this.$store.dispatch({
-        [inputname]: value
+        [inputname]: value,
       });
     },
 
@@ -298,7 +298,7 @@ export default {
         .post("http://localhost:8000/usersPro/sign-up-pro", this.userPro)
         .then((response) => {
           console.log(response);
-            this.$store.dispatch("addUsersPro", {
+          this.$store.dispatch("addUsersPro", {
             pro_type: "",
             name: "",
             first_name: "",
@@ -313,7 +313,7 @@ export default {
           alert("Vous etes enregistrer! vous pouvez vous connecter");
           this.$router.push("/sign-in-pro");
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     },

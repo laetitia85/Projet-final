@@ -6,10 +6,10 @@ module.exports = (req, res, next) => {
     jwt.verify(token, process.env.jwtKey, (err, decoded) => {
        console.log(decoded)
       if (decoded.id === req.body.id_user_a) {
-        console.log("cccccccc");
+        // console.log("cccccccc");
         next();
       } else {
-        res.status(400).send({ msg: "invalid token" });
+        res.status(400).send({ msg: "invalid token " });
       }
     });
   }

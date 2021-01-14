@@ -48,44 +48,58 @@ export default {
     mdbCard,
     mdbCardBody,
     Footer,
-    NavBarSignIn,
+    NavBarSignIn
   },
   data() {
     return {
       form: {
         email: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
 
   methods: {
     parseJwt(token) {
-      // console.log(token);
+      console.log(token);
 
-      let f = JSON.parse(atob(token.split(".")[1]));
-      // console.log(f);
+      let f = JSON.parse(window.atob(token.split(".")[1]));
+      // .replace(/-/g, "+")
+      // .replace(/_/g, "/");
+      console.log(f);
       return f;
+
+      // let base64Url = token.split(".")[1];
+      // let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      // let jsonPayload = decodeURIComponent(
+      //   atob(base64)
+      //     .split("")
+      //     .map(function(c) {
+      //       return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      //     })
+      //     .join("")
+      // );
+
+      // return JSON.parse(jsonPayload);
     },
     onSubmit(evt) {
       evt.preventDefault();
       this.axios
         .post("http://localhost:8000/users/sign-in", this.form)
-        .then((response) => {
-          // console.log(response);
+        .then(response => {
+          console.log(response);
           this.$store.dispatch("token", response.data.token);
           let jwt = this.parseJwt(response.data.token);
           console.log(jwt);
 
           this.$store.dispatch("decodeToken", jwt.picture_profil);
           this.$store.dispatch("decodeTokenId", jwt.id_a);
-          // this.axios
-          //   .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-          //   .then((response) => {
-          //     this.$store.dispatch("recContent", response.data);
-          //     alert("Contenu ajouté avec succès");
-          //   });
-          // console.log(jwt.picture_profil);
+          this.axios
+            .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
+            .then(response => {
+              console.log(response);
+              this.$store.dispatch("recContent", response.data);
+            });
           this.$router.push("/profil");
         })
         .catch(function(error) {
@@ -98,8 +112,8 @@ export default {
       // Reset our form values
       this.form.email = "";
       this.form.password = "";
-    },
-  },
+    }
+  }
 };
 </script>
 
