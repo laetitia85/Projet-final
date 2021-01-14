@@ -61,17 +61,19 @@ export default {
     mdbCard,
     mdbBtn,
     mdbCardBody,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
 
 <style>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 2rem;
+  width: 100% !important;
+  padding-right: 0;
+  margin: 0;
+  /* margin: auto;
+  padding: 0 2rem; */
 }
 
 .logo {
@@ -110,5 +112,20 @@ export default {
   background-image: url("../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
+}
+
+.container-sm,
+.container-lg,
+.container-md,
+.container-fluid,
+.container-xl {
+  max-width: 100%;
+}
+
+*, ::after, ::before {
+    box-sizing: none;
+}
+*, *::before, *::after {
+  box-sizing:none;
 }
 </style>

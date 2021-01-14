@@ -1,11 +1,12 @@
 <template>
   <div>
     <Navbarpro />
-    <div class="container" v-for= "content in AllContent" :key="content.title">
-      <p><strong>Titre:</strong> {{ content.title }}</p>
-       <p><strong>Date:</strong> {{ content.date }}</p>
-      <p><strong>Durée:</strong> {{ content.duration }}</p>
+    <div class="container" v-for="content in AllContent" :key="content.id_c">
+      <p>bonjour</p>
+      <iframe :src="content.content" width="320" height="240" controls />
       <p><strong>Contenu:</strong> {{ content.content_type }}</p>
+      <p><strong>Titre:</strong> {{ content.title }}</p>
+      <p><strong>Durée:</strong> {{ content.duration }}</p>
     </div>
     <Footer />
   </div>
@@ -17,12 +18,11 @@ import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
 
 export default {
-  name: "ContentList",
+  name: "AllPosts",
   components: {
     Navbarpro,
     Footer
   },
-
   computed: {
     ...mapGetters(["AllContent"])
   }

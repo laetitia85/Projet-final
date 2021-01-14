@@ -4,7 +4,7 @@
     <div class="container">
       <mdb-card>
         <mdb-card-body class="cards">
-          <form @submit="addContent" @reset="onReset">
+          <form @submit="addContent" @reset="onReset" @onChange="setChange">
             <div>
               <b-form-group label="Je post" v-slot="{ ariaDescribedby }">
                 <b-form-radio-group
@@ -20,33 +20,44 @@
             <div class="black-text">
               <mdb-input
                 v-model="content.title"
+                value="content.title"
                 label="Titre"
                 icon="file-alt"
+                name="title"
                 type="text"
               />
               <mdb-input
                 v-model="content.date"
+                value="content.date"
                 label="Date"
                 icon="calendar-alt"
+                name="date"
                 type="date"
               />
 
               <mdb-input
                 v-model="content.category"
+                value="content.category"
                 label="Catégorie"
                 icon="music"
+                name="category"
                 type="text"
               />
               <mdb-input
                 v-model="content.duration"
+                value="content.duration"
                 label="Durée"
                 icon="stopwatch"
+                name="duration"
                 type="time"
               />
+
               <mdb-input
                 v-model="content.content"
+                value="content.content"
                 label="Contenu"
                 icon="hand-pointer"
+                name="content"
                 type="text"
               />
             </div>
@@ -86,13 +97,14 @@ export default {
   data() {
     return {
       content: {
+        content_type: "",
         title: "",
         date: "",
         category: "",
         duration: "",
-        content_type: "",
+
         content: "",
-        id_user_a: this.$store.state.tokenId,
+        id_user_a: this.$store.state.tokenId
       },
       selected: "first",
       options: [
@@ -103,61 +115,63 @@ export default {
     };
   },
   methods: {
-    addContent(evt) {
+    setChange(evt) {
+      let myinput = evt.target;
+      let inputname = myinput.name;
+      let value = myinput.value;
+      this.$store.dispatch({
+        [inputname]: value
+      });
+    },
+
+    async addContent(evt) {
       evt.preventDefault();
       const headers = {
         Authorization: `${this.$store.state.token}`
       };
       console.log(headers);
-      this.axios
+      await this.axios
         .post("http://localhost:8000/add-contents", this.content, {
-          headers: headers,
+          headers: headers
         })
-        .then(
-          this.$store.dispatch("addContent", {
-            title: this.content.title,
-            date: this.content.date,
-            category: this.content.category,
-            duration: this.content.duration,
-            content_type: this.content.content_type,
-            content: this.content.content,
-            id_user_a: this.content.id_user_a
-          }),
-          this.axios
-            .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-            .then((response) => {
-              console.log(response);
-              let jwt = this.parseJwt(response.data.tokenId);
-              console.log(jwt);
-              this.$store.dispatch("decodeTokenId", jwt.id_user_a),
-                this.$store.dispatch("recContent", response.data);
+
+        .then(response => {
+          console.log(response);
+          this.$store
+            .dispatch("addContent", {
+              content_type: "",
+              title: "",
+              date: "",
+              category: "",
+              duration: "",
+              content: "",
+              id_user_a: ""
             })
 
             .catch(function(error) {
               console.log(error);
             }),
-          alert("Contenu ajouté avec succès")
-        );
+            alert("Contenu ajouté avec succès");
+        });
     },
 
     onReset(evt) {
       evt.preventDefault();
+      this.content.content_type = "";
       this.content.title = "";
       this.content.date = "";
       this.content.category = "";
       this.content.duration = "";
-      this.content.content_type = "";
+      this.content.content = "";
       this.content.id_user_a = "";
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 2rem;
+  width: 100%;
 }
 </style>

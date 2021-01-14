@@ -16,12 +16,14 @@
             ><router-link to="/contact">Contact</router-link></mdb-nav-item
           >
         </mdb-navbar-nav>
-        <img class="picture_profil" alt="" :src="`{{TokenPicture_profil}}`" />
-        />
-
-        <b-button variant="outline-primary" @click="DeleteToken()"
-          >Deconnexion</b-button
+        <img class="picture_profil" alt="" :src="TokenPicture_profil" />
+        <mdb-btn gradient="aqua" rounded @click="DeleteToken()"
+          >Deconnexion</mdb-btn
         >
+
+        <!-- <b-button variant="outline-primary" @click="DeleteToken()"
+          >Deconnexion</b-button
+        > -->
       </mdb-navbar-toggler>
     </mdb-navbar>
   </div>
@@ -30,7 +32,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler } from "mdbvue";
+import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler, mdbBtn} from "mdbvue";
 export default {
   name: "Navbar",
   components: {
@@ -38,6 +40,7 @@ export default {
     mdbNavItem,
     mdbNavbarNav,
     mdbNavbarToggler,
+    mdbBtn
   },
 
   computed: {
@@ -61,7 +64,7 @@ export default {
 
 .picture_profil {
   border-radius: 50px;
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
 }
 </style>

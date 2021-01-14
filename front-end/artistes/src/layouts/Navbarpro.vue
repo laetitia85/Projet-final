@@ -4,10 +4,12 @@
       <mdb-navbar-toggler>
         <mdb-navbar-nav>
           <mdb-nav-item
-            ><router-link to="/profil" active>Profil</router-link></mdb-nav-item
+            ><router-link to="/profil-pro" active
+              >Profil</router-link
+            ></mdb-nav-item
           >
           <mdb-nav-item
-            ><router-link to="/posts">Posts</router-link></mdb-nav-item
+            ><router-link to="/allposts">Posts</router-link></mdb-nav-item
           >
           <mdb-nav-item
             ><router-link to="/comments"
@@ -15,11 +17,12 @@
             ></mdb-nav-item
           >
           <mdb-nav-item
-            ><router-link to="/contact">Contact</router-link></mdb-nav-item
+            ><router-link to="/contact-pro">Contact</router-link></mdb-nav-item
           >
         </mdb-navbar-nav>
-        <b-button variant="outline-primary" @click="DeleteTokenPro()"
-          >Sign-Out</b-button
+        <img class="picture_profil" alt="" :src="TokenPicture" />
+        <mdb-btn gradient="aqua" rounded @click="DeleteToken()"
+          >Deconnexion</mdb-btn
         >
       </mdb-navbar-toggler>
     </mdb-navbar>
@@ -27,14 +30,27 @@
 </template>
 
 <script>
-import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler } from "mdbvue";
+import { mapGetters } from "vuex";
+
+import {
+  mdbNavbar,
+  mdbNavItem,
+  mdbNavbarNav,
+  mdbNavbarToggler,
+  mdbBtn
+} from "mdbvue";
+
 export default {
   name: "Navbar",
   components: {
     mdbNavbar,
     mdbNavItem,
     mdbNavbarNav,
-    mdbNavbarToggler
+    mdbNavbarToggler,
+    mdbBtn
+  },
+  computed: {
+    ...mapGetters(["TokenPicture"])
   },
 
   methods: {
@@ -50,5 +66,10 @@ export default {
 <style scoped>
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
+}
+.picture_profil {
+  border-radius: 50px;
+  height: 60px;
+  width: 60px;
 }
 </style>
