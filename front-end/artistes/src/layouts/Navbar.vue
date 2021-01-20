@@ -44,7 +44,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["TokenPicture_profil"]),
+    ...mapGetters(["TokenPicture_profil"])
   },
 
   methods: {

@@ -3,7 +3,7 @@
     <Navbarpro />
     <div class="container">
    <br>
-      <p>Bienvenue</p>
+      <h3>Bienvenue</h3>
       <br>
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>

@@ -14,8 +14,10 @@ export default new Vuex.Store({
     tokenPicture: null,
     tokenIdContent: "",
     contents: [],
+    contentsId: [],
     users: [],
-    usersPro: []
+    usersPro: [],
+    categoryTab: []
   },
   plugins: [createPersistedState()],
 
@@ -44,10 +46,13 @@ export default new Vuex.Store({
       state.tokenPicture_profil = "";
       state.tokenId = "";
       state.tokenIdPro = "";
-      state.tokenPicture= "";
+      state.tokenPicture = "";
       state.tokenIdContent = "";
       state.contents = [];
+      state.contentsId = [];
       state.users = [];
+      state.usersPro = [];
+      state.categoryTab = [];
     },
     DECODETOKEN(state, myDecodeToken) {
       state.tokenPicture_profil = myDecodeToken;
@@ -68,7 +73,10 @@ export default new Vuex.Store({
       state.contents.push(myAddContent);
     },
     RECCONTENT(state, myRecContent) {
-      state.contents = myRecContent;
+      state.contentsId = myRecContent;
+    },
+    ADDCONTENTBYCATEGORY(state, myCategoryTab) {
+      state.categoryTab.push(myCategoryTab);
     }
   },
 
@@ -114,23 +122,29 @@ export default new Vuex.Store({
     },
     recContent(context, myRecContent) {
       context.commit("RECCONTENT", myRecContent);
+    },
+    categoryTab(context, myCategoryTab) {
+      context.commit("ADDCONTENTBYCATEGORY", myCategoryTab);
     }
   },
 
   getters: {
-    TokenPicture_profil: state => {
+    TokenPicture_profil: (state) => {
       return state.tokenPicture_profil;
     },
-    TokenPicture: state => {
+    TokenPicture: (state) => {
       return state.tokenPicture;
     },
-    AllContent: state => {
+    AllContent: (state) => {
       return state.contents;
     },
-    ContentId: state => {
-      return state.contents;
+    ContentId: (state) => {
+      return state.contentsId;
     },
-    AllUsers: state => {
+    CategoryContent: state => {
+      return state.categoryTab;
+    },
+    AllUsers: (state) => {
       return state.users;
     }
   }

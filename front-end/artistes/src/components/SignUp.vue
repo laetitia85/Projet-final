@@ -217,8 +217,8 @@ export default {
     }
   },
   methods: {
-    setChange(event) {
-      let myinput = event.target;
+    setChange(evt) {
+      let myinput = evt.target;
       let inputname = myinput.name;
       let value = myinput.value;
       this.$store.dispatch({
@@ -231,7 +231,7 @@ export default {
       this.axios
         .post("http://localhost:8000/users/sign-up", this.user)
         .then(response => {
-          console.log(response);
+          console.log(response.config.data);
           this.$store.dispatch("addUsers", {
             name: "",
             first_name: "",

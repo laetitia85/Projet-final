@@ -20,19 +20,36 @@ app.get("/users", (req, res) => {
 app.post("/users/sign-up", (req, res) => {
   try {
     bcrypt.hash(req.body.password, saltRounds).then(function(passwordHash) {
+
+      const newUser = {
+        name: req.body.name,
+        first_name: req.body.first_name,
+        email: req.body.email,
+        password: passwordHash,
+        picture_profil: req.body.picture_profil
+};
       sql.query(
-        `INSERT INTO artists_users (name,first_name,email,password,picture_profil) VALUES ('${req.body.name}','${req.body.first_name}','${req.body.email}','${passwordHash}','${req.body.picture_profil}')`
-      );
-    });
-    res.status(200).send("Vous etes bien enregistrer");
+        "INSERT INTO artists_users SET ?", newUser,  (err, result) => {
+        
+          if (err) {
+            console.log("error:", err);
+          }
+            res.status(200).send(result);
+        })
+      });
   } catch (err) {
     console.log(err);
   }
-});
+})
+
 
 app.post("/users/sign-in", (req, res) => {
+
+  const objet = {
+    email: req.body.email
+  }
   sql.query(
-    `SELECT * FROM artists_users WHERE email = '${req.body.email}'`,
+    `SELECT * FROM artists_users WHERE ?`, objet,
     (err, result) => {
       console.log(result)
       if (result[0]) {
@@ -69,7 +86,7 @@ app.post("/users/sign-in", (req, res) => {
 
 app.get("/contents", (req, res) => {
   sql.query(
-    "SELECT id_c, title, date, id_user_a, category, content FROM contents",
+    "SELECT * FROM contents",
     (err, response) => {
       if (err) {
         throw err;
@@ -81,8 +98,18 @@ app.get("/contents", (req, res) => {
 
 app.post("/add-contents",  function (req, res) {
   try {
+
+    let objet = {
+      title: req.body.title,
+      id_user_a: req.body.id_user_a,
+      date: req.body.date,
+      category: req.body.category,
+      duration: req.body.duration,
+      content_type: req.body.content_type,
+      content: req.body.content
+    }
   sql.query(
-    `INSERT INTO contents (title,id_user_a,date,category,duration,content_type,content) VALUES ('${req.body.title}','${req.body.id_user_a}','${req.body.date}','${req.body.category}','${req.body.duration}','${req.body.content_type}','${req.body.content}')`,
+    `INSERT INTO contents SET ?`, objet,
     (err, result) => {
       if (err) {
         console.log("error", err);
@@ -157,27 +184,49 @@ app.get("/category/:select", (req, res) => {
 });
 
 app.put("/users/:id", (req, res) => {
-  try {
-    let x = Object.keys(req.body);
-    console.log("x", x);
-    var myQuery = `UPDATE artists_users SET `;
-    for (let i = 0; i < x.length; i++) {
-      if (i == x.length - 1) {
-        myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'`; // req.body.name === req.body[name]
+    try {
+      let x = Object.keys(req.body);
+      console.log("x", x);
+      var myQuery = `UPDATE artists_users SET `;
+     if (req.body.password) {
+      bcrypt.hash(req.body.password, saltRounds).then(function (passwordHash) {
+        for (let i = 0; i < x.length; i++) {
+          if (x[i] == "password" & (i == x.length - 1)) {
+            myQuery = myQuery + `${x[i]}` + " = " + `'${passwordHash}'`;
+          }else if (x[i] == "password" & (i != x.length - 1)) {
+            myQuery = myQuery + `${x[i]}` + " = " + `'${passwordHash}'` + ", ";
+          } else if (i == x.length - 1) {
+            myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'`; // req.body.name === req.body[name]
+          } else {
+            myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'` + ", ";
+          }
+        }
+        myQuery = myQuery + ` WHERE id_a = '${req.params.id}'`;
+        console.log(myQuery);
+        sql.query(myQuery, function(err, result) {
+          if (err) throw err;
+          res.status(200).send("it is ok with password hash ");
+            })
+        })
       } else {
-        myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'` + ", ";
+        for (let i = 0; i < x.length; i++) {
+          if (i == x.length - 1) {
+            myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'`; // req.body.name === req.body[name]
+          } else {
+            myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'` + ", ";
+          }
+        }
+        myQuery = myQuery + ` WHERE id_a = '${req.params.id}'`;
+        console.log(myQuery);
+        sql.query(myQuery, function(err, result) {
+          if (err) throw err;
+          res.status(200).send("it is ok ");
+            }) 
       }
-    }
-    myQuery = myQuery + `WHERE id_a = '${req.params.id}'`;
-    console.log(myQuery);
-    sql.query(myQuery, function(err, result) {
-      if (err) throw err;
-      res.status(200).send("it is ok ");
-    });
-  } catch (err) {
+    }catch (err) {
     console.log(err);
   }
-});
+})
 
 app.delete("/users/:usersID", (req, res) => {
   sql.query(
@@ -290,10 +339,32 @@ app.post("/add-comments", (req, res) => {
 }),
 
 app.put("/usersPro/:id", (req, res) => {
+  
   try {
     let x = Object.keys(req.body);
     console.log("x", x);
     var myQuery = `UPDATE pro_users SET `;
+   if (req.body.password) {
+    bcrypt.hash(req.body.password, saltRounds).then(function (passwordHash) {
+      for (let i = 0; i < x.length; i++) {
+        if (x[i] == "password" & (i == x.length - 1)) {
+          myQuery = myQuery + `${x[i]}` + " = " + `'${passwordHash}'`;
+        }else if (x[i] == "password" & (i != x.length - 1)) {
+          myQuery = myQuery + `${x[i]}` + " = " + `'${passwordHash}'` + ", ";
+        } else if (i == x.length - 1) {
+          myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'`; // req.body.name === req.body[name]
+        } else {
+          myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'` + ", ";
+        }
+      }
+      myQuery = myQuery + ` WHERE id_p = '${req.params.id}'`;
+      console.log(myQuery);
+      sql.query(myQuery, function(err, result) {
+        if (err) throw err;
+        res.status(200).send("it is ok with password hash ");
+          })
+      })
+    } else {
     for (let i = 0; i < x.length; i++) {
       if (i == x.length - 1) {
         myQuery = myQuery + `${x[i]}` + " = " + `'${req.body[x[i]]}'`; // req.body.name === req.body[name]
@@ -307,6 +378,7 @@ app.put("/usersPro/:id", (req, res) => {
       if (err) throw err;
       res.status(200).send("it is ok ");
     });
+  }
   } catch (err) {
     console.log(err);
   }
