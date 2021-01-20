@@ -21,7 +21,7 @@
           >
         </mdb-navbar-nav>
         <img class="picture_profil" alt="" :src="TokenPicture" />
-        <mdb-btn gradient="aqua" rounded @click="DeleteToken()"
+        <mdb-btn gradient="aqua" rounded @click="DeleteTokenPro()"
           >Deconnexion</mdb-btn
         >
       </mdb-navbar-toggler>

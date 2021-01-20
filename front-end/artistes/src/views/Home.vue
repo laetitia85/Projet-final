@@ -61,8 +61,8 @@ export default {
     mdbCard,
     mdbBtn,
     mdbCardBody,
-    Footer,
-  },
+    Footer
+  }
 };
 </script>
 
@@ -122,10 +122,10 @@ export default {
   max-width: 100%;
 }
 
-*, ::after, ::before {
+/* *,::after,::before {
     box-sizing: none;
 }
 *, *::before, *::after {
   box-sizing:none;
-}
+} */
 </style>

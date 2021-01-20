@@ -95,23 +95,23 @@ export default {
   methods: {
     async Update() {
       try {
-        let x = this.users;
-        console.log(x);
-        for (let key in x) {
-          if (x[key] === "") {
-            delete x[key];
+        let usersData = this.users;
+        console.log(usersData);
+        for (let key in usersData) {
+          if (usersData[key] === "") {
+            delete usersData[key];
           }
         }
-        if (x) {
+        if (usersData) {
           let result = await this.axios.put(
             `http://localhost:8000/users/${this.$store.state.tokenId}`,
-            x
+            usersData
           );
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
             // console.log("aaaaa");
-            this.$store.dispatch(x, "updateUsers", result.data.tokenId);
+            this.$store.dispatch(usersData, "updateUsers", result.data.tokenId);
           }
         }
       } catch (error) {

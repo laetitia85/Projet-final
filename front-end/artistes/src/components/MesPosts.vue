@@ -3,14 +3,12 @@
     <Navbar />
     <div
       class="container"
-      v-for="content in AllContent"
+      v-for="content in ContentId"
       :key="content.id_user_a"
     >
       <iframe :src="content.content" width="320" height="240" controls />
       <p><strong>Contenu:</strong> {{ content.content_type }}</p>
       <p><strong>Titre:</strong> {{ content.title }}</p>
-      <!-- <p><strong>Durée:</strong> {{ content.duration }}</p> -->
-      <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/_qW_DkVyMuk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
       <!-- <video :src="content.content" width="320" height="240" controls /> -->
     </div>
     <Footer />
@@ -28,19 +26,33 @@ export default {
     Navbar,
     Footer
   },
-  computed: {
-    ...mapGetters(["AllContent"])
-  }
 
-  // methods: {},
-  // mounted() {
+  data() {
+    return {
+      content: {
+        content_type: "",
+        title: "",
+        date: "",
+        category: "",
+        duration: "",
+        content: "",
+        id_user_a: this.$store.state.tokenId
+      }
+    };
+  },
+  computed: {
+    ...mapGetters(["ContentId"])
+  },
+
+  methods: {}
+  // beforeMount() {
   //   console.log(this.AllContent);
   //   this.axios
   //     .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
   //     .then((response) => {
   //       console.log(response.data);
   //       this.$store.dispatch("decodeTokenId", response.data.id_user_a),
-  //         this.$store.dispatch("recContent", response.data.id_c);
+  //         this.$store.dispatch("recContent", response.data.id_a);
   //     });
   // }
 };
