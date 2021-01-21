@@ -78,7 +78,7 @@ export default {
     mdbInput,
     mdbBtn,
     mdbCard,
-    mdbCardBody,
+    mdbCardBody
   },
   data() {
     return {
@@ -110,7 +110,6 @@ export default {
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
-            // console.log("aaaaa");
             this.$store.dispatch(usersData, "updateUsers", result.data.tokenId);
           }
         }
@@ -132,8 +131,8 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

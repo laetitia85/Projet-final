@@ -109,8 +109,8 @@ export default {
       options: [
         { text: "Chanson", value: "Chanson" },
         { text: "Texte", value: "Texte" },
-        { text: "Composition", value: "Composition" },
-      ],
+        { text: "Composition", value: "Composition" }
+      ]
     };
   },
   methods: {
@@ -119,19 +119,19 @@ export default {
       let inputname = myinput.name;
       let value = myinput.value;
       this.$store.dispatch({
-        [inputname]: value,
+        [inputname]: value
       });
     },
 
     async addContent(evt) {
       evt.preventDefault();
       const headers = {
-        Authorization: `${this.$store.state.token}`,
+        Authorization: `${this.$store.state.token}`
       };
       console.log(headers);
       await this.axios
         .post("http://localhost:8000/add-contents", this.content, {
-          headers: headers,
+          headers: headers
         })
 
         .then((response) => {
@@ -144,7 +144,7 @@ export default {
               category: "",
               duration: "",
               content: "",
-              id_user_a: "",
+              id_user_a: ""
             })
 
             .catch(function(error) {
@@ -155,13 +155,12 @@ export default {
     },
 
     beforeMount() {
-      console.log(this.AllContent);
       this.axios
         .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
         .then((response) => {
           console.log(response.data);
           this.$store.dispatch("decodeTokenId", response.data.id_user_a),
-            this.$store.dispatch("recContent", response.data.id_a);
+            this.$store.dispatch("recContentId", response.data.id_a);
         });
     },
 

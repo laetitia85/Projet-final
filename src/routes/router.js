@@ -398,6 +398,71 @@ app.delete("/usersPro/:usersProID", (req, res) => {
 
 //admin
 
+app.post("/admin/sign-up", (req, res) => {
+  try {
+    bcrypt.hash(req.body.password, saltRounds).then(function(passwordHash) {
+
+      const adminUser = {
+        name: req.body.name,
+        first_name: req.body.first_name,
+        email: req.body.email,
+        password: passwordHash,
+};
+      sql.query(
+        "INSERT INTO admin SET ?", adminUser,  (err, result) => {
+        
+          if (err) {
+            console.log("error:", err);
+          }
+            res.status(200).send(result);
+        })
+      });
+  } catch (err) {
+    console.log(err);
+  }
+})
+
+app.post("/admin/sign-in", (req, res) => {
+
+  const objet = {
+    email: req.body.email
+  }
+  sql.query(
+    `SELECT * FROM admin WHERE ?`, objet,
+    (err, result) => {
+      console.log(result)
+      if (result[0]) {
+        bcrypt.compare(req.body.password, result[0].password, function(
+          erro,
+          resultat
+        ) {
+          if (resultat) {
+            console.log(resultat)
+            let tokenAdmin = jwt.sign(
+              { id_admin: result[0].id_admin, email: result[0].email },
+              "process.env.jwtKeyAdmin",
+              {
+                expiresIn: 86400, // expires in 24 hours
+              }
+            );
+            res
+              .status(200)
+              .json({ authAdmin: true, tokenAdmin: tokenAdmin, id_admin: result[0].id_admin });
+          } else {
+            res.status(205).send({
+              msg: "Données incorrect",
+            });
+          }
+        });
+      } else {
+        res.status(406).send({
+          msg: "Admin inconnu",
+        });
+      }
+    }
+  );
+});
+
 
 
 module.exports = app;

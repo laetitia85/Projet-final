@@ -258,15 +258,15 @@ export default {
         enterprise_name: "",
         siret_number: "",
         picture: "",
-        id_p: this.$store.state.tokenIdPro,
+        id_p: this.$store.state.tokenIdPro
       },
       selected: "first",
       options: [
         { text: "Une maison de disque", value: "une maison de disque" },
-        { text: "Un indépendant", value: "un indépendant" },
+        { text: "Un indépendant", value: "un indépendant" }
       ],
       submitted: false,
-      lol: false,
+      lol: false
     };
   },
   validations: {

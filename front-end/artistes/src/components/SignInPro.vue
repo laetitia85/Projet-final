@@ -54,7 +54,7 @@ export default {
       form_pro: {
         email: "",
         password: ""
-      },
+      }
     };
   },
 
@@ -75,7 +75,7 @@ export default {
           this.$store.dispatch("tokenPro", response.data.tokenPro);
           let jwt = this.parseJwt(response.data.tokenPro);
           console.log(jwt);
-           this.$store.dispatch("decodeTokenPro", jwt.picture);
+          this.$store.dispatch("decodeTokenPro", jwt.picture);
           this.$store.dispatch("decodeTokenIdPro", jwt.id_p);
           this.$router.push("/profil-pro");
         })

@@ -48,27 +48,20 @@ export default {
     mdbCard,
     mdbCardBody,
     Footer,
-    NavBarSignIn
+    NavBarSignIn,
   },
   data() {
     return {
       form: {
         email: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   },
 
   methods: {
     parseJwt(token) {
       console.log(token);
-
-      // let f = JSON.parse(window.atob(token.split(".")[1]));
-      // // .replace(/-/g, "+")
-      // // .replace(/_/g, "/");
-      // console.log(f);
-      // return f;
-
       let base64Url = token.split(".")[1];
       let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       let jsonPayload = decodeURIComponent(
@@ -79,14 +72,28 @@ export default {
           })
           .join("")
       );
-
       return JSON.parse(jsonPayload);
     },
+    // parseJwtAdmin(tokenAdmin) {
+    //   console.log(tokenAdmin);
+    //   let base64Url = tokenAdmin.split(".")[1];
+    //   let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    //   let jsonPayload = decodeURIComponent(
+    //     atob(base64)
+    //       .split("")
+    //       .map(function(c) {
+    //         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+    //       })
+    //       .join("")
+    //   );
+    //   return JSON.parse(jsonPayload);
+    // },
+
     onSubmit(evt) {
       evt.preventDefault();
       this.axios
         .post("http://localhost:8000/users/sign-in", this.form)
-        .then(response => {
+        .then((response) => {
           console.log(response);
           this.$store.dispatch("token", response.data.token);
           let jwt = this.parseJwt(response.data.token);
@@ -94,26 +101,58 @@ export default {
 
           this.$store.dispatch("decodeToken", jwt.picture_profil);
           this.$store.dispatch("decodeTokenId", jwt.id_a);
-          // this.axios
-          //   .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-          //   .then(response => {
-          //     console.log(response);
-          //     this.$store.dispatch("recContent", response.data);
-          //   });
+          this.axios
+            .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
+            .then((response) => {
+              console.log(response);
+              this.$store.dispatch("recContentId", response.data);
+            });
           this.$router.push("/profil");
         })
+        // this.axios
+        //   .post("http://localhost:8000/admin/sign-in", this.form)
+        //   .then(response => {
+        //     console.log(response);
+        //     this.$store.dispatch("tokenAdmin", response.data.token);
+        // let jwtAdmin = this.parseJwtAdmin(response.data.token);
+        // console.log(jwtAdmin);
+
+        // this.$store.dispatch("decodeTokenAdmin", jwtAdmin.name);
+        // this.$store.dispatch("decodeTokenIdAdmin", jwtAdmin.id_admin);
+        // this.$router.push("/profil-admin");
+        // })
+
         .catch(function(error) {
           alert("Cet utilisateur nexiste pas");
           console.log(error);
         });
     },
+    // mounted() {
+    // this.axios
+    //   .post("http://localhost:8000/admin/sign-in", this.form)
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.$store.dispatch("tokenAdmin", response.data.token);
+    //     let jwtAdmin = this.parseJwtAdmin(response.data.token);
+    //     console.log(jwtAdmin);
+
+    //     this.$store.dispatch("decodeTokenAdmin", jwtAdmin.name);
+    //     this.$store.dispatch("decodeTokenIdAdmin", jwtAdmin.id_admin);
+    //     this.$router.push("/profil-admin");
+    //   })
+
+    //     .catch(function(error) {
+    //       alert("Cet utilisateur nexiste pas");
+    //       console.log(error);
+    //     });
+    // },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
       this.form.email = "";
       this.form.password = "";
-    }
-  }
+    },
+  },
 };
 </script>
 

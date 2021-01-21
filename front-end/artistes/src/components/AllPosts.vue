@@ -1,19 +1,30 @@
 <template>
   <div>
     <Navbarpro />
-    <select class="select">
-      <option value="">Choisir une catégorie</option>
-      {{CategoryContent.length !== 0 ? CategoryContent.map((elem) => { return
-      <option value="content.category">{ elem.category }</option>
-      }) :
-      <option>Il n'y a aucune catégorie</option
-      >}}}
+    <label for="idselect">Choisir une categorie</label>
+    <br />
+    <select class="select" id="idselect" @change="selectCategory(category)" v-model="category">
+      <option
+        :value="category"
+        v-for="category in CategoryContent[0]"
+        :key="category.category"
+     >
+
+        {{ category }}
+      </option>
     </select>
-    <div
-      class="container"
-      v-for="content in CategoryContent"
-      :key="content.id_c"
-    >
+
+    <!-- <select class="select"
+      <option value="">Choisir une catégorie</option>
+      {{ CategoryContent.length !== 0 ? CategoryContent.forEach((elem) =>
+      {return
+      <option value="elem.category"> {{ elem.category }} </option>
+      }) :
+      <option>Il n'y a aucune catégorie</option>
+      }}
+    </select> -->
+
+    <div class="container" v-for="content in AllContent" :key="content.id_c">
       <iframe :src="content.content" width="320" height="240" controls />
       <p><strong>Contenu:</strong> {{ content.content_type }}</p>
       <p><strong>Titre:</strong> {{ content.title }}</p>
@@ -32,7 +43,7 @@ export default {
   name: "AllPosts",
   components: {
     Navbarpro,
-    Footer,
+    Footer
   },
   data() {
     return {
@@ -43,51 +54,60 @@ export default {
         category: "",
         duration: "",
         content: "",
-        id_c: this.$store.state.tokenIdContent,
+        id_c: this.$store.state.tokenIdContent
       },
+      category: ""
     };
   },
   computed: {
-    ...mapGetters(["CategoryContent"]),
+    ...mapGetters(["AllContent", "CategoryContent"])
   },
 
-  methods: {},
+  methods: {
+     selectCategory(category) {
+      console.log(category);
+      // if (e.target.value === "") {
+      //   this.mounted();
+      // } else {
+      //   console.log(e.target.value);
+      //   let result = await this.axios.get(
+      //     `http://localhost:8000/category/${e.target.value}`
+      //   );
+      //   this.$store.dispatch({ categoryTab: result.data });
+      // }
+    },
+      keepUnique(array) {
+        console.log(array)
+      let tab = [];
+      for (let category of array) {
+        if (!tab.includes(category.category)) {
+          tab.push(category.category);
+        }
+      }
+      console.log(tab)
+      return tab;
+    }
+  },
 
   async mounted() {
-    function keepUnique(array, key) {
-      return [...new Map(array.map((x) => [key(x), x])).values()];
-    }
-
     try {
       await this.axios
         .get("http://localhost:8000/contents", this.content)
-        .then(result => {
+        .then((result) => {
           console.log(result.data);
-          this.$store.dispatch("categoryTab", result.data);
+          this.$store.dispatch("recContent", result.data);
         });
 
-      await this.axios.get("http://localhost:8000/category").then(resultat => {
-        this.$store.dispatch(
-          "categoryTab",
-          keepUnique(resultat.data, (elem) => elem.category)
-        );
-        console.log(keepUnique(resultat.data, (elem) => elem.category));
+      await this.axios.get("http://localhost:8000/category").then((resultat) => {
+        // this.category = keepUnique(resultat.data, elem => elem.category);
+        console.log(resultat.data)
+        this.$store.dispatch("categoryTab", this.keepUnique(resultat.data));
+        console.log(this.keepUnique(resultat.data));
       });
     } catch (error) {
       console.log(error);
     }
-  },
-  async selectCategory(e) {
-    if (e.target.value === "") {
-      this.mounted();
-    } else {
-      console.log(e.target.value);
-      let result = await this.axios.get(
-        `http://localhost:8000/category/${e.target.value}`
-      );
-      this.$store.dispatch({ categoryTab: result.data });
-    }
-  },
+  }
 };
 </script>
 
