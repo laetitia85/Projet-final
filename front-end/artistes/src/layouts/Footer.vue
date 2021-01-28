@@ -3,7 +3,7 @@
   <mdb-footer class="bgcolor">
     <mdb-row>
       <mdb-col sm="4">
-        <p>2020 Copyright</p>
+        <p>2021 Copyright</p>
         <p>Laetitia de Bardin</p>
       </mdb-col>
       <mdb-col sm="4">

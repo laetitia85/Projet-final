@@ -1,9 +1,9 @@
 <template>
   <div class="bgcolornav">
     <mdb-navbar>
-      <mdb-navbar-nav>
+      <mdb-navbar-nav class="linknav">
         <mdb-nav-item active
-          ><router-link to="/">Bienvenue</router-link></mdb-nav-item
+          ><router-link to="/">Accueil</router-link></mdb-nav-item
         >
       </mdb-navbar-nav>
       <h1 class="title">
@@ -31,10 +31,6 @@ export default {
   background-image: url("../images/bgnavbar.jpg");
 }
 
-mdb-nav-item:active {
-  color: white !important;
-}
-
 .title {
   text-align: center;
   font-family: charm;
@@ -43,5 +39,11 @@ mdb-nav-item:active {
 .micro {
   height: 50px;
   width: 20px;
+}
+.linknav a {
+  color: white;
+}
+.linknav a:hover {
+  color: white;
 }
 </style>

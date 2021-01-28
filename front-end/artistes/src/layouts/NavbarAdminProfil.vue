@@ -4,38 +4,32 @@
       <mdb-navbar-toggler>
         <mdb-navbar-nav class="linknav">
           <mdb-nav-item
-            ><router-link to="/profil-pro" active
+            ><router-link to="/profil-admin" active
               >Profil</router-link
             ></mdb-nav-item
           >
           <mdb-nav-item
-            ><router-link to="/allposts">Posts</router-link></mdb-nav-item
-          >
-          <mdb-nav-item
-            ><router-link to="/comments"
-              >Commentaires</router-link
+            ><router-link to="/users"
+              >Gestion <br />
+              Utilisateurs</router-link
             ></mdb-nav-item
           >
           <mdb-nav-item
-            ><router-link to="/contact-pro">Contact</router-link></mdb-nav-item
+            ><router-link to="/posts"
+              >Gestion <br />
+              Posts</router-link
+            ></mdb-nav-item
+          >
+          <mdb-btn gradient="aqua" rounded @click="DeleteTokenAdmin()"
+            >Deconnexion</mdb-btn
           >
         </mdb-navbar-nav>
-        <img class="picture_profil" alt="" :src="TokenPicture" />
-        <mdb-btn
-          class="decobtn"
-          gradient="aqua"
-          rounded
-          @click="DeleteTokenPro()"
-          >Deconnexion</mdb-btn
-        >
       </mdb-navbar-toggler>
     </mdb-navbar>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import {
   mdbNavbar,
   mdbNavItem,
@@ -45,7 +39,7 @@ import {
 } from "mdbvue";
 
 export default {
-  name: "Navbar",
+  name: "NavbarAdmin",
   components: {
     mdbNavbar,
     mdbNavItem,
@@ -53,12 +47,9 @@ export default {
     mdbNavbarToggler,
     mdbBtn
   },
-  computed: {
-    ...mapGetters(["TokenPicture"])
-  },
 
   methods: {
-    DeleteTokenPro() {
+    DeleteTokenAdmin() {
       this.$store.dispatch("deleteToken").then(() => {
         this.$router.push("/");
       });
@@ -70,14 +61,6 @@ export default {
 <style scoped>
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
-}
-.picture_profil {
-  border-radius: 50px;
-  height: 60px;
-  width: 60px;
-}
-.decobtn {
-  border: 1px solid white;
 }
 .linknav a {
   color: white;

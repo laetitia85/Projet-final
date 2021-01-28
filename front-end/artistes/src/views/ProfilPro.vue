@@ -2,13 +2,13 @@
   <div>
     <Navbarpro />
     <div class="container">
-   <br>
+      <br />
       <h3>Bienvenue</h3>
-      <br>
+      <br />
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
-          <form @click="Delete">
+          <form>
             <div>
               <b-form-group label="Je suis" v-slot="{ ariaDescribedby }">
                 <b-form-radio-group
@@ -122,23 +122,27 @@ export default {
   methods: {
     async Update() {
       try {
-        let x = this.formUpdate;
-        console.log(x);
-        for (let key in x) {
-          if (x[key] === "") {
-            delete x[key];
+        let userProData = this.formUpdate;
+        console.log(userProData);
+        for (let key in userProData) {
+          if (userProData[key] === "") {
+            delete userProData[key];
           }
         }
-        if (x) {
+        if (userProData) {
           let result = await this.axios.put(
             `http://localhost:8000/usersPro/${this.$store.state.tokenIdPro}`,
-            x
+            userProData
           );
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
             console.log("aaaaa");
-            this.$store.dispatch(x, "updateUsersPro", result.data.tokenIdPro);
+            this.$store.dispatch(
+              userProData,
+              "updateUsersPro",
+              result.data.tokenIdPro
+            );
           }
         }
       } catch (error) {
@@ -164,7 +168,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
   max-width: 1200px;
@@ -173,5 +177,10 @@ export default {
 }
 .cards {
   background-color: #41d1cc;
+}
+.btn {
+  background-image: url("../images/bgcolor bouton.jpg");
+  background-size: 100%;
+  text-shadow: 1px 1px 2px black;
 }
 </style>

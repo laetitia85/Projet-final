@@ -2,7 +2,7 @@
   <div>
     <mdb-navbar class="bgcolornav">
       <mdb-navbar-toggler>
-        <mdb-navbar-nav>
+        <mdb-navbar-nav class="linknav">
           <mdb-nav-item
             ><router-link to="/profil" active>Profil</router-link></mdb-nav-item
           >
@@ -32,7 +32,13 @@
 <script>
 import { mapGetters } from "vuex";
 
-import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbNavbarToggler, mdbBtn} from "mdbvue";
+import {
+  mdbNavbar,
+  mdbNavItem,
+  mdbNavbarNav,
+  mdbNavbarToggler,
+  mdbBtn
+} from "mdbvue";
 export default {
   name: "Navbar",
   components: {
@@ -66,5 +72,8 @@ export default {
   border-radius: 50px;
   height: 60px;
   width: 60px;
+}
+.linknav a {
+  color: white;
 }
 </style>

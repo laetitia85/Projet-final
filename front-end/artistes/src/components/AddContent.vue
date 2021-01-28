@@ -91,7 +91,7 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
-    Footer,
+    Footer
   },
 
   data() {
@@ -104,13 +104,14 @@ export default {
         duration: "",
         content: "",
         id_user_a: this.$store.state.tokenId,
+        id_c: this.$store.state.tokenIdContent
       },
       selected: "first",
       options: [
         { text: "Chanson", value: "Chanson" },
         { text: "Texte", value: "Texte" },
-        { text: "Composition", value: "Composition" },
-      ],
+        { text: "Composition", value: "Composition" }
+      ]
     };
   },
   methods: {
@@ -119,22 +120,22 @@ export default {
       let inputname = myinput.name;
       let value = myinput.value;
       this.$store.dispatch({
-        [inputname]: value,
+        [inputname]: value
       });
     },
 
     async addContent(evt) {
       evt.preventDefault();
       const headers = {
-        Authorization: `${this.$store.state.token}`,
+        Authorization: `${this.$store.state.token}`
       };
       console.log(headers);
       await this.axios
         .post("http://localhost:8000/add-contents", this.content, {
-          headers: headers,
+          headers: headers
         })
 
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.$store
             .dispatch("addContent", {
@@ -145,6 +146,7 @@ export default {
               duration: "",
               content: "",
               id_user_a: "",
+              id_c: ""
             })
 
             .catch(function(error) {
@@ -155,13 +157,12 @@ export default {
     },
 
     beforeMount() {
-      console.log(this.AllContent);
       this.axios
         .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
         .then((response) => {
           console.log(response.data);
           this.$store.dispatch("decodeTokenId", response.data.id_user_a),
-            this.$store.dispatch("recContent", response.data.id_a);
+            this.$store.dispatch("recContentId", response.data.id_c);
         });
     },
 
@@ -174,14 +175,19 @@ export default {
       this.content.duration = "";
       this.content.content = "";
       this.content.id_user_a = "";
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  width: 100%;
+  max-width: 1200px;
+}
+.btn {
+  background-image: url("../images/bgcolor bouton.jpg");
+  background-size: 100%;
+  text-shadow: 1px 1px 2px black;
 }
 </style>

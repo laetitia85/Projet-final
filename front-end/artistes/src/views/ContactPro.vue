@@ -1,13 +1,18 @@
 <template>
   <div>
-    <Navbar />
+    <navbarpro />
     <div class="container">
       <br /><br />
-    
-        <h2>A propos</h2>
-          <div>
-         <p class="contactimg">
-          <img src="../images/photo contact.jpg" alt="" height="150px" width="150px"/>
+
+      <h2>A propos</h2>
+      <div>
+        <p class="contactimg">
+          <img
+            src="../images/photo contact.jpg"
+            alt=""
+            height="150px"
+            width="150px"
+          />
         </p>
         <p class="text">
           Passionnée depuis toute petite par la musique, j’ai eu à coeur de
@@ -21,8 +26,8 @@
         <h2>Retrouvez-moi</h2>
         <p>
           Vous avez la moindre question ? N’hésitez pas à me contacter par mail
-          laetitia.artisteAndpro@gmail.com ou via les réseaux sociaux en cliquant sur
-          les liens en bas de page.
+          laetitia.artisteAndpro@gmail.com ou via les réseaux sociaux en
+          cliquant sur les liens en bas de page.
         </p>
       </div>
     </div>
@@ -31,20 +36,23 @@
 </template>
 
 <script>
-import Navbar from "../layouts/Navbar.vue";
+import Navbarpro from "../layouts/Navbarpro.vue";
 import Footer from "../layouts/Footer.vue";
 
 export default {
-  name: "Contact",
+  name: "ContactPro",
   components: {
-    Navbar,
-    Footer
-  }
+    Navbarpro,
+    Footer,
+  },
 };
 </script>
 
 <style scoped>
-.container, .container-lg, .container-md, .container-sm {
+.container,
+.container-lg,
+.container-md,
+.container-sm {
   background-color: rgb(64, 224, 208, 0.25);
   max-width: 1200px;
 }
@@ -53,9 +61,9 @@ h2 {
   text-align: center;
 }
 .contactimg {
-float: right;
+  float: right;
 }
-.text{
+.text {
   text-align: left;
 }
 </style>

@@ -1,23 +1,38 @@
 <template>
   <div>
     <Navbarpro />
-    <select class="select">
-      <option value="">Choisir une catégorie</option>
-      {{CategoryContent.length !== 0 ? CategoryContent.map((elem) => { return
-      <option value="content.category">{ elem.category }</option>
-      }) :
-      <option>Il n'y a aucune catégorie</option
-      >}}}
-    </select>
-    <div
+    <div>
+      <label for="idselect">Choisir une categorie</label>
+      <br />
+      <select
+        class="select"
+        id="idselect"
+        @change="selectCategory(category)"
+        v-model="category"
+      >
+        <option
+          :value="category"
+          v-for="category in CategoryTab[0]"
+          :key="category.category"
+        >
+          {{ category }}
+        </option>
+      </select>
+
+      <!-- <div
       class="container"
-      v-for="content in CategoryContent"
-      :key="content.id_c"
+      v-for="content in CategoryContentTab"
+      :key="content.category"
     >
-      <iframe :src="content.content" width="320" height="240" controls />
-      <p><strong>Contenu:</strong> {{ content.content_type }}</p>
-      <p><strong>Titre:</strong> {{ content.title }}</p>
-      <p><strong>Durée:</strong> {{ content.duration }}</p>
+     <iframe :src="content.content" width="320" height="240" controls />
+    </div> -->
+
+      <div class="container" v-for="content in AllContent" :key="content.id_c">
+        <iframe :src="content.content" width="320" height="240" controls />
+        <p><strong>Contenu:</strong> {{ content.content_type }}</p>
+        <p><strong>Titre:</strong> {{ content.title }}</p>
+        <p><strong>Durée:</strong> {{ content.duration }}</p>
+      </div>
     </div>
     <Footer />
   </div>
@@ -32,7 +47,7 @@ export default {
   name: "AllPosts",
   components: {
     Navbarpro,
-    Footer,
+    Footer
   },
   data() {
     return {
@@ -43,57 +58,78 @@ export default {
         category: "",
         duration: "",
         content: "",
-        id_c: this.$store.state.tokenIdContent,
+        id_c: this.$store.state.tokenIdContent
       },
+      category: "",
+      selectedCategory: null
     };
   },
   computed: {
-    ...mapGetters(["CategoryContent"]),
+    ...mapGetters(["AllContent", "CategoryTab", "CategoryContentTab"]),
+    filteredCategoryContentTab: function() {
+      return this.CategoryContentTab.filter(content => {
+        return (
+          content.category.filter(category => {
+            return category.id === this.selectedCategory;
+          }).length > 0
+        );
+      });
+    }
   },
 
-  methods: {},
+  methods: {
+    async selectCategory(category) {
+      console.log(category);
+      if (category === "") {
+        this.mounted();
+      } else {
+        let result = await this.axios.get(
+          `http://localhost:8000/category/${category}`
+        );
+        console.log(result.data),
+          this.$store.dispatch("categoryContentTab", result.data);
+      }
+    },
+
+    keepUnique(array) {
+      console.log(array);
+      let tab = [];
+      for (let category of array) {
+        if (!tab.includes(category.category)) {
+          tab.push(category.category);
+        }
+      }
+      console.log(tab);
+      return tab;
+    }
+  },
 
   async mounted() {
-    function keepUnique(array, key) {
-      return [...new Map(array.map((x) => [key(x), x])).values()];
-    }
-
     try {
       await this.axios
-        .get("http://localhost:8000/contents", this.content)
+        .get("http://localhost:8000/contents")
         .then(result => {
           console.log(result.data);
-          this.$store.dispatch("categoryTab", result.data);
+          this.$store.dispatch("recContent", result.data);
         });
 
       await this.axios.get("http://localhost:8000/category").then(resultat => {
-        this.$store.dispatch(
-          "categoryTab",
-          keepUnique(resultat.data, (elem) => elem.category)
-        );
-        console.log(keepUnique(resultat.data, (elem) => elem.category));
+        console.log(resultat.data);
+        this.$store.dispatch("categoryTab", this.keepUnique(resultat.data));
+        console.log(this.keepUnique(resultat.data));
       });
     } catch (error) {
       console.log(error);
     }
-  },
-  async selectCategory(e) {
-    if (e.target.value === "") {
-      this.mounted();
-    } else {
-      console.log(e.target.value);
-      let result = await this.axios.get(
-        `http://localhost:8000/category/${e.target.value}`
-      );
-      this.$store.dispatch({ categoryTab: result.data });
-    }
-  },
+  }
 };
 </script>
 
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  width: 100px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 2rem;
 }
 </style>

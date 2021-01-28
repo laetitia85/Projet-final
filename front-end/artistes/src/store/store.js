@@ -8,16 +8,23 @@ export default new Vuex.Store({
   state: {
     token: null,
     tokenPro: "",
+    tokenAdmin: "",
     tokenPicture_profil: null,
     tokenId: "",
     tokenIdPro: "",
+    tokenIdAdmin: "",
+    tokenName: "",
     tokenPicture: null,
+    tokenPicture_profil_a: null,
     tokenIdContent: "",
     contents: [],
     contentsId: [],
     users: [],
     usersPro: [],
-    categoryTab: []
+    admin: [],
+    categoryTab: [],
+    categoryContentTab: [],
+    idUserA: []
   },
   plugins: [createPersistedState()],
 
@@ -28,11 +35,17 @@ export default new Vuex.Store({
     STORE_TOKENPRO(state, myTokenPro) {
       state.tokenPro = myTokenPro;
     },
-    ADDUSERS(state, AddUsers) {
-      state.users = AddUsers;
+    STORE_TOKENADMIN(state, myTokenAdmin) {
+      state.tokenAdmin = myTokenAdmin;
     },
-    ADDUSERSPRO(state, AddUsersPro) {
-      state.usersPro = AddUsersPro;
+    RECUSERS(state, myRecUsers) {
+      state.users = myRecUsers;
+    },
+    ADDUSERSPRO(state, myAddUsersPro) {
+      state.usersPro.push(myAddUsersPro);
+    },
+    ADDADMIN(state, myAddAdmin) {
+      state.admin.push(myAddAdmin);
     },
     UPDATEUSERS(state, myAddUsers) {
       state.users.push(myAddUsers);
@@ -40,19 +53,28 @@ export default new Vuex.Store({
     UPDATEUSERSPRO(state, myAddUsersPro) {
       state.usersPro.push(myAddUsersPro);
     },
+    UPDATEADMIN(state, myAddAdmin) {
+      state.admin.push(myAddAdmin);
+    },
     DELETETOKEN(state) {
       state.token = "";
       state.tokenPro = "";
+      state.tokenAdmin = "";
       state.tokenPicture_profil = "";
+      state.tokenPicture_profil_a = "";
       state.tokenId = "";
       state.tokenIdPro = "";
+      state.tokenIdAdmin = "";
       state.tokenPicture = "";
+      state.tokenName = "";
       state.tokenIdContent = "";
       state.contents = [];
-      state.contentsId = [];
+      state.contentsId = "";
       state.users = [];
+      state.admin = [];
       state.usersPro = [];
       state.categoryTab = [];
+      state.categoryContentTab = [];
     },
     DECODETOKEN(state, myDecodeToken) {
       state.tokenPicture_profil = myDecodeToken;
@@ -60,11 +82,18 @@ export default new Vuex.Store({
     DECODETOKENPRO(state, myDecodeTokenPro) {
       state.tokenPicture = myDecodeTokenPro;
     },
+    DECODETOKENADMIN(state, myDecodeTokenAdmin) {
+      state.tokenName = myDecodeTokenAdmin;
+      state.tokenPicture_profil_a = myDecodeTokenAdmin;
+    },
     DECODETOKENID(state, myDecodeTokenId) {
       state.tokenId = myDecodeTokenId;
     },
     DECODETOKENIDPRO(state, myDecodeTokenIdPro) {
       state.tokenIdPro = myDecodeTokenIdPro;
+    },
+    DECODETOKENIDADMIN(state, myDecodeTokenIdAdmin) {
+      state.tokenIdAdmin = myDecodeTokenIdAdmin;
     },
     DECODETOKENIDCONTENT(state, myDecodeTokenIdContent) {
       state.tokenIdContent = myDecodeTokenIdContent;
@@ -73,10 +102,33 @@ export default new Vuex.Store({
       state.contents.push(myAddContent);
     },
     RECCONTENT(state, myRecContent) {
-      state.contentsId = myRecContent;
+      state.contents = myRecContent;
+    },
+    RECCONTENTID(state, myRecContentId) {
+      state.contentsId = myRecContentId;
     },
     ADDCONTENTBYCATEGORY(state, myCategoryTab) {
       state.categoryTab.push(myCategoryTab);
+    },
+    ADDCATEGORYCONTENTTAB(state, myCategoryContentTab) {
+      state.categoryContentTab.push(myCategoryContentTab);
+    },
+    IDUSER_A(state, myIdUserA) {
+      state.idUserA = myIdUserA;
+    },
+    DELETEUSERS(state, myDeleteUsers) {
+      for (let i = 0; i < state.users.length; i++) {
+        if (state.users[i].id_a === myDeleteUsers) {
+          state.users.splice(i, 1);
+        }
+      }
+    },
+    DELETEPOSTS(state, myDeletePosts) {
+      for (let i = 0; i < state.contents.length; i++) {
+        if (state.contents[i].id_c === myDeletePosts) {
+          state.contents.splice(i, 1);
+        }
+      }
     }
   },
 
@@ -87,17 +139,26 @@ export default new Vuex.Store({
     tokenPro(context, myTokenPro) {
       context.commit("STORE_TOKENPRO", myTokenPro);
     },
-    addUsers(context, AddUsers) {
-      context.commit("ADDUSERS", AddUsers);
+    tokenAdmin(context, myTokenAdmin) {
+      context.commit("STORE_TOKENADMIN", myTokenAdmin);
     },
-    addUsersPro(context, AddUsersPro) {
-      context.commit("ADDUSERSPRO", AddUsersPro);
+    recUsers(context, myRecUsers) {
+      context.commit("RECUSERS", myRecUsers);
+    },
+    addUsersPro(context, myAddUsersPro) {
+      context.commit("ADDUSERSPRO", myAddUsersPro);
+    },
+    addAdmin(context, myAddAdmin) {
+      context.commit("ADDADMIN", myAddAdmin);
     },
     updateUsers(context) {
       context.commit("UPDATEUSERS");
     },
     updateUsersPro(context) {
       context.commit("UPDATEUSERSPRO");
+    },
+    updateAdmin(context) {
+      context.commit("UPDATEADMIN");
     },
     deleteToken(context) {
       context.commit("DELETETOKEN");
@@ -108,11 +169,17 @@ export default new Vuex.Store({
     decodeTokenPro(context, myDecodeTokenPro) {
       context.commit("DECODETOKENPRO", myDecodeTokenPro);
     },
+    decodeTokenAdmin(context, myDecodeTokenAdmin) {
+      context.commit("DECODETOKENADMIN", myDecodeTokenAdmin);
+    },
     decodeTokenId(context, myDecodeTokenId) {
       context.commit("DECODETOKENID", myDecodeTokenId);
     },
     decodeTokenIdPro(context, myDecodeTokenIdPro) {
       context.commit("DECODETOKENIDPRO", myDecodeTokenIdPro);
+    },
+    decodeTokenIdAdmin(context, myDecodeTokenIdAdmin) {
+      context.commit("DECODETOKENIDADMIN", myDecodeTokenIdAdmin);
     },
     decodeTokenIdContent(context, myDecodeTokenIdContent) {
       context.commit("DECODETOKENIDCONTENT", myDecodeTokenIdContent);
@@ -123,29 +190,62 @@ export default new Vuex.Store({
     recContent(context, myRecContent) {
       context.commit("RECCONTENT", myRecContent);
     },
+    recContentId(context, myRecContentId) {
+      context.commit("RECCONTENTID", myRecContentId);
+    },
     categoryTab(context, myCategoryTab) {
       context.commit("ADDCONTENTBYCATEGORY", myCategoryTab);
+    },
+    categoryContentTab(context, myCategoryContentTab) {
+      context.commit("ADDCATEGORYCONTENTTAB", myCategoryContentTab);
+    },
+    idUser_a(context, myIdUserA) {
+      context.commit("IDUSER_A", myIdUserA);
+    },
+    deleteUsers(context, myDeleteUsers) {
+      context.commit("DELETEUSERS", myDeleteUsers);
+    },
+    deletePosts(context, myDeletePosts) {
+      context.commit("DELETEPOSTS", myDeletePosts);
     }
   },
 
   getters: {
-    TokenPicture_profil: (state) => {
+    Token: state => {
+      return state.token;
+    },
+    TokenPicture_profil: state => {
       return state.tokenPicture_profil;
     },
-    TokenPicture: (state) => {
+    TokenPicture: state => {
       return state.tokenPicture;
     },
-    AllContent: (state) => {
+    TokenPicture_profil_a: state => {
+      return state.tokenPicture_profil_a;
+    },
+    TokenName: state => {
+      return state.tokenName;
+    },
+    AllContent: state => {
       return state.contents;
     },
-    ContentId: (state) => {
+    ContentId: state => {
       return state.contentsId;
     },
-    CategoryContent: state => {
+    CategoryTab: state => {
       return state.categoryTab;
     },
-    AllUsers: (state) => {
+    CategoryContentTab: state => {
+      return state.categoryContentTab;
+    },
+    AllUsers: state => {
       return state.users;
+    },
+    Admin: state => {
+      return state.admin;
+    },
+    idUsersA: state => {
+      return state.idUser_a;
     }
   }
 });

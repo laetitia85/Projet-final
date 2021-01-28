@@ -1,47 +1,48 @@
 <template>
   <div>
-    <Navbar />
+    <NavbarAdminProfil />
     <div class="container">
       <br /><br />
-      <p>Bienvenue</p>
-      <p>Ce formulaire te permet de modifier tes données.</p>
+      <h3>Bienvenue {{ TokenName }}</h3>
+      <br />
+      <p>Modifie tes données via ce formulaire ci-dessous.</p>
       <mdb-card>
         <mdb-card-body class="cards">
           <form>
             <div class="black-text">
               <mdb-input
-                v-model="users.name"
+                v-model="admin.name"
                 label="Nom"
                 icon="user"
-                value="users.name"
+                value="admin.name"
                 type="text"
               />
               <mdb-input
-                v-model="users.first_name"
+                v-model="admin.first_name"
                 label="Prénom"
                 icon="user"
-                value="users.first_name"
+                value="admin.first_name"
                 type="text"
               />
               <mdb-input
-                v-model="users.email"
+                v-model="admin.email"
                 label="email"
                 icon="envelope"
-                value="users.email"
+                value="admin.email"
                 type="email"
               />
               <mdb-input
-                v-model="users.password"
+                v-model="admin.password"
                 label="Mot de passe"
                 icon="lock"
-                value="users.password"
+                value="admin.password"
                 type="password"
               />
               <mdb-input
-                v-model="users.picture_profil"
+                v-model="admin.picture_profil_a"
                 label="Photo de profil"
                 icon="image"
-                value="users.picture_profil"
+                value="admin.picture_profil_a"
                 type="text"
               />
             </div>
@@ -49,10 +50,7 @@
               <mdb-btn class="btn" @click="Update()">Modifier</mdb-btn>
             </div>
             <br /><br />
-            <p>
-              Tu peux supprimer définitivement ton compte ainsi que toutes tes
-              données en cliquant sur le bouton ci dessous
-            </p>
+            <p>Supprime définitivement ton compte en cliquant sur le bouton.</p>
             <div class="text-center">
               <mdb-btn class="btn" @click="Delete()">Supprimer</mdb-btn>
             </div>
@@ -65,52 +63,59 @@
 </template>
 
 <script>
-import Navbar from "../layouts/Navbar.vue";
-import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
+import NavbarAdminProfil from "../layouts/NavbarAdminProfil.vue";
+import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
+import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 
 export default {
-  name: "Profil",
+  name: "ProfilAdmin",
   components: {
-    Navbar,
     Footer,
+    NavbarAdminProfil,
     mdbInput,
     mdbBtn,
     mdbCard,
     mdbCardBody
   },
 
+  computed: { ...mapGetters(["TokenName", "AllContent", "AllUsers"]) },
+
   data() {
     return {
-      users: {
+      admin: {
         name: "",
         first_name: "",
         email: "",
         password: "",
-        picture_profil: "",
-        id_a: this.$store.state.tokenId
+        picture_profil_a: "",
+        id_admin: this.$store.state.tokenIdAdmin
       }
     };
   },
   methods: {
     async Update() {
       try {
-        let usersData = this.users;
-        console.log(usersData);
-        for (let key in usersData) {
-          if (usersData[key] === "") {
-            delete usersData[key];
+        let adminData = this.admin;
+        console.log(adminData);
+        for (let key in adminData) {
+          if (adminData[key] === "") {
+            delete adminData[key];
           }
         }
-        if (usersData) {
+        if (adminData) {
           let result = await this.axios.put(
-            `http://localhost:8000/users/${this.$store.state.tokenId}`,
-            usersData
+            `http://localhost:8000/admin/${this.$store.state.tokenIdAdmin}`,
+            adminData
           );
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
-            this.$store.dispatch(usersData, "updateUsers", result.data.tokenId);
+            this.$store.dispatch(
+              adminData,
+              "updateAdmin",
+              result.data.tokenIdAdmin
+            );
           }
         }
       } catch (error) {
@@ -120,11 +125,11 @@ export default {
 
     Delete() {
       this.axios
-        .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
+        .delete(`http://localhost:8000/admin/${this.$store.state.tokenIdAdmin}`)
         .then(response => {
           console.log(response);
           if (response.status === 200) {
-            this.$store.dispatch("deleteToken", response.data.tokenId);
+            this.$store.dispatch("deleteToken", response.data.tokenIdAdmin);
             this.$router.push("/");
           }
         })
@@ -132,8 +137,7 @@ export default {
           console.log(error);
         });
     }
-  },
-
+  }
 };
 </script>
 
