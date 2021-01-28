@@ -94,15 +94,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  width: 100%;
+  max-width: 1200px;
 }
 .bgcolorform {
   background-color: #41d1cc;
 }
 .black-text label {
   color: #000000 !important;
+}
+.btn {
+  background-image: url("../images/bgcolor bouton.jpg");
+  background-size: 100%;
+  text-shadow: 1px 1px 2px black;
 }
 </style>

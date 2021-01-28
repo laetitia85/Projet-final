@@ -67,7 +67,6 @@
 <script>
 import Navbar from "../layouts/Navbar.vue";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
-// import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
 
 export default {
@@ -80,6 +79,7 @@ export default {
     mdbCard,
     mdbCardBody
   },
+
   data() {
     return {
       users: {
@@ -121,7 +121,7 @@ export default {
     Delete() {
       this.axios
         .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
-        .then((response) => {
+        .then(response => {
           console.log(response);
           if (response.status === 200) {
             this.$store.dispatch("deleteToken", response.data.tokenId);
@@ -132,11 +132,12 @@ export default {
           console.log(error);
         });
     }
-  }
+  },
+
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
   max-width: 1200px;
@@ -145,5 +146,10 @@ export default {
 }
 .cards {
   background-color: #41d1cc;
+}
+.btn {
+  background-image: url("../images/bgcolor bouton.jpg");
+  background-size: 100%;
+  text-shadow: 1px 1px 2px black;
 }
 </style>

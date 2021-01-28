@@ -1,9 +1,9 @@
 <template>
   <div class="bgcolornav">
     <mdb-navbar>
-      <mdb-navbar-nav>
+      <mdb-navbar-nav class="linknav">
         <mdb-nav-item active
-          ><router-link to="/">Bienvenue</router-link></mdb-nav-item
+          ><router-link to="/">Accueil</router-link></mdb-nav-item
         >
         <mdb-nav-item
           ><router-link to="/sign-up-pro">S'inscrire</router-link></mdb-nav-item
@@ -29,5 +29,8 @@ export default {
 <style>
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
+}
+.linknav a {
+  color: white;
 }
 </style>

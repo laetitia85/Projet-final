@@ -1,59 +1,36 @@
 <template>
-  <div>
-    <mdb-navbar class="bgcolornav">
-      <mdb-navbar-toggler>
-        <mdb-navbar-nav>
-          <mdb-nav-item
-            ><router-link to="/profil-admin" active
-              >Profil</router-link
-            ></mdb-nav-item
-          >
-          <mdb-nav-item
-            ><router-link to="/users">Utilisateurs</router-link></mdb-nav-item
-          >
-          <mdb-nav-item
-            ><router-link to="/posts">Posts</router-link></mdb-nav-item
-          >
-          <mdb-btn gradient="aqua" rounded @click="DeleteTokenAdmin()"
-            >Deconnexion</mdb-btn
-          >
-        </mdb-navbar-nav>
-      </mdb-navbar-toggler>
+  <div class="bgcolornav">
+    <mdb-navbar>
+      <mdb-navbar-nav class="linknav">
+        <mdb-nav-item active
+          ><router-link to="/sign-up-admin">S'inscrire</router-link></mdb-nav-item
+        >
+        <mdb-nav-item 
+          ><router-link to="/sign-in-admin">Se connecter</router-link></mdb-nav-item
+        >
+      </mdb-navbar-nav>
     </mdb-navbar>
   </div>
 </template>
 
 <script>
-import {
-  mdbNavbar,
-  mdbNavItem,
-  mdbNavbarNav,
-  mdbNavbarToggler,
-  mdbBtn
-} from "mdbvue";
+import { mdbNavbar, mdbNavbarNav, mdbNavItem } from "mdbvue";
 
 export default {
-  name: "NavbarAdmin",
+  name: "NavBarAdmin",
   components: {
     mdbNavbar,
-    mdbNavItem,
     mdbNavbarNav,
-    mdbNavbarToggler,
-    mdbBtn
-  },
-
-  methods: {
-    DeleteTokenAdmin() {
-      this.$store.dispatch("deleteTokenAdmin").then(() => {
-        this.$router.push("/");
-      });
-    }
+    mdbNavItem
   }
 };
 </script>
 
-<style scoped>
+<style>
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
+}
+.linknav a {
+  color: white;
 }
 </style>

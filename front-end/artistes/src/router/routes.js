@@ -17,6 +17,8 @@ import ProfilPro from "../views/ProfilPro.vue";
 import AllPosts from "../components/AllPosts.vue";
 import ContactPro from "../views/ContactPro.vue";
 //ADMIN
+import SignUpAdmin from "../components/SignUpAdmin.vue";
+import SignInAdmin from "../components/SignInAdmin.vue";
 import ProfilAdmin from "../views/ProfilAdmin.vue";
 import Users from "../components/Users.vue";
 import Posts from "../components/Posts.vue";
@@ -127,10 +129,16 @@ const routes = [
     }
   },
   //ADMIN
+
+  {
+    path: "/sign-up-admin",
+    name: "SignUpAdmin",
+    component: SignUpAdmin
+  },
   {
     path: "/sign-in-admin",
     name: "SignInAdmin",
-    component: SignIn
+    component: SignInAdmin
   },
   {
     path: "/users",
@@ -151,10 +159,10 @@ const routes = [
       layout: "NavbarAdmin.vue"
     },
     beforeEnter: (to, from, next) => {
-      let x = to.matched.some(elem => elem.meta.requiresAuthAdmin);
-      console.log(x);
+      let z = to.matched.some(elem => elem.meta.requiresAuthAdmin);
+      console.log(z);
 
-      if (x == true && store.state.tokenAdmin) {
+      if (z == true && store.state.tokenAdmin) {
         next();
       } else {
         next({
@@ -163,7 +171,7 @@ const routes = [
         });
       }
     }
-  },
+  }
 ];
 
 const router = new VueRouter({

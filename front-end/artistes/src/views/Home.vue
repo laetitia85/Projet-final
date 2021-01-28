@@ -66,11 +66,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
   width: 100% !important;
-  padding-right: 0;
+  padding: 0;
   margin: 0;
   /* margin: auto;
   padding: 0 2rem; */
@@ -120,6 +120,10 @@ export default {
 .container-fluid,
 .container-xl {
   max-width: 100%;
+}
+* {
+  padding: 0;
+  margin: 0;
 }
 
 /* *,::after,::before {

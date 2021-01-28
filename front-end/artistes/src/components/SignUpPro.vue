@@ -58,7 +58,7 @@
                 name="first_name"
                 @input="$v.userPro.first_name.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.userPro.first_name.$error,
+                  'is-invalid': submitted && $v.userPro.first_name.$error
                 }"
               />
               <div
@@ -100,7 +100,7 @@
                 id="password"
                 name="password"
                 :class="{
-                  'is-invalid': submitted && $v.userPro.password.$error,
+                  'is-invalid': submitted && $v.userPro.password.$error
                 }"
               />
               <div
@@ -125,7 +125,7 @@
                 id="passwordcheck"
                 name="passwordcheck"
                 :class="{
-                  'is-invalid': submitted && $v.userPro.passwordcheck.$error,
+                  'is-invalid': submitted && $v.userPro.passwordcheck.$error
                 }"
               />
               <div
@@ -155,7 +155,7 @@
                 name="enterprise_name"
                 @input="$v.userPro.enterprise_name.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.userPro.enterprise_name.$error,
+                  'is-invalid': submitted && $v.userPro.enterprise_name.$error
                 }"
               />
               <div
@@ -178,7 +178,7 @@
                 id="siret_number"
                 name="siret_number"
                 :class="{
-                  'is-invalid': submitted && $v.userPro.siret_number.$error,
+                  'is-invalid': submitted && $v.userPro.siret_number.$error
                 }"
               />
               <div
@@ -205,7 +205,7 @@
                 name="picture_profil"
                 @input="$v.userPro.picture.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.userPro.picture.$error,
+                  'is-invalid': submitted && $v.userPro.picture.$error
                 }"
               />
               <div
@@ -243,7 +243,7 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
-    Footer,
+    Footer
   },
 
   data() {
@@ -279,7 +279,7 @@ export default {
       enterprise_name: { required, minLength: minLength(3) },
       siret_number: { required, minLength: minLength(6) },
       picture: { required, minLength: minLength(6) }
-    },
+    }
   },
   methods: {
     setChange(event) {
@@ -287,7 +287,7 @@ export default {
       let inputname = myinput.name;
       let value = myinput.value;
       this.$store.dispatch({
-        [inputname]: value,
+        [inputname]: value
       });
     },
 
@@ -296,7 +296,7 @@ export default {
       evt.preventDefault();
       await this.axios
         .post("http://localhost:8000/usersPro/sign-up-pro", this.userPro)
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.$store.dispatch("addUsersPro", {
             pro_type: "",
@@ -307,13 +307,13 @@ export default {
             enterprise_name: "",
             siret_number: "",
             picture: "",
-            id_p: "",
+            id_p: ""
           });
           this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
           this.$router.push("/sign-in-pro");
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     },
@@ -340,19 +340,25 @@ export default {
         return;
       }
       alert("Tout les champs sont remplis! Vous pouvez vous inscrire.");
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 .bgcolorform {
   background-color: #41d1cc;
 }
 .container {
   background-color: rgb(64, 224, 208, 0.25);
+  max-width: 1200px;
 }
 .black-text label {
   color: #000000 !important;
+}
+.btn {
+  background-image: url("../images/bgcolor bouton.jpg");
+  background-size: 100%;
+  text-shadow: 1px 1px 2px black;
 }
 </style>

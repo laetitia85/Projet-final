@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBarSignIn />
+    <NavBarAdmin />
     <div class="container">
       <br /><br />
       <mdb-card>
@@ -38,32 +38,31 @@
 <script>
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 import Footer from "../layouts/Footer";
-import NavBarSignIn from "../layouts/NavBarSignIn";
+import NavBarAdmin from "../layouts/NavBarAdmin";
 
 export default {
-  name: "SignIn",
+  name: "SignInAdmin",
   components: {
     mdbInput,
     mdbBtn,
     mdbCard,
     mdbCardBody,
     Footer,
-    NavBarSignIn
+    NavBarAdmin
   },
   data() {
     return {
       form: {
         email: "",
-        password: "",
-        id_a: this.$store.state.tokenId
+        password: ""
       }
     };
   },
 
   methods: {
-    parseJwt(token) {
-      console.log(token);
-      let base64Url = token.split(".")[1];
+    parseJwtAdmin(tokenAdmin) {
+      console.log(tokenAdmin);
+      let base64Url = tokenAdmin.split(".")[1];
       let base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       let jsonPayload = decodeURIComponent(
         atob(base64)
@@ -79,22 +78,31 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       this.axios
-        .post("http://localhost:8000/users/sign-in", this.form)
+        .post("http://localhost:8000/admin/sign-in", this.form)
         .then(response => {
           console.log(response);
-          this.$store.dispatch("token", response.data.token);
-          let jwt = this.parseJwt(response.data.token);
-          console.log(jwt);
+          this.$store.dispatch("tokenAdmin", response.data.tokenAdmin);
+          let jwtAdmin = this.parseJwtAdmin(response.data.tokenAdmin);
+          console.log(jwtAdmin);
 
-          this.$store.dispatch("decodeToken", jwt.picture_profil);
-          this.$store.dispatch("decodeTokenId", jwt.id_a);
-          this.axios
-            .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-            .then(response => {
-              console.log(response);
-              this.$store.dispatch("recContentId", response.data);
+          this.$store.dispatch(
+            "decodeTokenAdmin",
+            jwtAdmin.first_name,
+            jwtAdmin.picture_profil_a
+          );
+          this.$store.dispatch("decodeTokenIdAdmin", jwtAdmin.id_admin);
+          this.axios.get("http://localhost:8000/users").then(result => {
+            console.log(result.data);
+            this.$store.dispatch("recUsers", result.data);
+
+            this.axios.get("http://localhost:8000/contents").then(resultat => {
+              console.log(resultat.data);
+              this.$store.dispatch("recContent", resultat.data);
+              this.$store.dispatch("recContentId", resultat.data.id_c);
+              // this.$store.dispatch("decodeTokenIdContent", resultat.data.id_c);
             });
-          this.$router.push("/profil");
+          });
+          this.$router.push("/profil-admin");
         })
 
         .catch(function(error) {
@@ -108,8 +116,27 @@ export default {
       // Reset our form values
       this.form.email = "";
       this.form.password = "";
-    },
-  },
+    }
+  }
+
+  // async mounted() {
+  //   try {
+  //     await this.axios.get("http://localhost:8000/contents").then(result => {
+  //         console.log(result.data);
+  //         this.$store.dispatch("recContent", result.data);
+  //         this.$store.dispatch("deleteToken", result.data.id_c);
+  //       });
+  //     await this.axios
+  //       .get("http://localhost:8000/users", this.user)
+  //       .then((result) => {
+  //         console.log(result.data);
+  //         this.$store.dispatch("recUsers", result.data);
+  //         this.$store.dispatch("deleteToken", result.data.id_a);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // },
 };
 </script>
 

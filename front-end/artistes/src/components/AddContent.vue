@@ -91,7 +91,7 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
-    Footer,
+    Footer
   },
 
   data() {
@@ -104,6 +104,7 @@ export default {
         duration: "",
         content: "",
         id_user_a: this.$store.state.tokenId,
+        id_c: this.$store.state.tokenIdContent
       },
       selected: "first",
       options: [
@@ -134,7 +135,7 @@ export default {
           headers: headers
         })
 
-        .then((response) => {
+        .then(response => {
           console.log(response);
           this.$store
             .dispatch("addContent", {
@@ -144,7 +145,8 @@ export default {
               category: "",
               duration: "",
               content: "",
-              id_user_a: ""
+              id_user_a: "",
+              id_c: ""
             })
 
             .catch(function(error) {
@@ -160,7 +162,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.$store.dispatch("decodeTokenId", response.data.id_user_a),
-            this.$store.dispatch("recContentId", response.data.id_a);
+            this.$store.dispatch("recContentId", response.data.id_c);
         });
     },
 
@@ -173,14 +175,19 @@ export default {
       this.content.duration = "";
       this.content.content = "";
       this.content.id_user_a = "";
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  width: 100%;
+  max-width: 1200px;
+}
+.btn {
+  background-image: url("../images/bgcolor bouton.jpg");
+  background-size: 100%;
+  text-shadow: 1px 1px 2px black;
 }
 </style>

@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
   max-width: 1200px;
