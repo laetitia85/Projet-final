@@ -69,11 +69,10 @@ export default {
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  width: 100% !important;
+  width: 100%;
   padding: 0;
   margin: 0;
-  /* margin: auto;
-  padding: 0 2rem; */
+  overflow: auto;
 }
 
 .logo {
@@ -119,17 +118,10 @@ export default {
 .container-md,
 .container-fluid,
 .container-xl {
-  max-width: 100%;
+  width: 100%;
 }
-* {
-  padding: 0;
-  margin: 0;
+mr-auto {
+  margin-right: 0;
+  margin-left: 0;
 }
-
-/* *,::after,::before {
-    box-sizing: none;
-}
-*, *::before, *::after {
-  box-sizing:none;
-} */
 </style>

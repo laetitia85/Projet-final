@@ -24,7 +24,8 @@ export default new Vuex.Store({
     admin: [],
     categoryTab: [],
     categoryContentTab: [],
-    idUserA: []
+    comments: [],
+    commentsId: []
   },
   plugins: [createPersistedState()],
 
@@ -41,8 +42,8 @@ export default new Vuex.Store({
     RECUSERS(state, myRecUsers) {
       state.users = myRecUsers;
     },
-    ADDUSERSPRO(state, myAddUsersPro) {
-      state.usersPro.push(myAddUsersPro);
+    RECUSERSPRO(state, myRecUsersPro) {
+      state.usersPro = myRecUsersPro;
     },
     ADDADMIN(state, myAddAdmin) {
       state.admin.push(myAddAdmin);
@@ -69,7 +70,9 @@ export default new Vuex.Store({
       state.tokenName = "";
       state.tokenIdContent = "";
       state.contents = [];
+      state.comments = [];
       state.contentsId = "";
+      state.commentsId = "";
       state.users = [];
       state.admin = [];
       state.usersPro = [];
@@ -99,22 +102,39 @@ export default new Vuex.Store({
       state.tokenIdContent = myDecodeTokenIdContent;
     },
     ADDCONTENT(state, myAddContent) {
-      state.contents.push(myAddContent);
+      state.contents = myAddContent;
     },
     RECCONTENT(state, myRecContent) {
       state.contents = myRecContent;
     },
+    RECCOMMENT(state, myRecComment) {
+      state.comment = myRecComment;
+    },
     RECCONTENTID(state, myRecContentId) {
       state.contentsId = myRecContentId;
+    },
+    RECCOMMENTID(state, myRecCommentId) {
+      state.commentsId = myRecCommentId;
+    },
+    ADDCONTENTID(state, myAddContentId) {
+      for (let i = 0; i < state.contentsId.length; i++) {
+        if (state.contentsId[i].id_user_a === myAddContentId) {
+          state.contentsId.splice(i, 1);
+        }
+      }
+    },
+    ADDCOMMENTID(state, myAddCommentId) {
+      for (let i = 0; i < state.commentsId.length; i++) {
+        if (state.commentsId[i].id_post === myAddCommentId) {
+          state.commentsId.splice(i, 1);
+        }
+      }
     },
     ADDCONTENTBYCATEGORY(state, myCategoryTab) {
       state.categoryTab.push(myCategoryTab);
     },
     ADDCATEGORYCONTENTTAB(state, myCategoryContentTab) {
       state.categoryContentTab.push(myCategoryContentTab);
-    },
-    IDUSER_A(state, myIdUserA) {
-      state.idUserA = myIdUserA;
     },
     DELETEUSERS(state, myDeleteUsers) {
       for (let i = 0; i < state.users.length; i++) {
@@ -123,10 +143,24 @@ export default new Vuex.Store({
         }
       }
     },
+    DELETEUSERSPRO(state, myDeleteUsersPro) {
+      for (let i = 0; i < state.usersPro.length; i++) {
+        if (state.usersPro[i].id_p === myDeleteUsersPro) {
+          state.usersPro.splice(i, 1);
+        }
+      }
+    },
     DELETEPOSTS(state, myDeletePosts) {
       for (let i = 0; i < state.contents.length; i++) {
         if (state.contents[i].id_c === myDeletePosts) {
           state.contents.splice(i, 1);
+        }
+      }
+    },
+    DELETEMYPOSTS(state, myDeleteMyPosts) {
+      for (let i = 0; i < state.contentsId.length; i++) {
+        if (state.contentsId[i].id_c === myDeleteMyPosts) {
+          state.contentsId.splice(i, 1);
         }
       }
     }
@@ -145,8 +179,8 @@ export default new Vuex.Store({
     recUsers(context, myRecUsers) {
       context.commit("RECUSERS", myRecUsers);
     },
-    addUsersPro(context, myAddUsersPro) {
-      context.commit("ADDUSERSPRO", myAddUsersPro);
+    recUsersPro(context, myRecUsersPro) {
+      context.commit("RECUSERSPRO", myRecUsersPro);
     },
     addAdmin(context, myAddAdmin) {
       context.commit("ADDADMIN", myAddAdmin);
@@ -190,8 +224,20 @@ export default new Vuex.Store({
     recContent(context, myRecContent) {
       context.commit("RECCONTENT", myRecContent);
     },
+    recComment(context, myRecComment) {
+      context.commit("RECCOMMENT", myRecComment);
+    },
     recContentId(context, myRecContentId) {
       context.commit("RECCONTENTID", myRecContentId);
+    },
+    recCommentId(context, myRecCommentId) {
+      context.commit("RECCOMMENTID", myRecCommentId);
+    },
+    addContentId(context, myAddContentId) {
+      context.commit("ADDCONTENTID", myAddContentId);
+    },
+    addCommentId(context, myAddCommentId) {
+      context.commit("ADDCOMMENTID", myAddCommentId);
     },
     categoryTab(context, myCategoryTab) {
       context.commit("ADDCONTENTBYCATEGORY", myCategoryTab);
@@ -199,14 +245,17 @@ export default new Vuex.Store({
     categoryContentTab(context, myCategoryContentTab) {
       context.commit("ADDCATEGORYCONTENTTAB", myCategoryContentTab);
     },
-    idUser_a(context, myIdUserA) {
-      context.commit("IDUSER_A", myIdUserA);
-    },
     deleteUsers(context, myDeleteUsers) {
       context.commit("DELETEUSERS", myDeleteUsers);
     },
+    deleteUsersPro(context, myDeleteUsersPro) {
+      context.commit("DELETEUSERSPRO", myDeleteUsersPro);
+    },
     deletePosts(context, myDeletePosts) {
       context.commit("DELETEPOSTS", myDeletePosts);
+    },
+    deleteMyPosts(context, myDeleteMyPosts) {
+      context.commit("DELETEMYPOSTS", myDeleteMyPosts);
     }
   },
 
@@ -241,11 +290,11 @@ export default new Vuex.Store({
     AllUsers: state => {
       return state.users;
     },
+    AllUsersPro: state => {
+      return state.usersPro;
+    },
     Admin: state => {
       return state.admin;
-    },
-    idUsersA: state => {
-      return state.idUser_a;
     }
   }
 });

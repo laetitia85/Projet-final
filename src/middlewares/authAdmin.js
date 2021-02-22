@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
     let tokenAdmin = req.headers.authorization;
     jwtAdmin.verify(tokenAdmin, process.env.jwtKeyAdmin, (err, decoded) => {
        console.log(decoded)
-      if (decoded.id === req.body.id_admin) {
+      if (decoded.id_admin === req.body.id_admin) {
         // console.log("cccccccc");
         next();
       } else {

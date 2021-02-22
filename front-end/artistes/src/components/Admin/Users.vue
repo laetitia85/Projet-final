@@ -2,7 +2,9 @@
   <div>
     <NavbarAdminProfil />
     <div class="container">
-      <table>
+      <br />
+      <h2>Artistes</h2>
+      <table class="tabUsers" hover>
         <colgroup>
           <col span="6" class="info" />
           <col />
@@ -24,7 +26,7 @@
           <td>{{ user.first_name }}</td>
           <td>{{ user.email }}</td>
           <th>
-            <mdb-btn color="success" icon="edit" size="sm">Modifier</mdb-btn>
+            <mdb-btn color="success" icon="edit" size="sm"></mdb-btn>
           </th>
           <th>
             <mdb-btn
@@ -32,6 +34,43 @@
               icon="trash-alt"
               size="sm"
               @click="Delete(user.id_a)"
+            ></mdb-btn>
+          </th>
+        </tr>
+      </table>
+
+      <br /><br /><br />
+      <h2>Professionnels</h2>
+      <table class="tabUsers">
+        <colgroup>
+          <col span="6" class="info" />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>E-mail</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+          </tr>
+        </thead>
+
+        <tr class="tab" v-for="userPro in AllUsersPro" :key="userPro.id_p">
+          <td>{{ userPro.id_p }}</td>
+          <td>{{ userPro.name }}</td>
+          <td>{{ userPro.first_name }}</td>
+          <td>{{ userPro.email }}</td>
+          <th>
+            <mdb-btn color="success" icon="edit" size="sm">Modifier</mdb-btn>
+          </th>
+          <th>
+            <mdb-btn
+              color="danger"
+              icon="trash-alt"
+              size="sm"
+              @click="DeletePro(userPro.id_p)"
               >Supprimer</mdb-btn
             >
           </th>
@@ -43,9 +82,9 @@
 </template>
 
 <script>
-import NavbarAdminProfil from "../layouts/NavbarAdminProfil.vue";
+import NavbarAdminProfil from "../../layouts/NavbarAdminProfil.vue";
 import { mapGetters } from "vuex";
-import Footer from "../layouts/Footer.vue";
+import Footer from "../../layouts/Footer.vue";
 import { mdbBtn } from "mdbvue";
 
 export default {
@@ -64,11 +103,16 @@ export default {
         password: "",
         picture_profil: "",
         id_a: this.$store.state.users.id_a
+      },
+      userPro: {
+        name: "",
+        first_name: "",
+        email: ""
       }
     };
   },
 
-  computed: { ...mapGetters(["AllUsers"]) },
+  computed: { ...mapGetters(["AllUsers", "AllUsersPro"]) },
 
   methods: {
     Delete(id) {
@@ -77,7 +121,6 @@ export default {
         .delete(`http://localhost:8000/adminA/${id}`)
         .then(response => {
           console.log(response);
-          console.log(this.$store.state.users);
           if (response.status === 200) {
             this.$store.dispatch("deleteUsers", id);
           }
@@ -85,27 +128,31 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+
+    DeletePro(idPro) {
+      console.log(idPro);
+      this.axios
+        .delete(`http://localhost:8000/adminP/${idPro}`)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            this.$store.dispatch("deleteUsersPro", idPro);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
-
-  // async mounted() {
-  //   try {
-  //     this.axios.get("http://localhost:8000/users").then((result) => {
-  //       console.log(result.data);
-  //       this.$store.dispatch("recUsers", result.data);
-  //       this.$store.dispatch("deleteToken", result.data.id_a);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // },
 };
 </script>
 
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  /* max-width: 1200px; */
+  width: 100%;
 }
 table {
   border-collapse: collapse;
@@ -121,5 +168,9 @@ td {
 }
 .tab {
   background-color: white !important;
+}
+.tabUsers {
+  position: relative;
+  left: 200px;
 }
 </style>

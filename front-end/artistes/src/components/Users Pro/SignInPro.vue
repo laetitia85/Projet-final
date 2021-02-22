@@ -36,8 +36,8 @@
 
 <script>
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
-import Footer from "../layouts/Footer";
-import NavBarSignInPro from "../layouts/NavBarSignInPro";
+import Footer from "../../layouts/Footer";
+import NavBarSignInPro from "../../layouts/NavBarSignInPro";
 
 export default {
   name: "SignInPro",
@@ -77,6 +77,14 @@ export default {
           console.log(jwt);
           this.$store.dispatch("decodeTokenPro", jwt.picture);
           this.$store.dispatch("decodeTokenIdPro", jwt.id_p);
+          this.axios
+            .get(
+              `http://localhost:8000/comments/${this.$store.state.tokenIdContent}`
+            )
+            .then(response => {
+              console.log(response.data);
+              this.$store.dispatch("recCommentId", response.data);
+            });
           this.$router.push("/profil-pro");
         })
         .catch(function(error) {
@@ -106,7 +114,7 @@ export default {
   color: #000000 !important;
 }
 .btn {
-  background-image: url("../images/bgcolor bouton.jpg");
+  background-image: url("../../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
 }

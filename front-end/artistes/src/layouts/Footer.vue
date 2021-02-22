@@ -1,7 +1,6 @@
 <template>
-  <!-- Footer -->
   <mdb-footer class="bgcolor">
-    <mdb-row>
+    <mdb-row class="link">
       <mdb-col sm="4">
         <p>2021 Copyright</p>
         <p>Laetitia de Bardin</p>
@@ -11,9 +10,7 @@
         <p href="#!">CGU</p>
       </mdb-col>
       <mdb-col sm="4">
-       <a href="/contact">Contact</a>
-        <!-- <p  href="/contact">Contact</p> -->
-
+      <router-link to="/contact" active>Contact</router-link>
         <ul class="list-unstyled list-inline">
           <li class="list-inline-item">
             <a class="btn-floating btn-sm btn-fb mx-1"
@@ -29,7 +26,6 @@
       </mdb-col>
     </mdb-row>
   </mdb-footer>
-  <!-- Footer -->
 </template>
 
 <script>
@@ -52,6 +48,9 @@ export default {
   color: black;
 }
 .bgcolor li {
+  color: black;
+}
+.link a {
   color: black;
 }
 </style>

@@ -10,20 +10,16 @@
           >
           <mdb-nav-item
             ><router-link to="/users"
-              >Gestion <br />
-              Utilisateurs</router-link
+              >Utilisateurs</router-link
             ></mdb-nav-item
           >
           <mdb-nav-item
-            ><router-link to="/posts"
-              >Gestion <br />
-              Posts</router-link
-            ></mdb-nav-item
-          >
-          <mdb-btn gradient="aqua" rounded @click="DeleteTokenAdmin()"
-            >Deconnexion</mdb-btn
+            ><router-link to="/posts">Posts</router-link></mdb-nav-item
           >
         </mdb-navbar-nav>
+        <mdb-btn gradient="aqua" rounded @click="DeleteTokenAdmin()"
+          >Deconnexion</mdb-btn
+        >
       </mdb-navbar-toggler>
     </mdb-navbar>
   </div>

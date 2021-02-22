@@ -26,8 +26,10 @@
         <h2>Retrouvez-moi</h2>
         <p>
           Vous avez la moindre question ? N’hésitez pas à me contacter par mail
-          laetitia.artisteAndpro@gmail.com ou via les réseaux sociaux en
-          cliquant sur les liens en bas de page.
+          <a href="mailto:laetitia.artisteAndpro@gmail.com">
+            laetitia.artisteAndpro@gmail.com
+          </a>
+          ou via les réseaux sociaux en cliquant sur les liens en bas de page.
         </p>
       </div>
     </div>
@@ -43,8 +45,8 @@ export default {
   name: "ContactPro",
   components: {
     Navbarpro,
-    Footer,
-  },
+    Footer
+  }
 };
 </script>
 

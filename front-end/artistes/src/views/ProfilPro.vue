@@ -98,7 +98,7 @@ export default {
     mdbInput,
     mdbBtn,
     mdbCard,
-    mdbCardBody,
+    mdbCardBody
   },
   data() {
     return {
@@ -110,13 +110,13 @@ export default {
         password: "",
         enterprise_name: "",
         picture: "",
-        id_p: this.$store.state.tokenIdPro,
+        id_p: this.$store.state.tokenIdPro
       },
       selected: "first",
       options: [
         { text: "Une maison de disque", value: "une maison de disque" },
-        { text: "Un indépendant", value: "un indépendant" },
-      ],
+        { text: "Un indépendant", value: "un indépendant" }
+      ]
     };
   },
   methods: {
@@ -148,13 +148,13 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
+    }
   },
 
   Delete() {
     this.axios
       .delete(`http://localhost:8000/usersPro/${this.$store.state.tokenIdPro}`)
-      .then((response) => {
+      .then(response => {
         console.log(response);
         if (response.status === 200) {
           this.$store.dispatch("deleteToken", response.data.tokenIdPro);
@@ -164,7 +164,7 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
-  },
+  }
 };
 </script>
 
