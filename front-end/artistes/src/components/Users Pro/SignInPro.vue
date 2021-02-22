@@ -29,6 +29,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
+      <br><br>
     </div>
     <Footer />
   </div>
@@ -76,6 +77,7 @@ export default {
           let jwt = this.parseJwt(response.data.tokenPro);
           console.log(jwt);
           this.$store.dispatch("decodeTokenPro", jwt.picture);
+          this.$store.dispatch("decodeTokenNamePro", jwt.first_name);
           this.$store.dispatch("decodeTokenIdPro", jwt.id_p);
           this.axios
             .get(

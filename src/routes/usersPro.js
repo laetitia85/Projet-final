@@ -44,6 +44,7 @@ app.get("/usersPro", (req, res) => {
                 {
                   id_p: result[0].id_p,
                   email: result[0].email,
+                  first_name: result[0].first_name,
                   picture: result[0].picture
                 },
                 "process.env.jwtKey",

@@ -3,7 +3,8 @@
     <Navbar />
     <div class="container">
       <br /><br />
-      <p>Bienvenue</p>
+      <h3>Bienvenue {{ TokenNameUser }}</h3>
+      <br>
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
@@ -61,6 +62,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
+      <br><br>
     </div>
     <Footer />
   </div>
@@ -69,6 +71,7 @@
 <script>
 import Navbar from "../layouts/Navbar.vue";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
+import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
 
 export default {
@@ -81,6 +84,8 @@ export default {
     mdbCard,
     mdbCardBody
   },
+
+ computed: { ...mapGetters(["TokenNameUser"]) },
 
   data() {
     return {
@@ -134,7 +139,7 @@ export default {
                 if (response.status === 200) {
                   this.$store.dispatch("deleteMyPosts", id);
                 }
-                alert("Le contenu à bien été supprimé");
+                alert("Votre compte et vos posts ont bien été supprimé");
               });
             this.$router.push("/");
           }

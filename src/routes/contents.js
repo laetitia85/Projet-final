@@ -49,27 +49,7 @@ app.post("/add-contents",  function(req, res) {
               }
             );
           });
-        // if (err) {
-        //   throw err;
-        // }
-        // if (result.length != 0) {
-        //             res.json(result);
-        //           } else {
-        //             sql.query(
-        //               `SELECT contents.title, contents.id_user_a, contents.duration, contents.date, contents.category contents.content_type, contents.contents FROM contents WHERE contents.id_c = ${req.params.id}`,
-        //               (err, resultat) => {
-        //                 if (err) {
-        //                   throw err;
-        //                 } else {
-        //                   res.json(resultat);
-        //                 }
-        //               }
-        //             );
-        //           }
-        //         }
-        //       );
-        //     });
-
+  
   app.get("/category",  (req, res) => {
     sql.query("SELECT category FROM contents", (err, response) => {
       if (err) {

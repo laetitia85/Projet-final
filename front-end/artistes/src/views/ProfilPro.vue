@@ -3,7 +3,7 @@
     <Navbarpro />
     <div class="container">
       <br />
-      <h3>Bienvenue</h3>
+      <h3>Bienvenue {{ TokenNamePro }}</h3>
       <br />
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
@@ -80,6 +80,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
+      <br><br>
     </div>
     <Footer />
   </div>
@@ -88,6 +89,7 @@
 <script>
 import Navbarpro from "../layouts/Navbarpro.vue";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
+import { mapGetters } from "vuex";
 import Footer from "../layouts/Footer.vue";
 
 export default {
@@ -100,6 +102,9 @@ export default {
     mdbCard,
     mdbCardBody
   },
+
+   computed: { ...mapGetters(["TokenNamePro"]) },
+
   data() {
     return {
       formUpdate: {

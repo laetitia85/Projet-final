@@ -30,6 +30,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
+      <br><br>
     </div>
     <Footer />
   </div>
@@ -85,11 +86,7 @@ export default {
           let jwtAdmin = this.parseJwtAdmin(response.data.tokenAdmin);
           console.log(jwtAdmin);
 
-          this.$store.dispatch(
-            "decodeTokenAdmin",
-            jwtAdmin.first_name,
-            jwtAdmin.picture_profil_a
-          );
+          this.$store.dispatch("decodeTokenAdmin", jwtAdmin.first_name);
           this.$store.dispatch("decodeTokenIdAdmin", jwtAdmin.id_admin);
           this.axios.get("http://localhost:8000/users").then(result => {
             console.log(result.data);

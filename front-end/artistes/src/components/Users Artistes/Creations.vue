@@ -3,25 +3,33 @@
     <Navbar />
     <div class="container">
       <br /><br />
-      <div class="sing">
-        <img class="img" src="../../images/chant.jpg" alt="" />
+      <div class="bgcolorform">
+        <p class="sing">
+          <img class="img" src="../../images/chant.jpg" alt="" />
+        </p>
+        <br />
         <p>Chanter est pour toi plus qu’une envie , un besoin!</p>
         <p>Pose ta voix <a class="link" href="/add-contents">ici</a></p>
-      </div>
-
-      <div class="writing">
-        <img class="img" src="../../images/ecriture.jpg" alt="" />
+        <br /><br />
+        <p class="writing">
+          <img class="img" src="../../images/ecriture.jpg" alt="" />
+        </p>
+        <br />
         <p>Tu aimes exprimer ce que tu ressens grace à l’écriture.</p>
         <p>Ajoute ton texte <a class="link" href="/add-contents">ici</a></p>
-      </div>
 
-      <div class="compo">
-        <img class="img" src="../../images/photo compo.jpg" alt="" />
+        <br /><br />
+        <p class="compo">
+          <img class="img" src="../../images/photo compo.jpg" alt="" />
+        </p>
+        <br />
         <p>Ton instrument de musique est ton ami.</p>
         <p>
           Ajoute tes compositions <a class="link" href="/add-contents">ici</a>
         </p>
+        <br /><br />
       </div>
+      <br><br>
     </div>
     <Footer />
   </div>
@@ -47,13 +55,26 @@ export default {
   margin: auto;
   padding: 0 2rem;
 }
-
 .img {
   width: 100px;
   height: 100px;
+  margin: 15px;
 }
-
+.bgcolorform {
+  background-color: #41d1cc;
+  width: 60%;
+  margin: auto;
+}
 .link {
   color: magenta;
+}
+.sing {
+  float: left;
+}
+.writing {
+  float: left;
+}
+.compo {
+  float: left;
 }
 </style>
