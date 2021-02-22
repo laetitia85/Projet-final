@@ -30,6 +30,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
+      <br><br>
     </div>
     <Footer />
   </div>
@@ -93,6 +94,7 @@ export default {
           console.log(jwt);
 
           this.$store.dispatch("decodeToken", jwt.picture_profil);
+          this.$store.dispatch("decodeTokenNameUser", jwt.first_name);
           this.$store.dispatch("decodeTokenId", jwt.id_a);
           this.axios
             .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)

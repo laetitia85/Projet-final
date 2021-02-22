@@ -14,6 +14,8 @@ export default new Vuex.Store({
     tokenIdPro: "",
     tokenIdAdmin: "",
     tokenName: "",
+    tokenNameUser: "",
+    tokenNamePro: "",
     tokenPicture: null,
     tokenPicture_profil_a: null,
     tokenIdContent: "",
@@ -82,12 +84,17 @@ export default new Vuex.Store({
     DECODETOKEN(state, myDecodeToken) {
       state.tokenPicture_profil = myDecodeToken;
     },
+    DECODETOKENNAMEUSER(state, myDecodeTokenNameUser) {
+      state.tokenNameUser = myDecodeTokenNameUser;
+    },
+    DECODETOKENNAMEPRO(state, myDecodeTokenNamePro) {
+      state.tokenNamePro = myDecodeTokenNamePro;
+    },
     DECODETOKENPRO(state, myDecodeTokenPro) {
       state.tokenPicture = myDecodeTokenPro;
     },
     DECODETOKENADMIN(state, myDecodeTokenAdmin) {
       state.tokenName = myDecodeTokenAdmin;
-      state.tokenPicture_profil_a = myDecodeTokenAdmin;
     },
     DECODETOKENID(state, myDecodeTokenId) {
       state.tokenId = myDecodeTokenId;
@@ -200,6 +207,12 @@ export default new Vuex.Store({
     decodeToken(context, myDecodeToken) {
       context.commit("DECODETOKEN", myDecodeToken);
     },
+    decodeTokenNameUser(context, myDecodeTokenNameUser) {
+      context.commit("DECODETOKENNAMEUSER", myDecodeTokenNameUser);
+    },
+    decodeTokenNamePro(context, myDecodeTokenNamePro) {
+      context.commit("DECODETOKENNAMEPRO", myDecodeTokenNamePro);
+    },
     decodeTokenPro(context, myDecodeTokenPro) {
       context.commit("DECODETOKENPRO", myDecodeTokenPro);
     },
@@ -271,6 +284,12 @@ export default new Vuex.Store({
     },
     TokenPicture_profil_a: state => {
       return state.tokenPicture_profil_a;
+    },
+    TokenNameUser: state => {
+      return state.tokenNameUser;
+    },
+    TokenNamePro: state => {
+      return state.tokenNamePro;
     },
     TokenName: state => {
       return state.tokenName;

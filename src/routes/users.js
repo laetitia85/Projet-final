@@ -55,6 +55,7 @@ app.post("/users/sign-in", (req, res) => {
             {
               id_a: result[0].id_a,
               email: result[0].email,
+              first_name: result[0].first_name,
               picture_profil: result[0].picture_profil
             },
             "process.env.jwtKey",
