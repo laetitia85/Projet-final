@@ -30,6 +30,9 @@ export default {
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
 }
+h1 {
+  text-align: center;
+}
 
 .title {
   text-align: center;

@@ -54,7 +54,9 @@
               données en cliquant sur le bouton ci dessous
             </p>
             <div class="text-center">
-              <mdb-btn class="btn" @click="Delete()">Supprimer</mdb-btn>
+              <mdb-btn class="btn" @click="Delete(users.id_a)"
+                >Supprimer</mdb-btn
+              >
             </div>
           </form>
         </mdb-card-body>
@@ -110,21 +112,30 @@ export default {
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
-            this.$store.dispatch(usersData, "updateUsers", result.data.tokenId);
+            this.$store.dispatch(usersData, "updateUsers", result.config.data);
           }
         }
       } catch (error) {
         console.log(error);
       }
     },
-
-    Delete() {
+    Delete(id) {
       this.axios
-        .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
+        .delete(`http://localhost:8000/users/${id}`)
         .then(response => {
           console.log(response);
           if (response.status === 200) {
             this.$store.dispatch("deleteToken", response.data.tokenId);
+            this.axios
+              .delete(`http://localhost:8000/contentsUser/${id}`)
+              .then(response => {
+                console.log(response);
+                console.log(id);
+                if (response.status === 200) {
+                  this.$store.dispatch("deleteMyPosts", id);
+                }
+                alert("Le contenu à bien été supprimé");
+              });
             this.$router.push("/");
           }
         })
@@ -132,8 +143,38 @@ export default {
           console.log(error);
         });
     }
-  },
+  }
 
+  //   Delete() {
+  //     this.axios
+  //       .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
+  //       .then(response => {
+  //         console.log(response);
+  //         if (response.status === 200) {
+  //           this.$store.dispatch("deleteToken", response.data.tokenId);
+  //           this.axios
+  //             .delete(
+  //               `http://localhost:8000/contents/${this.$store.state.tokenIdContent}`
+  //             )
+  //             .then(response => {
+  //               console.log(response);
+  //               console.log(this.$store.state.tokenIdContent);
+  //               if (response.status === 200) {
+  //                 this.$store.dispatch(
+  //                   "deleteMyPosts",
+  //                   response.data.tokenIdContent
+  //                 );
+  //               }
+  //               alert("Le contenu à bien été supprimé");
+  //             });
+  //           this.$router.push("/");
+  //         }
+  //       })
+  //       .catch(function(error) {
+  //         console.log(error);
+  //       });
+  //   }
+  // }
 };
 </script>
 

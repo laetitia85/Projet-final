@@ -2,8 +2,8 @@
   <div>
     <Navbar />
     <div class="container">
-      <mdb-card>
-        <mdb-card-body class="cards">
+      <mdb-card class="bgcolorform">
+        <mdb-card-body class="bgimg">
           <form @submit="addContent" @reset="onReset" @onChange="setChange">
             <div>
               <b-form-group label="Je post" v-slot="{ ariaDescribedby }">
@@ -22,7 +22,6 @@
                 v-model="content.title"
                 value="content.title"
                 label="Titre"
-                icon="file-alt"
                 name="title"
                 type="text"
               />
@@ -30,7 +29,6 @@
                 v-model="content.date"
                 value="content.date"
                 label="Date"
-                icon="calendar-alt"
                 name="date"
                 type="date"
               />
@@ -39,7 +37,6 @@
                 v-model="content.category"
                 value="content.category"
                 label="Catégorie"
-                icon="music"
                 name="category"
                 type="text"
               />
@@ -47,7 +44,6 @@
                 v-model="content.duration"
                 value="content.duration"
                 label="Durée"
-                icon="stopwatch"
                 name="duration"
                 type="time"
               />
@@ -56,7 +52,6 @@
                 v-model="content.content"
                 value="content.content"
                 label="Contenu"
-                icon="hand-pointer"
                 name="content"
                 type="text"
               />
@@ -79,9 +74,9 @@
 </template>
 
 <script>
-import Navbar from "../layouts/Navbar.vue";
+import Navbar from "../../layouts/Navbar.vue";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
-import Footer from "../layouts/Footer.vue";
+import Footer from "../../layouts/Footer.vue";
 
 export default {
   name: "AddContent",
@@ -114,6 +109,16 @@ export default {
       ]
     };
   },
+
+  // beforeMount() {
+  //   this.axios
+  //     .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
+  //     .then(response => {
+  //       console.log(response.data);
+  //       this.$store.dispatch("decodeTokenId", response.data.id_user_a),
+  //         this.$store.dispatch("recContentId", response.data.id_c);
+  //     });
+  // }
   methods: {
     setChange(evt) {
       let myinput = evt.target;
@@ -138,7 +143,7 @@ export default {
         .then(response => {
           console.log(response);
           this.$store
-            .dispatch("addContent", {
+            .dispatch("recContent", "addContentId", response.config.data, {
               content_type: "",
               title: "",
               date: "",
@@ -156,16 +161,6 @@ export default {
         });
     },
 
-    beforeMount() {
-      this.axios
-        .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-        .then((response) => {
-          console.log(response.data);
-          this.$store.dispatch("decodeTokenId", response.data.id_user_a),
-            this.$store.dispatch("recContentId", response.data.id_c);
-        });
-    },
-
     onReset(evt) {
       evt.preventDefault();
       this.content.content_type = "";
@@ -174,7 +169,7 @@ export default {
       this.content.category = "";
       this.content.duration = "";
       this.content.content = "";
-      this.content.id_user_a = "";
+      // this.content.id_user_a = "";
     }
   }
 };
@@ -186,8 +181,18 @@ export default {
   max-width: 1200px;
 }
 .btn {
-  background-image: url("../images/bgcolor bouton.jpg");
+  background-image: url("../../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
+}
+.bgcolorform {
+  background-color: #f5f5f5;
+}
+.bgimg {
+  background-image: url("../../images/photo création.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-origin: content-box;
+  background-position: center;
 }
 </style>

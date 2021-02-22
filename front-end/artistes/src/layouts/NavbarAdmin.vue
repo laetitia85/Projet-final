@@ -3,10 +3,9 @@
     <mdb-navbar>
       <mdb-navbar-nav class="linknav">
         <mdb-nav-item active
-          ><router-link to="/sign-up-admin">S'inscrire</router-link></mdb-nav-item
-        >
-        <mdb-nav-item 
-          ><router-link to="/sign-in-admin">Se connecter</router-link></mdb-nav-item
+          ><router-link to="/sign-in-admin"
+            >Se connecter</router-link
+          ></mdb-nav-item
         >
       </mdb-navbar-nav>
     </mdb-navbar>

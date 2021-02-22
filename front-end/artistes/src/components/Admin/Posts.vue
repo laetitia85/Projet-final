@@ -2,7 +2,9 @@
   <div>
     <NavbarAdminProfil />
     <div class="container">
-      <table>
+      <br />
+      <h2>Posts</h2>
+      <table class="tabPosts">
         <colgroup>
           <col span="8" class="info" />
           <col />
@@ -15,7 +17,7 @@
             <th>Catégory</th>
             <th>Durée</th>
             <th>Type de contenu</th>
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Supprimer</th>
           </tr>
         </thead>
@@ -27,9 +29,9 @@
           <td>{{ content.category }}</td>
           <td>{{ content.duration }}</td>
           <td>{{ content.content_type }}</td>
-          <th>
+          <!-- <th>
             <mdb-btn color="success" icon="edit" size="sm">Modifier</mdb-btn>
-          </th>
+          </th> -->
           <th>
             <mdb-btn
               color="danger"
@@ -47,9 +49,9 @@
 </template>
 
 <script>
-import NavbarAdminProfil from "../layouts/NavbarAdminProfil.vue";
+import NavbarAdminProfil from "../../layouts/NavbarAdminProfil.vue";
 import { mapGetters } from "vuex";
-import Footer from "../layouts/Footer.vue";
+import Footer from "../../layouts/Footer.vue";
 import { mdbBtn } from "mdbvue";
 
 export default {
@@ -125,5 +127,9 @@ td {
 }
 .tab {
   background-color: white !important;
+}
+.tabPosts {
+  position: relative;
+  left: 100px;
 }
 </style>

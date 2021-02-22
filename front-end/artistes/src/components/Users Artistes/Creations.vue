@@ -4,19 +4,19 @@
     <div class="container">
       <br /><br />
       <div class="sing">
-        <img class="img" src="../images/chant.jpg" alt="" />
+        <img class="img" src="../../images/chant.jpg" alt="" />
         <p>Chanter est pour toi plus qu’une envie , un besoin!</p>
         <p>Pose ta voix <a class="link" href="/add-contents">ici</a></p>
       </div>
 
       <div class="writing">
-        <img class="img" src="../images/ecriture.jpg" alt="" />
+        <img class="img" src="../../images/ecriture.jpg" alt="" />
         <p>Tu aimes exprimer ce que tu ressens grace à l’écriture.</p>
         <p>Ajoute ton texte <a class="link" href="/add-contents">ici</a></p>
       </div>
 
       <div class="compo">
-        <img class="img" src="../images/photo compo.jpg" alt="" />
+        <img class="img" src="../../images/photo compo.jpg" alt="" />
         <p>Ton instrument de musique est ton ami.</p>
         <p>
           Ajoute tes compositions <a class="link" href="/add-contents">ici</a>
@@ -28,15 +28,15 @@
 </template>
 
 <script>
-import Navbar from "../layouts/Navbar.vue";
-import Footer from "../layouts/Footer.vue";
+import Navbar from "../../layouts/Navbar.vue";
+import Footer from "../../layouts/Footer.vue";
 
 export default {
   name: "Creations",
   components: {
     Navbar,
-    Footer,
-  },
+    Footer
+  }
 };
 </script>
 
@@ -49,12 +49,11 @@ export default {
 }
 
 .img {
-  width: 40px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
 }
 
 .link {
   color: magenta;
 }
-
 </style>

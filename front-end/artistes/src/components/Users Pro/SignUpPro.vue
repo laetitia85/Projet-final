@@ -111,7 +111,7 @@
                   >Mot de passe requis</span
                 >
                 <span v-if="!$v.userPro.password.minLength"
-                  >Le mot de passe doit contenir au minimum 6 caractères</span
+                  >Le mot de passe doit contenir au minimum 8 caractères</span
                 >
               </div>
             </div>
@@ -230,10 +230,10 @@
 </template>
 
 <script>
-import NavBarSignUpPro from "../layouts/NavBarSignUpPro";
+import NavBarSignUpPro from "../../layouts/NavBarSignUpPro";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import Footer from "../layouts/Footer";
+import Footer from "../../layouts/Footer";
 
 export default {
   name: "SignUpPro",
@@ -274,7 +274,7 @@ export default {
       name: { required, minLength: minLength(2) },
       first_name: { required, minLength: minLength(3) },
       email: { required, email },
-      password: { required, minLength: minLength(6) },
+      password: { required, minLength: minLength(8) },
       passwordcheck: { required, sameAsPassword: sameAs("password") },
       enterprise_name: { required, minLength: minLength(3) },
       siret_number: { required, minLength: minLength(6) },
@@ -357,7 +357,7 @@ export default {
   color: #000000 !important;
 }
 .btn {
-  background-image: url("../images/bgcolor bouton.jpg");
+  background-image: url("../../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBarAdmin />
+    <NavBarSignUp />
     <div class="container">
       <br /><br />
       <mdb-card>
@@ -20,19 +20,19 @@
                 label="Nom"
                 type="text"
                 icon="user"
-                v-model="admin.name"
-                value="admin.name"
+                v-model="user.name"
+                value="user.name"
                 id="name"
                 name="name"
-                @input="$v.admin.name.$touch()"
-                :class="{ 'is-invalid': submitted && $v.admin.name.$error }"
+                @input="$v.user.name.$touch()"
+                :class="{ 'is-invalid': submitted && $v.user.name.$error }"
               />
               <div
-                v-if="submitted && !$v.admin.name.required"
+                v-if="submitted && !$v.user.name.required"
                 class="invalid-feedback"
               >
                 Le nom est requis
-                <span v-if="!$v.admin.name.minLength"
+                <span v-if="!$v.user.name.minLength"
                   >Le nom doit contenir au moins 2 lettres</span
                 >
               </div>
@@ -43,21 +43,21 @@
                 label="Prénom"
                 type="text"
                 icon="user"
-                v-model="admin.first_name"
-                value="admin.first_name"
+                v-model="user.first_name"
+                value="user.first_name"
                 id="first_name"
                 name="first_name"
-                @input="$v.admin.first_name.$touch()"
+                @input="$v.user.first_name.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.admin.first_name.$error
+                  'is-invalid': submitted && $v.user.first_name.$error
                 }"
               />
               <div
-                v-if="submitted && !$v.admin.first_name.required"
+                v-if="submitted && !$v.user.first_name.required"
                 class="invalid-feedback"
               >
                 Le prénom est requis
-                <span v-if="!$v.admin.first_name.minLength"
+                <span v-if="!$v.user.first_name.minLength"
                   >Le prénom doit contenir au moins 3 lettres</span
                 >
               </div>
@@ -68,18 +68,18 @@
                 label="Email"
                 type="email"
                 icon="at"
-                v-model="admin.email"
-                value="admin.email"
+                v-model="user.email"
+                value="user.email"
                 id="email"
                 name="email"
-                :class="{ 'is-invalid': submitted && $v.admin.email.$error }"
+                :class="{ 'is-invalid': submitted && $v.user.email.$error }"
               />
               <div
-                v-if="submitted && $v.admin.email.$error"
+                v-if="submitted && $v.user.email.$error"
                 class="invalid-feedback"
               >
-                <span v-if="!$v.admin.email.required">Email requis</span>
-                <span v-if="!$v.admin.email.email">Email invalide</span>
+                <span v-if="!$v.user.email.required">Email requis</span>
+                <span v-if="!$v.user.email.email">Email invalide</span>
               </div>
             </div>
 
@@ -88,23 +88,23 @@
                 label="Mot de passe"
                 type="password"
                 icon="lock"
-                v-model="admin.password"
-                value="admin.password"
+                v-model="user.password"
+                value="user.password"
                 id="password"
                 name="password"
                 :class="{
-                  'is-invalid': submitted && $v.admin.password.$error,
+                  'is-invalid': submitted && $v.user.password.$error
                 }"
               />
               <div
-                v-if="submitted && $v.admin.password.$error"
+                v-if="submitted && $v.user.password.$error"
                 class="invalid-feedback"
               >
-                <span v-if="!$v.admin.password.required"
+                <span v-if="!$v.user.password.required"
                   >Mot de passe requis</span
                 >
-                <span v-if="!$v.admin.password.minLength"
-                  >Le mot de passe doit contenir au minimum 6 caractères</span
+                <span v-if="!$v.user.password.minLength"
+                  >Le mot de passe doit contenir au minimum 8 caractères</span
                 >
               </div>
             </div>
@@ -114,22 +114,22 @@
                 label="Confirmer le mot de passe"
                 type="password"
                 icon="exclamation-triangle"
-                v-model="admin.passwordcheck"
-                value="admin.passwordcheck"
+                v-model="user.passwordcheck"
+                value="user.passwordcheck"
                 id="passwordcheck"
                 name="passwordcheck"
                 :class="{
-                  'is-invalid': submitted && $v.admin.passwordcheck.$error
+                  'is-invalid': submitted && $v.user.passwordcheck.$error
                 }"
               />
               <div
-                v-if="submitted && $v.admin.passwordcheck.$error"
+                v-if="submitted && $v.user.passwordcheck.$error"
                 class="invalid-feedback"
               >
-                <span v-if="!$v.admin.passwordcheck.required"
+                <span v-if="!$v.user.passwordcheck.required"
                   >Le mot de passe est requis</span
                 >
-                <span v-if="!$v.admin.passwordcheck.sameAsPassword"
+                <span v-if="!$v.user.passwordcheck.sameAsPassword"
                   >Vous devez fournir le meme mot de passe.</span
                 >
                 <span
@@ -138,26 +138,27 @@
                 ></span>
               </div>
             </div>
+
             <div class="black-text">
               <mdb-input
                 label="Photo de profil"
                 type="text"
                 icon="image"
-                v-model="admin.picture_profil_a"
-                value="admin.picture_profil_a"
+                v-model="user.picture_profil"
+                value="user.picture_profil"
                 id="pictureprofil"
                 name="picture_profil"
-                @input="$v.admin.picture_profil_a.$touch()"
+                @input="$v.user.picture_profil.$touch()"
                 :class="{
-                  'is-invalid': submitted && $v.admin.picture_profil_a.$error
+                  'is-invalid': submitted && $v.user.picture_profil.$error
                 }"
               />
               <div
-                v-if="submitted && !$v.admin.picture_profil_a.required"
+                v-if="submitted && !$v.user.picture_profil.required"
                 class="invalid-feedback"
               >
                 Photo de profil requise
-                <span v-if="!$v.admin.picture_profil_a.minLength"
+                <span v-if="!$v.user.picture_profil.minLength"
                   >Merci de fournir une photo de profil ou une image</span
                 >
               </div>
@@ -176,13 +177,13 @@
 <script>
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
-import Footer from "../layouts/Footer";
-import NavBarAdmin from "../layouts/NavBarAdmin";
+import Footer from "../../layouts/Footer";
+import NavBarSignUp from "../../layouts/NavBarSignUp";
 
 export default {
   name: "SignUp",
   components: {
-    NavBarAdmin,
+    NavBarSignUp,
     mdbInput,
     mdbBtn,
     mdbCard,
@@ -192,14 +193,14 @@ export default {
 
   data() {
     return {
-      admin: {
+      user: {
         name: "",
         first_name: "",
         email: "",
         password: "",
         passwordcheck: "",
-        picture_profil_a: "",
-        id_admin: this.$store.state.tokenIdAdmin
+        picture_profil: "",
+        id_a: this.$store.state.tokenId
       },
       submitted: false
       // lol: false
@@ -210,9 +211,9 @@ export default {
       name: { required, minLength: minLength(2) },
       first_name: { required, minLength: minLength(3) },
       email: { required, email },
-      password: { required, minLength: minLength(6) },
+      password: { required, minLength: minLength(8) },
       passwordcheck: { required, sameAsPassword: sameAs("password") },
-      picture_profil_a: { required, minLength: minLength(6) }
+      picture_profil: { required, minLength: minLength(6) }
     }
   },
   methods: {
@@ -228,24 +229,20 @@ export default {
       evt.preventDefault();
       // console.log("lol");
       this.axios
-        .post("http://localhost:8000/admin/sign-up", this.admin)
+        .post("http://localhost:8000/users/sign-up", this.user)
         .then(response => {
-          console.log(response.data);
-          this.$store.dispatch(
-            "addAdmin",
-            {
-              name: "",
-              first_name: "",
-              email: "",
-              password: "",
-              picture_profil_a: "",
-              id_admin: ""
-            },
-            response.data
-          );
+          console.log(response);
+          this.$store.dispatch("recUsers", {
+            name: "",
+            first_name: "",
+            email: "",
+            password: "",
+            picture_profil: "",
+            id_a: ""
+          });
           // this.lol = true;
           alert("Vous etes enregistrer! vous pouvez vous connecter");
-          this.$router.push("/sign-in-admin");
+          this.$router.push("/sign-in");
         })
         .catch(function(error) {
           console.log(error);
@@ -254,12 +251,12 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.admin.name = "";
-      this.admin.first_name = "";
-      this.admin.email = "";
-      this.admin.password = "";
-      this.admin.passwordcheck = "";
-      this.admin.picture_profil_a = "";
+      this.user.name = "";
+      this.user.first_name = "";
+      this.user.email = "";
+      this.user.password = "";
+      this.user.passwordcheck = "";
+      this.user.picture_profil = "";
       this.$v.$reset();
     },
     handleSubmit(e) {
@@ -269,7 +266,7 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      alert("Tous les champs sont remplis! Vous pouvez vous inscrire.");
+      alert("Tout les champs sont remplis! Vous pouvez vous inscrire.");
     }
   }
 };
@@ -287,7 +284,7 @@ export default {
   color: #000000 !important;
 }
 .btn {
-  background-image: url("../images/bgcolor bouton.jpg");
+  background-image: url("../../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
 }

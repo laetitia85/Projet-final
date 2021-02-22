@@ -1,27 +1,28 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store/store.js";
-//ARTISTES
+
 import Home from "../views/Home.vue";
-import SignUp from "../components/SignUp.vue";
-import SignIn from "../components/SignIn.vue";
+//ARTISTES
+import SignUp from "../components/Users Artistes/SignUp.vue";
+import SignIn from "../components/Users Artistes/SignIn.vue";
 import Profil from "../views/Profil.vue";
-import Creations from "../components/Creations.vue";
-import AddContent from "../components/AddContent.vue";
-import MesPosts from "../components/MesPosts.vue";
+import Creations from "../components/Users Artistes/Creations.vue";
+import AddContent from "../components/Users Artistes/AddContent.vue";
+import MesPosts from "../components/Users Artistes/MesPosts.vue";
 import Contact from "../views/Contact.vue";
 //PRO
-import SignUpPro from "../components/SignUpPro.vue";
-import SignInPro from "../components/SignInPro.vue";
+import SignUpPro from "../components/Users Pro/SignUpPro.vue";
+import SignInPro from "../components/Users Pro/SignInPro.vue";
 import ProfilPro from "../views/ProfilPro.vue";
-import AllPosts from "../components/AllPosts.vue";
+import AllPosts from "../components/Users Pro/AllPosts.vue";
 import ContactPro from "../views/ContactPro.vue";
 //ADMIN
-import SignUpAdmin from "../components/SignUpAdmin.vue";
-import SignInAdmin from "../components/SignInAdmin.vue";
+import SignUpAdmin from "../components/Admin/SignUpAdmin.vue";
+import SignInAdmin from "../components/Admin/SignInAdmin.vue";
 import ProfilAdmin from "../views/ProfilAdmin.vue";
-import Users from "../components/Users.vue";
-import Posts from "../components/Posts.vue";
+import Users from "../components/Admin/Users.vue";
+import Posts from "../components/Admin/Posts.vue";
 
 Vue.use(VueRouter);
 
