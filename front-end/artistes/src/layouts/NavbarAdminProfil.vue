@@ -16,6 +16,9 @@
           <mdb-nav-item
             ><router-link to="/posts">Posts</router-link></mdb-nav-item
           >
+            <mdb-nav-item
+            ><router-link to="/commentsA">Commentaires</router-link></mdb-nav-item
+          >
         </mdb-navbar-nav>
         <mdb-btn gradient="aqua" rounded @click="DeleteTokenAdmin()"
           >Deconnexion</mdb-btn

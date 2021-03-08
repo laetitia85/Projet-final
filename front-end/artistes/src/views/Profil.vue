@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container">
+    <div class="contain">
       <br /><br />
       <h3>Bienvenue {{ TokenNameUser }}</h3>
       <br>
@@ -149,46 +149,16 @@ export default {
         });
     }
   }
-
-  //   Delete() {
-  //     this.axios
-  //       .delete(`http://localhost:8000/users/${this.$store.state.tokenId}`)
-  //       .then(response => {
-  //         console.log(response);
-  //         if (response.status === 200) {
-  //           this.$store.dispatch("deleteToken", response.data.tokenId);
-  //           this.axios
-  //             .delete(
-  //               `http://localhost:8000/contents/${this.$store.state.tokenIdContent}`
-  //             )
-  //             .then(response => {
-  //               console.log(response);
-  //               console.log(this.$store.state.tokenIdContent);
-  //               if (response.status === 200) {
-  //                 this.$store.dispatch(
-  //                   "deleteMyPosts",
-  //                   response.data.tokenIdContent
-  //                 );
-  //               }
-  //               alert("Le contenu à bien été supprimé");
-  //             });
-  //           this.$router.push("/");
-  //         }
-  //       })
-  //       .catch(function(error) {
-  //         console.log(error);
-  //       });
-  //   }
-  // }
 };
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 2rem;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
 }
 .cards {
   background-color: #41d1cc;

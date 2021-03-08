@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container">
+    <div class="contain">
       <br /><br />
       <div class="bgcolorform">
         <br />
@@ -61,12 +61,13 @@ export default {
 </script>
 
 <style scoped>
-.container,
-.container-lg,
-.container-md,
-.container-sm {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  padding-bottom: 30px;
+  width: 100%;
 }
 h2 {
   color: magenta;

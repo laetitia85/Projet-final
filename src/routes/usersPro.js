@@ -21,10 +21,21 @@ app.get("/usersPro", (req, res) => {
     try {
       bcrypt.hash(req.body.password, saltRounds).then(function(passwordHash) {
         sql.query(
-          `INSERT INTO pro_users (name,first_name,email,password,pro_type,picture,enterprise_name,siret_number) VALUES ('${req.body.name}','${req.body.first_name}','${req.body.email}','${passwordHash}','${req.body.pro_type}','${req.body.picture}','${req.body.enterprise_name}', '${req.body.siret_number}')`
-        );
+          `INSERT INTO pro_users (name,first_name,email,password,pro_type,picture,enterprise_name,siret_number) 
+          VALUES (
+          '${req.body.name}',
+          '${req.body.first_name}',
+          '${req.body.email}',
+          '${passwordHash}',
+          '${req.body.pro_type}',
+          '${req.body.picture}',
+          '${req.body.enterprise_name}',
+          '${req.body.siret_number}')`, (err, result) => {
+
+            if(err == null) res.status(200).send("Vous etes bien enregistrer");
+            else res.status(401).json("Erreur enregistrement")
+          });
       });
-      res.status(200).send("Vous etes bien enregistrer");
     } catch (err) {
       console.log(err);
     }

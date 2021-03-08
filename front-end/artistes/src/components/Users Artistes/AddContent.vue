@@ -32,7 +32,6 @@
                 name="date"
                 type="date"
               />
-
               <mdb-input
                 v-model="content.category"
                 value="content.category"
@@ -109,16 +108,6 @@ export default {
       ]
     };
   },
-
-  // beforeMount() {
-  //   this.axios
-  //     .get(`http://localhost:8000/contents/${this.$store.state.tokenId}`)
-  //     .then(response => {
-  //       console.log(response.data);
-  //       this.$store.dispatch("decodeTokenId", response.data.id_user_a),
-  //         this.$store.dispatch("recContentId", response.data.id_c);
-  //     });
-  // }
   methods: {
     setChange(evt) {
       let myinput = evt.target;
@@ -141,25 +130,23 @@ export default {
         })
 
         .then(response => {
-          console.log(response);
-          this.$store
-            .dispatch("recContent", "addContentId", response.config.data, {
-              content_type: "",
-              title: "",
-              date: "",
-              category: "",
-              duration: "",
-              content: "",
-              id_user_a: "",
-              id_c: ""
-            })
-
-            .catch(function(error) {
-              console.log(error);
+          let data = JSON.parse(response.config.data)
+          console.log(data);
+          console.log(data["title"])
+          this.$store.dispatch("recContent", data)
+          this.$store.dispatch("addContentId", data)
+          this.content.content_type = "";
+          this.content.title = "";
+          this.content.date = "";
+          this.content.category = "";
+          this.content.duration = "";
+          this.content.content = "";
+           })
+          .catch(function(error) {
+            console.log(error);
             }),
             alert("Contenu ajouté avec succès");
-        });
-    },
+       },
 
     onReset(evt) {
       evt.preventDefault();
@@ -169,7 +156,6 @@ export default {
       this.content.category = "";
       this.content.duration = "";
       this.content.content = "";
-      // this.content.id_user_a = "";
     }
   }
 };

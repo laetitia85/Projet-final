@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBarSignIn />
-    <div class="container">
+        <b-container fluid class="contain">
       <br /><br />
       <mdb-card>
         <mdb-card-body class="bgcolorform">
@@ -30,8 +30,9 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
-    </div>
+      <br /><br />
+    <!-- </div> -->
+      </b-container>
     <Footer />
   </div>
 </template>
@@ -61,13 +62,6 @@ export default {
   },
 
   methods: {
-    // parseJwt(token) {
-    //   console.log(token);
-
-    //   let f = JSON.parse(atob(token.split(".")[1]));
-    //   console.log(f);
-    //   return f;
-    // },
     parseJwt(token) {
       console.log(token);
       let base64Url = token.split(".")[1];
@@ -122,9 +116,13 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
+  min-height: 77vh;
 }
 .bgcolorform {
   background-color: #41d1cc;

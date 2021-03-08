@@ -5,8 +5,7 @@ module.exports = (req, res, next) => {
     let token = req.headers.authorization;
     jwt.verify(token, process.env.jwtKey, (err, decoded) => {
        console.log(decoded)
-       console.log(ccc)
-      if (decoded.id_a === req.body.id_a) {
+      if (decoded.id === req.body.id_a) {
         next();
       } else {
         res.status(400).send({ msg: "invalid token " });

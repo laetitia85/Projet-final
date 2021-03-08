@@ -6,9 +6,14 @@
           ><router-link to="/">Accueil</router-link></mdb-nav-item
         >
       </mdb-navbar-nav>
-      <h1 class="title">
+      <h1 class="navbar-brand" id="text">
         ART<img class="micro" src="../images/micro titre.png" alt="" />STES
       </h1>
+      <!-- <div class="text">
+        <h1 class="title">
+          ART<img class="micro" src="../images/micro titre.png" alt="" />STES
+        </h1>
+      </div> -->
     </mdb-navbar>
   </div>
 </template>
@@ -30,15 +35,31 @@ export default {
 .bgcolornav {
   background-image: url("../images/bgnavbar.jpg");
 }
-h1 {
+.navbar-brand {
+  position: absolute;
+  width: 100%;
+  left: 0;
   text-align: center;
+  margin: 0;
+  font-size: 60px;
 }
-
-.title {
+.navbar-brand h1 {
+  font-family: charm;
+  margin: 0;
+}
+/* .text {
+  display: flex;
+  justify-content: flex-start;
+  margin: auto;
+  background: red;
+} */
+#text{
+  margin:0;
+}
+/* .title {
   text-align: center;
   font-family: charm;
-}
-
+} */
 .micro {
   height: 50px;
   width: 20px;

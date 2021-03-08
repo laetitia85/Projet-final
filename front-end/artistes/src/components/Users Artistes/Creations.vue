@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container">
+    <div class="contain">
       <br /><br />
       <div class="bgcolorform">
         <p class="sing">
@@ -49,11 +49,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 2rem;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
 }
 .img {
   width: 100px;
@@ -62,7 +63,6 @@ export default {
 }
 .bgcolorform {
   background-color: #41d1cc;
-  width: 60%;
   margin: auto;
 }
 .link {

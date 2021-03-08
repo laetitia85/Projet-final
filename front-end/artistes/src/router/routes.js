@@ -17,12 +17,14 @@ import SignInPro from "../components/Users Pro/SignInPro.vue";
 import ProfilPro from "../views/ProfilPro.vue";
 import AllPosts from "../components/Users Pro/AllPosts.vue";
 import ContactPro from "../views/ContactPro.vue";
+import Comments from "../components/Users Pro/Comments.vue";
 //ADMIN
-import SignUpAdmin from "../components/Admin/SignUpAdmin.vue";
+// import SignUpAdmin from "../components/Admin/SignUpAdmin.vue";
 import SignInAdmin from "../components/Admin/SignInAdmin.vue";
 import ProfilAdmin from "../views/ProfilAdmin.vue";
 import Users from "../components/Admin/Users.vue";
 import Posts from "../components/Admin/Posts.vue";
+import CommentsA from "../components/Admin/CommentsA.vue";
 
 Vue.use(VueRouter);
 
@@ -108,6 +110,11 @@ const routes = [
     component: ContactPro
   },
   {
+    path: "/comments",
+    name: "Comments",
+    component: Comments
+  },
+  {
     path: "/profil-pro",
     name: "ProfilPro",
     component: ProfilPro,
@@ -131,11 +138,11 @@ const routes = [
   },
   //ADMIN
 
-  {
-    path: "/sign-up-admin",
-    name: "SignUpAdmin",
-    component: SignUpAdmin
-  },
+  // {
+  //   path: "/sign-up-admin",
+  //   name: "SignUpAdmin",
+  //   component: SignUpAdmin
+  // },
   {
     path: "/sign-in-admin",
     name: "SignInAdmin",
@@ -151,6 +158,11 @@ const routes = [
     name: "Posts",
     component: Posts
   },
+  {
+  path: "/commentsA",
+  name: "CommentsA",
+  component: CommentsA
+},
   {
     path: "/profil-admin",
     name: "ProfilAdmin",

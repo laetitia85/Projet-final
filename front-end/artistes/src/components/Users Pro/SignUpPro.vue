@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBarSignUpPro />
-    <div class="container">
+    <div class="contain">
       <mdb-card>
         <mdb-card-body class="bgcolorform">
           <form
@@ -10,8 +10,14 @@
             @reset="onReset"
             @onChange="setChange"
           >
-            <p v-if="lol == true">
-              Vous etes enregistrer ! Vous pouvez vous connecter
+            <p v-if="message == 'false'">
+              Tous les champs doivent etre remplis !
+            </p>
+            <p v-if="message == 'error'">
+              Cette adresse mail existe déja !
+            </p>
+            <p v-else-if="message == 'true'">
+              Vous etes enregistrer ! Vous pouvez vous connecter !
             </p>
 
             <div>
@@ -266,7 +272,7 @@ export default {
         { text: "Un indépendant", value: "un indépendant" }
       ],
       submitted: false,
-      lol: false
+      message: ""
     };
   },
   validations: {
@@ -291,36 +297,67 @@ export default {
       });
     },
 
-    async onSubmit(evt) {
-      // console.log("lol");
+    onSubmit(evt) {
       evt.preventDefault();
-      await this.axios
-        .post("http://localhost:8000/usersPro/sign-up-pro", this.userPro)
-        .then(response => {
-          console.log(response);
-          this.$store.dispatch("addUsersPro", {
-            pro_type: "",
-            name: "",
-            first_name: "",
-            email: "",
-            password: "",
-            enterprise_name: "",
-            siret_number: "",
-            picture: "",
-            id_p: ""
+      if (
+        this.userPro.pro_type === "" ||
+        this.userPro.name === "" ||
+        this.userPro.first_name === "" ||
+        this.userPro.email === "" ||
+        this.userPro.password === "" ||
+        this.userPro.passwordcheck === "" ||
+        this.userPro.enterprise_name === "" ||
+        this.userPro.siret_number === "" ||
+        this.userPro.picture === ""
+      ) {
+        this.message = "false";
+      } else {
+        this.axios
+          .post("http://localhost:8000/usersPro/sign-up-pro", this.userPro)
+          .then(response => {
+            console.log(response);
+            this.userPro.pro_type = "";
+            this.userPro.name = "";
+            this.userPro.first_name = "";
+            this.userPro.email = "";
+            this.userPro.password = "";
+            this.userPro.enterprise_name = "";
+            this.userPro.siret_number = "";
+            this.userPro.picture = "";
+            this.message = "true";
+
+            this.$store.dispatch("addUsersPro", {
+              pro_type: "",
+              name: "",
+              first_name: "",
+              email: "",
+              password: "",
+              enterprise_name: "",
+              siret_number: "",
+              picture: "",
+              id_p: ""
+            });
+            alert("Vous etes enregistrer! vous pouvez vous connecter");
+            this.$router.push("/sign-in-pro");
+          })
+          .catch(error => {
+            console.log(error);
+            this.userPro.pro_type = "";
+            this.userPro.name = "";
+            this.userPro.first_name = "";
+            this.userPro.email = "";
+            this.userPro.password = "";
+            this.userPro.enterprise_name = "";
+            this.userPro.siret_number = "";
+            this.userPro.picture = "";
+            this.message = "error";
           });
-          this.lol = true;
-          alert("Vous etes enregistrer! vous pouvez vous connecter");
-          this.$router.push("/sign-in-pro");
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      }
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      // this.userPro.pro_type = "";
+      this.userPro.pro_type = "";
       this.userPro.name = "";
       this.userPro.first_name = "";
       this.userPro.email = "";
@@ -349,9 +386,14 @@ export default {
 .bgcolorform {
   background-color: #41d1cc;
 }
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 100%;
 }
 .black-text label {
   color: #000000 !important;
