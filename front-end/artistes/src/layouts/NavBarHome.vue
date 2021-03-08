@@ -9,11 +9,6 @@
       <h1 class="navbar-brand" id="text">
         ART<img class="micro" src="../images/micro titre.png" alt="" />STES
       </h1>
-      <!-- <div class="text">
-        <h1 class="title">
-          ART<img class="micro" src="../images/micro titre.png" alt="" />STES
-        </h1>
-      </div> -->
     </mdb-navbar>
   </div>
 </template>
@@ -47,21 +42,14 @@ export default {
   font-family: charm;
   margin: 0;
 }
-/* .text {
-  display: flex;
-  justify-content: flex-start;
-  margin: auto;
-  background: red;
-} */
 #text{
-  margin:0;
-}
-/* .title {
-  text-align: center;
+  margin: 0;
   font-family: charm;
-} */
+  font-size: 40px;
+  color: black;
+}
 .micro {
-  height: 50px;
+  height: 43px;
   width: 20px;
 }
 .linknav a {

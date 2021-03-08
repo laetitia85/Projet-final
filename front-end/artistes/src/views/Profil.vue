@@ -139,8 +139,8 @@ export default {
                 if (response.status === 200) {
                   this.$store.dispatch("deleteMyPosts", id);
                 }
-                alert("Votre compte et vos posts ont bien été supprimé");
-              });
+            });
+            alert("Votre compte et vos posts ont bien été supprimé");
             this.$router.push("/");
           }
         })

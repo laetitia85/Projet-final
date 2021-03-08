@@ -131,19 +131,10 @@ export default new Vuex.Store({
       state.commentsId = myRecCommentId;
     },
     ADDCONTENTID(state, myAddContentId) {
-      state.contentsId.push(myAddContentId)
-      // for (let i = 0; i < state.contentsId.length; i++) {
-      //   if (state.contentsId[i].id_user_a === myAddContentId) {
-      //     state.contentsId.splice(i, 1);
-      //   }
-      // }
+      state.contentsId.push(myAddContentId);
     },
     ADDCOMMENTID(state, myAddCommentId) {
-      for (let i = 0; i < state.commentsId.length; i++) {
-        if (state.commentsId[i].id_post === myAddCommentId) {
-          state.commentsId.splice(i, 1);
-        }
-      }
+      state.commentsId.push(myAddCommentId);
     },
     ADDCONTENTBYCATEGORY(state, myCategoryTab) {
       state.categoryTab.push(myCategoryTab);
@@ -176,6 +167,13 @@ export default new Vuex.Store({
       for (let i = 0; i < state.comments.length; i++) {
         if (state.comments[i].id_com === myDeleteComments) {
           state.comments.splice(i, 1);
+        }
+      }
+    },
+    DELETEMYCOMMENTS(state, myDeleteMyComments) {
+      for (let i = 0; i < state.commentsId.length; i++) {
+        if (state.commentsId[i].id_com === myDeleteMyComments) {
+          state.commentsId.splice(i, 1);
         }
       }
     },
@@ -266,7 +264,7 @@ export default new Vuex.Store({
     },
     addContentId(context, myAddContentId) {
       context.commit("ADDCONTENTID", myAddContentId);
-      console.log(myAddContentId)
+      console.log(myAddContentId);
     },
     addCommentId(context, myAddCommentId) {
       context.commit("ADDCOMMENTID", myAddCommentId);
@@ -291,6 +289,9 @@ export default new Vuex.Store({
     },
     deleteMyPosts(context, myDeleteMyPosts) {
       context.commit("DELETEMYPOSTS", myDeleteMyPosts);
+    },
+    deleteMyComments(context, myDeleteMyComments) {
+      context.commit("DELETEMYCOMMENTS", myDeleteMyComments);
     }
   },
 

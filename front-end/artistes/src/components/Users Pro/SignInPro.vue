@@ -81,7 +81,7 @@ export default {
           this.$store.dispatch("decodeTokenIdPro", jwt.id_p);
           this.axios
             .get(
-              `http://localhost:8000/comments/${this.$store.state.tokenIdContent}`
+              `http://localhost:8000/comments/${this.$store.state.tokenIdComment}`
             )
             .then(response => {
               console.log(response.data);

@@ -96,7 +96,7 @@ export default {
 .container-cards {
   display: flex;
   justify-content: space-between;
-  padding: 5%;
+  padding: 15%;
 }
 .cards {
   background-color: #41d1cc;
@@ -109,5 +109,18 @@ export default {
   background-image: url("../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
+}
+
+@media screen and (max-width: 1024px) {
+  .cards {
+    background-color: #41d1cc;
+    display: columns;
+    justify-content: center;
+    width: 100%;
+    color: black !important;
+  }
+  .container-cards {
+    flex-direction: column;
+}
 }
 </style>
