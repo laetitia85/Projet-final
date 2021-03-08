@@ -3,7 +3,7 @@
     <NavbarAdminProfil />
     <div class="contain">
       <br />
-      <h2>Posts</h2>
+      <h2>Commentaires</h2>
       <table class="tabPosts">
         <colgroup>
           <col span="8" class="info" />
@@ -12,23 +12,15 @@
         <thead>
           <tr>
             <th>Id</th>
-            <th>Titre</th>
-            <th>Catégory</th>
-            <th>Durée</th>
-            <th>Type de contenu</th>
-             <th>Id-user_a</th>
+            <th>Commentaires</th>
             <!-- <th>Modifier</th> -->
             <th>Supprimer</th>
           </tr>
         </thead>
 
-        <tr class="tab" v-for="content in AllContent" :key="content.id_c">
-          <td>{{ content.id_c }}</td>
-          <td>{{ content.title }}</td>
-          <td>{{ content.category }}</td>
-          <td>{{ content.duration }}</td>
-          <td>{{ content.content_type }}</td>
-            <td>{{ content.id_user_a }}</td>
+        <tr class="tab" v-for="comment in AllComment" :key="comment.id_com">
+          <td>{{ comment.id_com }}</td>
+          <td>{{ comment.comment }}</td>
           <!-- <th>
             <mdb-btn color="success" icon="edit" size="sm">Modifier</mdb-btn>
           </th> -->
@@ -37,7 +29,7 @@
               color="danger"
               icon="trash-alt"
               size="sm"
-              @click="Delete(content.id_c)"
+              @click="Delete(comment.id_com)"
               >Supprimer</mdb-btn
             >
           </th>
@@ -55,7 +47,7 @@ import Footer from "../../layouts/Footer.vue";
 import { mdbBtn } from "mdbvue";
 
 export default {
-  name: "Posts",
+  name: "CommentsA",
   components: {
     Footer,
     NavbarAdminProfil,
@@ -64,19 +56,14 @@ export default {
 
   data() {
     return {
-      content: {
-        content_type: "",
-        title: "",
-        date: "",
-        category: "",
-        duration: "",
-        content: "",
-        id_c: this.$store.state.tokenIdContent
+      comment: {
+        comment: "",
+        id_com: this.$store.state.tokenIdComment
       }
     };
   },
 
-  computed: { ...mapGetters(["AllContent"]) },
+  computed: { ...mapGetters(["AllComment"]) },
 
   // async mounted() {
   //   try {
@@ -93,11 +80,11 @@ export default {
   methods: {
     Delete(id) {
       this.axios
-        .delete(`http://localhost:8000/adminC/${id}`)
+        .delete(`http://localhost:8000/adminCom/${id}`)
         .then(response => {
           console.log(response.data);
           if (response.status === 200) {
-            this.$store.dispatch("deletePosts", id);
+            this.$store.dispatch("deleteComments", id);
           }
         })
         .catch(function(error) {
@@ -115,7 +102,7 @@ export default {
   padding-left: 20px;
   margin: 0;
   width: 100%;
-  min-height: 80vh;
+  min-height: 75vh;
   padding-bottom: 30px;
 }
 table {
@@ -135,6 +122,6 @@ td {
 }
 .tabPosts {
   position: relative;
-  left: 200px;
+  left: 100px;
 }
 </style>

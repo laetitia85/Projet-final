@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBarHome />
-    <div class="container">
+    <div class="contain">
       <br /><br /><br />
       <img class="logo" style="--i" src="../images/logo.png" alt="" />
       <br /><br /><br /><br />
@@ -48,8 +48,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 import { mdbCard, mdbBtn, mdbCardBody } from "mdbvue";
 import Footer from "../layouts/Footer";
 import NavBarHome from "../layouts/NavBarHome";
@@ -67,12 +65,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  width: 100%;
+  height: 100%;
   padding: 0;
   margin: 0;
-  overflow: auto;
+  width: 100%;
 }
 
 .logo {
@@ -111,17 +109,5 @@ export default {
   background-image: url("../images/bgcolor bouton.jpg");
   background-size: 100%;
   text-shadow: 1px 1px 2px black;
-}
-
-.container-sm,
-.container-lg,
-.container-md,
-.container-fluid,
-.container-xl {
-  width: 100%;
-}
-mr-auto {
-  margin-right: 0;
-  margin-left: 0;
 }
 </style>

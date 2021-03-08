@@ -2,7 +2,7 @@
   <div>
     <Navbar />
     <div
-      class="container"
+      class="contain"
       v-for="content in ContentId"
       :key="content.id_user_a"
     >
@@ -53,6 +53,9 @@ export default {
   computed: {
     ...mapGetters(["ContentId"])
   },
+  mounted()  {
+    console.log(this.ContentId)
+  },
 
   methods: {
     Delete(id) {
@@ -75,10 +78,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
   margin: 0;
-  padding: 0;
+  width: 100%;
+  min-height: 80vh;
 }
 </style>

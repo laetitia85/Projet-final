@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBarSignUp />
-    <div class="container">
+    <div class="contain">
       <br /><br />
       <mdb-card>
         <mdb-card-body class="bgcolorform">
@@ -11,9 +11,15 @@
             @reset="onReset"
             @onChange="setChange"
           >
-            <!-- <p v-if="lol == true">
-              Vous etes enregistrer ! Vous pouvez vous connecter
-            </p> -->
+            <p v-if="message == 'false'">
+              Tous les champs doivent etre remplis !
+            </p>
+            <p v-if="message == 'error'">
+              Cette adresse existe déja !
+            </p>
+            <p v-else-if="message == 'true'">
+              Vous etes enregistrer ! Vous pouvez vous connecter !
+            </p>
 
             <div class="black-text">
               <mdb-input
@@ -169,7 +175,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>
@@ -203,8 +209,8 @@ export default {
         picture_profil: "",
         id_a: this.$store.state.tokenId
       },
-      submitted: false
-      // lol: false
+      submitted: false,
+      message: ""
     };
   },
   validations: {
@@ -228,26 +234,43 @@ export default {
     },
     onSubmit(evt) {
       evt.preventDefault();
-      // console.log("lol");
-      this.axios
-        .post("http://localhost:8000/users/sign-up", this.user)
-        .then(response => {
-          console.log(response);
-          this.$store.dispatch("recUsers", {
-            name: "",
-            first_name: "",
-            email: "",
-            password: "",
-            picture_profil: "",
-            id_a: ""
+      if (
+        this.user.name === "" ||
+        this.user.first_name === "" ||
+        this.user.email === "" ||
+        this.user.password === "" ||
+        this.user.passwordcheck === "" ||
+        this.user.picture_profil === ""
+      ) {
+        this.message = 'false';
+      } else {
+        this.axios
+          .post("http://localhost:8000/users/sign-up", this.user)
+          .then(response => {
+            console.log(response);
+            (this.user.name = ""),
+              (this.user.first_name = ""),
+              (this.user.email = ""),
+              (this.user.password = ""),
+              (this.user.picture_profil = ""),
+              (this.message = 'true');
+
+            this.$store.dispatch("recUsers", {
+              name: "",
+              first_name: "",
+              email: "",
+              password: "",
+              picture_profil: "",
+              id_a: ""
+            });
+            alert("Vous etes enregistrer! vous pouvez vous connecter");
+            this.$router.push("/sign-in");
+          })
+          .catch(function(error) {
+            console.log(error);
+            this.message = 'error';
           });
-          // this.lol = true;
-          alert("Vous etes enregistrer! vous pouvez vous connecter");
-          this.$router.push("/sign-in");
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      }
     },
     onReset(evt) {
       evt.preventDefault();
@@ -277,9 +300,12 @@ export default {
 .bgcolorform {
   background-color: #41d1cc;
 }
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
 }
 .black-text label {
   color: #000000 !important;

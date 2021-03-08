@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-// const isTokenIsValid = require('../middlewares/auth');
+const isTokenIsValid = require('../middlewares/auth');
 
 app.get("/users", (req, res) => {
   sql.query("SELECT * FROM artists_users", (err, response) => {
@@ -27,12 +27,10 @@ app.post("/users/sign-up",  (req, res) => {
         picture_profil: req.body.picture_profil
       };
       sql.query("INSERT INTO artists_users SET ?", newUser, (err, result) => {
-        if (err) {
-          console.log("error:", err);
-        }
-        res.status(200).send(result);
+        if(err == null) res.status(200).send("Vous etes bien enregistrer");
+        else res.status(401).json("Erreur enregistrement")
       });
-    });
+  });
   } catch (err) {
     console.log(err);
   }
@@ -125,18 +123,6 @@ app.put("/users/:id", (req, res) => {
     console.log(err);
   }
 });
-
-// app.delete("/users/:usersID", (req, res) => {
-//   sql.query(
-//     `DELETE FROM artists_users WHERE id_a ='${req.params.usersID}'`,
-//     function(err, result) {
-//       if (err) {
-//         res.status(400).send("Erreur");
-//       }
-//       res.status(200).send("Votre compte à bien été supprimé");
-//     }
-//   );
-// });
 
 app.delete("/users/:usersID", (req, res) => {
   sql.query(

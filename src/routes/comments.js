@@ -17,7 +17,6 @@ app.get("/comments", (req, res) => {
     try {
       let objet = {
         comments: req.body.comments,
-        id_post: req.body.id_post,
       };
       sql.query(`INSERT INTO comments SET ?`, objet, (err, result) => {
           if (err) {
@@ -34,16 +33,29 @@ app.get("/comments", (req, res) => {
     }
   })
 
-  app.get("/comments/:id", (req, res) => {
-    sql.query(
-      `SELECT comments.id_com, comments.comments, comments.id_post FROM comments INNER JOIN contents ON contents.id_user_a = comments.id_post WHERE comments.id_post = ${req.params.id}`,
-      (err, result) => {
-        if (err) {
-                  throw err;
+  // app.get("/comments/:id", (req, res) => {
+  //   sql.query(
+  //     `SELECT comments.id_com, comments.comments FROM comments INNER JOIN contents ON contents.id_c = comments.id_post WHERE comments.id_post = ${req.params.id}`,
+  //     (err, result) => {
+  //       if (err) {
+  //                 throw err;
+  //               }
+  //               res.send(result);
+  //             }
+  //           );
+  //         });
+
+          app.delete("/comments/:commentsID", (req, res) => {
+            sql.query(
+              `DELETE FROM comments WHERE id_com ='${req.params.commentsID}'`,
+              function(err, result) {
+                if (err) {
+                  res.status(400).send("Erreur");
                 }
-                res.send(result);
+                res.status(200).send("Le commentaire à bien été supprimé");
               }
             );
           });
+        
 
   module.exports = app;

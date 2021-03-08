@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBarSignInPro />
-    <div class="container">
+    <div class="contain">
       <mdb-card>
         <mdb-card-body class="bgcolorform">
           <form @submit="onSubmit" @reset="onReset">
@@ -105,9 +105,14 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
+  padding-top: 40px;
+  min-height: 77vh;
 }
 .bgcolorform {
   background-color: #41d1cc;

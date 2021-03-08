@@ -19,6 +19,7 @@ export default new Vuex.Store({
     tokenPicture: null,
     tokenPicture_profil_a: null,
     tokenIdContent: "",
+    tokenIdComment: "",
     contents: [],
     contentsId: [],
     users: [],
@@ -108,8 +109,14 @@ export default new Vuex.Store({
     DECODETOKENIDCONTENT(state, myDecodeTokenIdContent) {
       state.tokenIdContent = myDecodeTokenIdContent;
     },
+    DECODETOKENIDCOMMENT(state, myDecodeTokenIdComment) {
+      state.tokenIdComment = myDecodeTokenIdComment;
+    },
     ADDCONTENT(state, myAddContent) {
       state.contents = myAddContent;
+    },
+    ADDCOMMENT(state, myAddComment) {
+      state.comments = myAddComment;
     },
     RECCONTENT(state, myRecContent) {
       state.contents = myRecContent;
@@ -124,11 +131,12 @@ export default new Vuex.Store({
       state.commentsId = myRecCommentId;
     },
     ADDCONTENTID(state, myAddContentId) {
-      for (let i = 0; i < state.contentsId.length; i++) {
-        if (state.contentsId[i].id_user_a === myAddContentId) {
-          state.contentsId.splice(i, 1);
-        }
-      }
+      state.contentsId.push(myAddContentId)
+      // for (let i = 0; i < state.contentsId.length; i++) {
+      //   if (state.contentsId[i].id_user_a === myAddContentId) {
+      //     state.contentsId.splice(i, 1);
+      //   }
+      // }
     },
     ADDCOMMENTID(state, myAddCommentId) {
       for (let i = 0; i < state.commentsId.length; i++) {
@@ -161,6 +169,13 @@ export default new Vuex.Store({
       for (let i = 0; i < state.contents.length; i++) {
         if (state.contents[i].id_c === myDeletePosts) {
           state.contents.splice(i, 1);
+        }
+      }
+    },
+    DELETECOMMENTS(state, myDeleteComments) {
+      for (let i = 0; i < state.comments.length; i++) {
+        if (state.comments[i].id_com === myDeleteComments) {
+          state.comments.splice(i, 1);
         }
       }
     },
@@ -231,6 +246,9 @@ export default new Vuex.Store({
     decodeTokenIdContent(context, myDecodeTokenIdContent) {
       context.commit("DECODETOKENIDCONTENT", myDecodeTokenIdContent);
     },
+    decodeTokenIdComment(context, myDecodeTokenIdComment) {
+      context.commit("DECODETOKENIDCOMMENT", myDecodeTokenIdComment);
+    },
     addContent(context, myAddContent) {
       context.commit("ADDCONTENT", myAddContent);
     },
@@ -248,6 +266,7 @@ export default new Vuex.Store({
     },
     addContentId(context, myAddContentId) {
       context.commit("ADDCONTENTID", myAddContentId);
+      console.log(myAddContentId)
     },
     addCommentId(context, myAddCommentId) {
       context.commit("ADDCOMMENTID", myAddCommentId);
@@ -266,6 +285,9 @@ export default new Vuex.Store({
     },
     deletePosts(context, myDeletePosts) {
       context.commit("DELETEPOSTS", myDeletePosts);
+    },
+    deleteComments(context, myDeleteComments) {
+      context.commit("DELETECOMMENTS", myDeleteComments);
     },
     deleteMyPosts(context, myDeleteMyPosts) {
       context.commit("DELETEMYPOSTS", myDeleteMyPosts);
@@ -297,15 +319,23 @@ export default new Vuex.Store({
     AllContent: state => {
       return state.contents;
     },
+    AllComment: state => {
+      return state.comments;
+    },
     ContentId: state => {
       return state.contentsId;
+    },
+    CommentId: state => {
+      return state.commentsId;
     },
     CategoryTab: state => {
       return state.categoryTab;
     },
-    CategoryContentTab: state => {
-      return state.categoryContentTab;
-    },
+    // CategoryContentTab: state => category => {
+    //   return state.categoryContentTab.find(
+    //     categ => categ.category === category
+    //   );
+    // },
     AllUsers: state => {
       return state.users;
     },

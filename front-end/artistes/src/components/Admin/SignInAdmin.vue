@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavbarAdmin />
-    <div class="container">
+    <div class="contain">
       <br /><br />
       <mdb-card>
         <mdb-card-body class="bgcolorform">
@@ -30,7 +30,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>
@@ -101,7 +101,13 @@ export default {
                 .then(resultat => {
                   console.log(resultat.data);
                   this.$store.dispatch("recContent", resultat.data);
-                  // this.$store.dispatch("recContentId", resultat.data.id_c);
+
+                  this.axios
+                    .get("http://localhost:8000/comments")
+                    .then(resultat => {
+                      console.log(resultat.data);
+                      this.$store.dispatch("recComment", resultat.data);
+                    });
                 });
             });
           });
@@ -125,9 +131,13 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
+  min-height: 77vh;
 }
 .bgcolorform {
   background-color: #41d1cc;

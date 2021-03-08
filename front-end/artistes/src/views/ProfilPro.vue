@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbarpro />
-    <div class="container">
+    <div class="contain">
       <br />
       <h3>Bienvenue {{ TokenNamePro }}</h3>
       <br />
@@ -174,11 +174,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 2rem;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
 }
 .cards {
   background-color: #41d1cc;

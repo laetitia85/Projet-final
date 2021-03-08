@@ -1,17 +1,17 @@
 <template>
-  <mdb-footer class="bgcolor">
-    <mdb-row class="link">
-      <mdb-col sm="4">
+  <mdb-footer class="bgcolor" id="foot">
+    <mdb-row class="link" id="row">
+      <mdb-col sm="4" class="foo" >
         <p>2021 Copyright</p>
         <p>Laetitia de Bardin</p>
       </mdb-col>
-      <mdb-col sm="4">
+      <mdb-col sm="4" class="foo" >
         <p href="#!">Mentions Légales</p>
         <p href="#!">CGU</p>
       </mdb-col>
-      <mdb-col sm="4">
+      <mdb-col sm="4" class="foo" >
       <router-link to="/contact" active>Contact</router-link>
-        <ul class="list-unstyled list-inline">
+        <ul class="list-unstyled list-inline"> 
           <li class="list-inline-item">
             <a class="btn-floating btn-sm btn-fb mx-1"
               ><i class="fab fa-facebook"> </i
@@ -44,6 +44,12 @@ export default {
 .bgcolor {
   background-color: #c0c0c0;
 }
+#foot {
+   margin-top: 0 !important;
+}
+.mt-4 , .my-4{
+  margin-top: 0 !important;
+}
 .bgcolor p {
   color: black;
 }
@@ -52,5 +58,11 @@ export default {
 }
 .link a {
   color: black;
+}
+.foo {
+  padding: 0 !important;
+}
+#row {
+  margin:0 !important;
 }
 </style>

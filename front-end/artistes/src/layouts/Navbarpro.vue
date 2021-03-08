@@ -1,34 +1,28 @@
 <template>
   <div>
     <mdb-navbar class="bgcolornav">
-      <mdb-navbar-toggler>
-        <mdb-navbar-nav class="linknav">
-          <mdb-nav-item
-            ><router-link to="/profil-pro" active
-              >Profil</router-link
-            ></mdb-nav-item
-          >
-          <mdb-nav-item
-            ><router-link to="/allposts">Posts</router-link></mdb-nav-item
-          >
-          <mdb-nav-item
-            ><router-link to="/comments"
-              >Commentaires</router-link
-            ></mdb-nav-item
-          >
-          <mdb-nav-item
-            ><router-link to="/contact-pro">Contact</router-link></mdb-nav-item
-          >
-        </mdb-navbar-nav>
-        <img class="picture_profil" alt="" :src="TokenPicture" />
-        <mdb-btn
-          class="decobtn"
-          gradient="aqua"
-          rounded
-          @click="DeleteTokenPro()"
-          >Deconnexion</mdb-btn
+      <mdb-navbar-nav class="linknav">
+        <mdb-nav-item
+          ><router-link to="/profil-pro" active
+            >Profil</router-link
+          ></mdb-nav-item
         >
-      </mdb-navbar-toggler>
+        <mdb-nav-item
+          ><router-link to="/allposts">Posts</router-link></mdb-nav-item
+        >
+        <mdb-nav-item
+          ><router-link to="/allComments"
+            >Commentaires</router-link
+          ></mdb-nav-item
+        >
+        <mdb-nav-item
+          ><router-link to="/contact-pro">Contact</router-link></mdb-nav-item
+        >
+      </mdb-navbar-nav>
+      <img class="picture_profil" alt="" :src="TokenPicture" />
+      <mdb-btn class="decobtn" gradient="aqua" rounded @click="DeleteTokenPro()"
+        >Deconnexion</mdb-btn
+      >
     </mdb-navbar>
   </div>
 </template>
@@ -36,13 +30,7 @@
 <script>
 import { mapGetters } from "vuex";
 
-import {
-  mdbNavbar,
-  mdbNavItem,
-  mdbNavbarNav,
-  mdbNavbarToggler,
-  mdbBtn
-} from "mdbvue";
+import { mdbNavbar, mdbNavItem, mdbNavbarNav, mdbBtn } from "mdbvue";
 
 export default {
   name: "Navbar",
@@ -50,7 +38,6 @@ export default {
     mdbNavbar,
     mdbNavItem,
     mdbNavbarNav,
-    mdbNavbarToggler,
     mdbBtn
   },
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavbarAdminProfil />
-    <div class="container">
+    <div class="contain">
       <br />
       <h2>Artistes</h2>
       <table class="tabUsers" hover>
@@ -15,7 +15,7 @@
             <th>Nom</th>
             <th>Prénom</th>
             <th>E-mail</th>
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Supprimer</th>
           </tr>
         </thead>
@@ -25,16 +25,16 @@
           <td>{{ user.name }}</td>
           <td>{{ user.first_name }}</td>
           <td>{{ user.email }}</td>
-          <th>
+          <!-- <th>
             <mdb-btn color="success" icon="edit" size="sm"></mdb-btn>
-          </th>
+          </th> -->
           <th>
             <mdb-btn
               color="danger"
               icon="trash-alt"
               size="sm"
               @click="Delete(user.id_a)"
-            ></mdb-btn>
+            >Supprimer</mdb-btn>
           </th>
         </tr>
       </table>
@@ -52,7 +52,7 @@
             <th>Nom</th>
             <th>Prénom</th>
             <th>E-mail</th>
-            <th>Modifier</th>
+            <!-- <th>Modifier</th> -->
             <th>Supprimer</th>
           </tr>
         </thead>
@@ -62,9 +62,9 @@
           <td>{{ userPro.name }}</td>
           <td>{{ userPro.first_name }}</td>
           <td>{{ userPro.email }}</td>
-          <th>
+          <!-- <th>
             <mdb-btn color="success" icon="edit" size="sm">Modifier</mdb-btn>
-          </th>
+          </th> -->
           <th>
             <mdb-btn
               color="danger"
@@ -149,10 +149,14 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.contain {
   background-color: rgb(64, 224, 208, 0.25);
-  /* max-width: 1200px; */
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
   width: 100%;
+  min-height: 80vh;
+  padding-bottom: 30px;
 }
 table {
   border-collapse: collapse;
@@ -171,6 +175,6 @@ td {
 }
 .tabUsers {
   position: relative;
-  left: 200px;
+  left: 350px;
 }
 </style>
