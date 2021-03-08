@@ -8,7 +8,7 @@
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
-          <form>
+          <form >
             <div>
               <b-form-group label="Je suis" v-slot="{ ariaDescribedby }">
                 <b-form-radio-group
@@ -80,7 +80,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>
@@ -103,7 +103,7 @@ export default {
     mdbCardBody
   },
 
-   computed: { ...mapGetters(["TokenNamePro"]) },
+  computed: { ...mapGetters(["TokenNamePro"]) },
 
   data() {
     return {
@@ -142,12 +142,8 @@ export default {
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
-            console.log("aaaaa");
-            this.$store.dispatch(
-              userProData,
-              "updateUsersPro",
-              result.data.tokenIdPro
-            );
+            this.$store.dispatch(userProData, result.data.tokenIdPro);
+            this.$store.dispatch("updateUsersPro", result.data.tokenIdPro);
           }
         }
       } catch (error) {
@@ -169,7 +165,7 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
-  }
+  },
 };
 </script>
 

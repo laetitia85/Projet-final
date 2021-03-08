@@ -1,11 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div
-      class="contain"
-      v-for="content in ContentId"
-      :key="content.id_user_a"
-    >
+    <div class="contain" v-for="content in ContentId" :key="content.id_user_a">
       <br />
       <br />
       <iframe :src="content.content" width="320" height="240" controls />
@@ -53,8 +49,8 @@ export default {
   computed: {
     ...mapGetters(["ContentId"])
   },
-  mounted()  {
-    console.log(this.ContentId)
+  mounted() {
+    console.log(this.ContentId);
   },
 
   methods: {

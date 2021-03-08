@@ -18,6 +18,7 @@ import ProfilPro from "../views/ProfilPro.vue";
 import AllPosts from "../components/Users Pro/AllPosts.vue";
 import ContactPro from "../views/ContactPro.vue";
 import Comments from "../components/Users Pro/Comments.vue";
+import AllComments from "../components/Users Pro/AllComments.vue";
 //ADMIN
 // import SignUpAdmin from "../components/Admin/SignUpAdmin.vue";
 import SignInAdmin from "../components/Admin/SignInAdmin.vue";
@@ -115,6 +116,11 @@ const routes = [
     component: Comments
   },
   {
+    path: "/allcomments",
+    name: "AllComments",
+    component: AllComments
+  },
+  {
     path: "/profil-pro",
     name: "ProfilPro",
     component: ProfilPro,
@@ -123,7 +129,6 @@ const routes = [
       layout: "Navbarpro.vue"
     },
     beforeEnter: (to, from, next) => {
-      // console.log(store.state.tokenPro);
       let y = to.matched.some(elem => elem.meta.requiresAuth);
       console.log(y);
 
@@ -137,12 +142,6 @@ const routes = [
     }
   },
   //ADMIN
-
-  // {
-  //   path: "/sign-up-admin",
-  //   name: "SignUpAdmin",
-  //   component: SignUpAdmin
-  // },
   {
     path: "/sign-in-admin",
     name: "SignInAdmin",
@@ -159,10 +158,10 @@ const routes = [
     component: Posts
   },
   {
-  path: "/commentsA",
-  name: "CommentsA",
-  component: CommentsA
-},
+    path: "/commentsA",
+    name: "CommentsA",
+    component: CommentsA
+  },
   {
     path: "/profil-admin",
     name: "ProfilAdmin",

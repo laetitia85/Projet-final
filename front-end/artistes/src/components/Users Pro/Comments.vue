@@ -2,7 +2,7 @@
   <div>
     <Navbarpro />
     <div class="contain">
-        <br>
+      <br>
       <textarea  @reset="onReset"
         name="commentaire"
         v-model="comments.comments"
@@ -36,7 +36,8 @@ export default {
   data() {
     return {
       comments: {
-        comments: ""
+        comments: "",
+        id_com: this.$store.state.tokenIdComment
       }
     };
   },
@@ -52,15 +53,11 @@ export default {
         })
         .then(response => {
           console.log(response);
-
-          this.$store.dispatch(
-            "recComment",
-            "addCommentId",
-            response.config.data,
-            {
-              comments: ""
-            }
-          );
+          let data = JSON.parse(response.config.data);
+          console.log(data);
+          this.$store.dispatch("recComment", data);
+          this.$store.dispatch("addCommentId", data);
+          this.comments.comments = "";
         })
 
         .catch(function(error) {

@@ -82,13 +82,18 @@ h2 {
   float: right;
 }
 .img {
-  width: 140px;
-  height: 140px;
-  margin: 15px;
-  bottom: 20px;
+  width: 130px;
+  height: 100px;
+  margin: 25px;
 }
 .text {
   text-align: center;
   margin: 30px;
+}
+
+@media screen and (max-width: 1024px) {
+  .contactimg {
+    display: none;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container">
+    <div class="contain">
       <mdb-card class="bgcolorform">
         <mdb-card-body class="bgimg">
           <form @submit="addContent" @reset="onReset" @onChange="setChange">
@@ -130,23 +130,22 @@ export default {
         })
 
         .then(response => {
-          let data = JSON.parse(response.config.data)
+          let data = JSON.parse(response.config.data);
           console.log(data);
-          console.log(data["title"])
-          this.$store.dispatch("recContent", data)
-          this.$store.dispatch("addContentId", data)
+          this.$store.dispatch("recContent", data);
+          this.$store.dispatch("addContentId", data);
           this.content.content_type = "";
           this.content.title = "";
           this.content.date = "";
           this.content.category = "";
           this.content.duration = "";
           this.content.content = "";
-           })
-          .catch(function(error) {
-            console.log(error);
-            }),
-            alert("Contenu ajouté avec succès");
-       },
+        })
+        .catch(function(error) {
+          console.log(error);
+        }),
+        alert("Contenu ajouté avec succès");
+    },
 
     onReset(evt) {
       evt.preventDefault();
@@ -164,7 +163,10 @@ export default {
 <style scoped>
 .container {
   background-color: rgb(64, 224, 208, 0.25);
-  max-width: 1200px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0;
+  width: 100%;
 }
 .btn {
   background-image: url("../../images/bgcolor bouton.jpg");
