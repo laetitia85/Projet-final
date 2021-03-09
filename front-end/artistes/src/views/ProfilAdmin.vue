@@ -57,7 +57,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>
@@ -125,18 +125,23 @@ export default {
     },
 
     Delete() {
-      this.axios
-        .delete(`http://localhost:8000/admin/${this.$store.state.tokenIdAdmin}`)
-        .then(response => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteToken", response.data.tokenIdAdmin);
-            this.$router.push("/");
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer votre compte ?");
+      if (res) {
+        this.axios
+          .delete(
+            `http://localhost:8000/admin/${this.$store.state.tokenIdAdmin}`
+          )
+          .then(response => {
+            console.log(response);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteToken", response.data.tokenIdAdmin);
+              this.$router.push("/");
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   }
 };

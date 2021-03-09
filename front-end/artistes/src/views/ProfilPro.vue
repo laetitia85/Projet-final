@@ -8,7 +8,7 @@
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
-          <form >
+          <form>
             <div>
               <b-form-group label="Je suis" v-slot="{ ariaDescribedby }">
                 <b-form-radio-group
@@ -153,19 +153,26 @@ export default {
   },
 
   Delete() {
-    this.axios
-      .delete(`http://localhost:8000/usersPro/${this.$store.state.tokenIdPro}`)
-      .then(response => {
-        console.log(response);
-        if (response.status === 200) {
-          this.$store.dispatch("deleteToken", response.data.tokenIdPro);
-          this.$router.push("/");
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  },
+    let res = confirm(
+      "Êtes-vous sûr de vouloir supprimer votre compte et vos posts ?"
+    );
+    if (res) {
+      this.axios
+        .delete(
+          `http://localhost:8000/usersPro/${this.$store.state.tokenIdPro}`
+        )
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            this.$store.dispatch("deleteToken", response.data.tokenIdPro);
+            this.$router.push("/");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  }
 };
 </script>
 

@@ -2,8 +2,8 @@
   <div>
     <Navbarpro />
     <div class="contain" v-for="comment in CommentId" :key="comment.id_com">
-      <br><br>
-      <p><strong>Commentaire:</strong> <br>{{ comment.comments }}</p>
+      <br /><br />
+      <p><strong>Commentaire:</strong> <br />{{ comment.comments }}</p>
       <mdb-btn
         color="danger"
         icon="trash-alt"
@@ -43,19 +43,22 @@ export default {
 
   methods: {
     Delete(id) {
-      this.axios
-        .delete(`http://localhost:8000/comments/${id}`)
-        .then(response => {
-          console.log(response.data);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteMyComments", id);
-          }
-          alert("Le commentaire à bien été supprimé");
-        })
-        .catch(function(error) {
-          alert("impossible de supprimer le commentaire");
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer ce commentaire?");
+      if (res) {
+        this.axios
+          .delete(`http://localhost:8000/comments/${id}`)
+          .then(response => {
+            console.log(response.data);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteMyComments", id);
+            }
+            alert("Le commentaire à bien été supprimé");
+          })
+          .catch(function(error) {
+            alert("impossible de supprimer le commentaire");
+            console.log(error);
+          });
+      }
     }
   }
 };

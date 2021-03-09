@@ -55,19 +55,22 @@ export default {
 
   methods: {
     Delete(id) {
-      this.axios
-        .delete(`http://localhost:8000/contents/${id}`)
-        .then(response => {
-          console.log(response.data);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteMyPosts", id);
-          }
-          alert("Le contenu à bien été supprimé");
-        })
-        .catch(function(error) {
-          alert("impossible de supprimer le contenu");
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer ce contenu?");
+      if (res) {
+        this.axios
+          .delete(`http://localhost:8000/contents/${id}`)
+          .then(response => {
+            console.log(response.data);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteMyPosts", id);
+            }
+            alert("Le contenu à bien été supprimé");
+          })
+          .catch(function(error) {
+            alert("impossible de supprimer le contenu");
+            console.log(error);
+          });
+      }
     }
   }
 };

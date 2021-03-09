@@ -92,8 +92,8 @@ h2 {
   margin: 30px;
 }
 @media screen and (max-width: 1024px) {
-.contactimg {
-  display: none;
-}
+  .contactimg {
+    display: none;
+  }
 }
 </style>
