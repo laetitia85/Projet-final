@@ -2,18 +2,20 @@
   <div>
     <NavBarHome />
     <div class="contain">
-      <br /><br /><br />
-      <img class="logo" style="--i" src="../images/logo.png" alt="" />
       <br /><br /><br /><br />
+      <img class="logo" style="--i" src="../images/logo.png" alt="" />
+      <br /><br /><br /><br /><br /><br />
       <p>
         Que tu sois chanteur, auteur ou compositeur , je t’invite à t’exprimer
         et partager ta passion.
       </p>
+      <br />
       <p>
         Les maisons de disques et producteurs indépendants seront la pour
         t’écouter, te conseiller <br />
         et peut être démarrer une belle aventure à tes cotés.
       </p>
+      <br /><br />
       <p>Ici, le physique ne compte pas, seul le talent parlera pour toi !!!</p>
 
       <div class="container-cards">
@@ -121,6 +123,6 @@ export default {
   }
   .container-cards {
     flex-direction: column;
-}
+  }
 }
 </style>

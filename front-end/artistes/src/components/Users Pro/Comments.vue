@@ -2,8 +2,9 @@
   <div>
     <Navbarpro />
     <div class="contain">
-      <br>
-      <textarea  @reset="onReset"
+      <br />
+      <textarea
+        @reset="onReset"
         name="commentaire"
         v-model="comments.comments"
         value="comments.comments"
@@ -85,4 +86,5 @@ export default {
   margin: 0;
   width: 100%;
   min-height: 80vh;
-}</style>
+}
+</style>

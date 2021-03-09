@@ -29,7 +29,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>

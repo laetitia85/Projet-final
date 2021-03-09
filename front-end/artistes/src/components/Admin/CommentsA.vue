@@ -65,31 +65,22 @@ export default {
 
   computed: { ...mapGetters(["AllComment"]) },
 
-  // async mounted() {
-  //   try {
-  //     await this.axios.get("http://localhost:8000/contents").then((result) => {
-  //       console.log(result.data);
-  //       this.$store.dispatch("recContent", result.data);
-  //       this.$store.dispatch("deleteToken", result.data.id_c);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // },
-
   methods: {
     Delete(id) {
-      this.axios
-        .delete(`http://localhost:8000/adminCom/${id}`)
-        .then(response => {
-          console.log(response.data);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteComments", id);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer ce commentaire?");
+      if (res) {
+        this.axios
+          .delete(`http://localhost:8000/adminCom/${id}`)
+          .then(response => {
+            console.log(response.data);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteComments", id);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   }
 };

@@ -42,7 +42,7 @@ export default {
   font-family: charm;
   margin: 0;
 }
-#text{
+#text {
   margin: 0;
   font-family: charm;
   font-size: 40px;

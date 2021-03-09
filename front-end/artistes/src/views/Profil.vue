@@ -4,7 +4,7 @@
     <div class="contain">
       <br /><br />
       <h3>Bienvenue {{ TokenNameUser }}</h3>
-      <br>
+      <br />
       <p>Ce formulaire te permet de modifier tes données.</p>
       <mdb-card>
         <mdb-card-body class="cards">
@@ -62,7 +62,7 @@
           </form>
         </mdb-card-body>
       </mdb-card>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>
@@ -85,7 +85,7 @@ export default {
     mdbCardBody
   },
 
- computed: { ...mapGetters(["TokenNameUser"]) },
+  computed: { ...mapGetters(["TokenNameUser"]) },
 
   data() {
     return {
@@ -117,7 +117,10 @@ export default {
           console.log(result);
           if (result.status === 200) {
             alert("Vos données ont été modifiées avec succès");
-            this.$store.dispatch(usersData, "updateUsers", result.config.data);
+            let data = JSON.parse(result.config.data);
+            console.log(data)
+            this.$store.dispatch("updateUsers", data);
+            // this.$store.dispatch(usersData, data);
           }
         }
       } catch (error) {
@@ -125,28 +128,33 @@ export default {
       }
     },
     Delete(id) {
-      this.axios
-        .delete(`http://localhost:8000/users/${id}`)
-        .then(response => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteToken", response.data.tokenId);
-            this.axios
-              .delete(`http://localhost:8000/contentsUser/${id}`)
-              .then(response => {
-                console.log(response);
-                console.log(id);
-                if (response.status === 200) {
-                  this.$store.dispatch("deleteMyPosts", id);
-                }
-            });
-            alert("Votre compte et vos posts ont bien été supprimé");
-            this.$router.push("/");
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let res = confirm(
+        "Êtes-vous sûr de vouloir supprimer votre compte et vos posts ?"
+      );
+      if (res) {
+        this.axios
+          .delete(`http://localhost:8000/users/${id}`)
+          .then(response => {
+            console.log(response);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteToken", response.data.tokenId);
+              this.axios
+                .delete(`http://localhost:8000/contentsUser/${id}`)
+                .then(response => {
+                  console.log(response);
+                  console.log(id);
+                  if (response.status === 200) {
+                    this.$store.dispatch("deleteMyPosts", id);
+                  }
+                });
+              alert("Votre compte et vos posts ont bien été supprimé");
+              this.$router.push("/");
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   }
 };

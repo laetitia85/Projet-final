@@ -34,7 +34,8 @@
               icon="trash-alt"
               size="sm"
               @click="Delete(user.id_a)"
-            >Supprimer</mdb-btn>
+              >Supprimer</mdb-btn
+            >
           </th>
         </tr>
       </table>
@@ -117,32 +118,38 @@ export default {
   methods: {
     Delete(id) {
       console.log(id);
-      this.axios
-        .delete(`http://localhost:8000/adminA/${id}`)
-        .then(response => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteUsers", id);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if (res) {
+        this.axios
+          .delete(`http://localhost:8000/adminA/${id}`)
+          .then(response => {
+            console.log(response);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteUsers", id);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     },
 
     DeletePro(idPro) {
       console.log(idPro);
-      this.axios
-        .delete(`http://localhost:8000/adminP/${idPro}`)
-        .then(response => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$store.dispatch("deleteUsersPro", idPro);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur?");
+      if (res) {
+        this.axios
+          .delete(`http://localhost:8000/adminP/${idPro}`)
+          .then(response => {
+            console.log(response);
+            if (response.status === 200) {
+              this.$store.dispatch("deleteUsersPro", idPro);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   }
 };

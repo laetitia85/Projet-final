@@ -29,7 +29,7 @@
         </p>
         <br /><br />
       </div>
-      <br><br>
+      <br /><br />
     </div>
     <Footer />
   </div>

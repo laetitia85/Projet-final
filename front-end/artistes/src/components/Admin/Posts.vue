@@ -16,7 +16,7 @@
             <th>Catégory</th>
             <th>Durée</th>
             <th>Type de contenu</th>
-             <th>Id-user_a</th>
+            <th>Id-user_a</th>
             <!-- <th>Modifier</th> -->
             <th>Supprimer</th>
           </tr>
@@ -28,7 +28,7 @@
           <td>{{ content.category }}</td>
           <td>{{ content.duration }}</td>
           <td>{{ content.content_type }}</td>
-            <td>{{ content.id_user_a }}</td>
+          <td>{{ content.id_user_a }}</td>
           <!-- <th>
             <mdb-btn color="success" icon="edit" size="sm">Modifier</mdb-btn>
           </th> -->
@@ -78,31 +78,23 @@ export default {
 
   computed: { ...mapGetters(["AllContent"]) },
 
-  // async mounted() {
-  //   try {
-  //     await this.axios.get("http://localhost:8000/contents").then((result) => {
-  //       console.log(result.data);
-  //       this.$store.dispatch("recContent", result.data);
-  //       this.$store.dispatch("deleteToken", result.data.id_c);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // },
-
   methods: {
     Delete(id) {
-      this.axios
-        .delete(`http://localhost:8000/adminC/${id}`)
-        .then(response => {
-          console.log(response.data);
-          if (response.status === 200) {
-            this.$store.dispatch("deletePosts", id);
-          }
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+      let res = confirm("Êtes-vous sûr de vouloir supprimer ce contenu?");
+      if (res) {
+        this.axios
+
+          .delete(`http://localhost:8000/adminC/${id}`)
+          .then(response => {
+            console.log(response.data);
+            if (response.status === 200) {
+              this.$store.dispatch("deletePosts", id);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
     }
   }
 };
