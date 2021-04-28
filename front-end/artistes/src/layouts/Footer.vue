@@ -6,11 +6,13 @@
         <p>Laetitia de Bardin</p>
       </mdb-col>
       <mdb-col sm="4" class="foo" >
-        <p href="#!">Mentions Légales</p>
-        <p href="#!">CGU</p>
+         <router-link to="/mentions" active>Mentions Légales</router-link>
+         <br><br>
+          <router-link to="/cgu" active>CGU</router-link>
       </mdb-col>
       <mdb-col sm="4" class="foo" >
       <router-link to="/contact" active>Contact</router-link>
+      <br><br>
         <ul class="list-unstyled list-inline"> 
           <li class="list-inline-item">
             <a class="btn-floating btn-sm btn-fb mx-1"

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express.Router();
 const sql = require("../database/database.js");
 require("dotenv").config();
-// const isTokenIsValid = require('../middlewares/auth');
+const isTokenIsValid = require('../middlewares/auth');
 
 app.get("/contents",  (req, res) => {
     sql.query("SELECT * FROM contents", (err, response) => {
@@ -13,7 +13,7 @@ app.get("/contents",  (req, res) => {
     });
   });
 
-app.post("/add-contents",  function(req, res) {
+app.post("/add-contents", isTokenIsValid, function(req, res) {
     try {
       let objet = {
         title: req.body.title,
@@ -40,7 +40,11 @@ app.post("/add-contents",  function(req, res) {
     
   app.get("/contents/:id", (req, res) => {
     sql.query(
-      `SELECT contents.id_c, contents.title, contents.id_user_a, contents.date, contents.category, contents.duration, contents.content_type, contents.content, artists_users.picture_profil, artists_users.first_name FROM contents INNER JOIN artists_users ON artists_users.id_a = contents.id_user_a WHERE contents.id_user_a = ${req.params.id}`,
+      `SELECT contents.*, artists_users.picture_profil, artists_users.first_name 
+      FROM contents 
+      INNER JOIN artists_users 
+      ON artists_users.id_a = contents.id_user_a 
+      WHERE contents.id_user_a = ${req.params.id}`,
       (err, result) => {
         if (err) {
                   throw err;
@@ -67,18 +71,6 @@ app.post("/add-contents",  function(req, res) {
           throw err;
         }
         res.send(response);
-      }
-    );
-  });
-
-  app.delete("/contentsUser/:contents", (req, res) => {
-    sql.query(
-      `DELETE FROM contents WHERE id_user_a ='${req.params.contents}'`,
-      function(err, result) {
-        if (err) {
-          res.status(400).send("Erreur");
-        }
-        res.status(200).send("Votre compte et votre post ont bien été supprimé");
       }
     );
   });

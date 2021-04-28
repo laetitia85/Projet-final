@@ -41,14 +41,12 @@ app.post("/users/sign-in", (req, res) => {
     email: req.body.email
   };
   sql.query(`SELECT * FROM artists_users WHERE ?`, objet, (err, result) => {
-    console.log(result);
     if (result[0]) {
       bcrypt.compare(req.body.password, result[0].password, function(
         erro,
         resultat
       ) {
         if (resultat) {
-          console.log(resultat);
           let token = jwt.sign(
             {
               id_a: result[0].id_a,
@@ -56,7 +54,7 @@ app.post("/users/sign-in", (req, res) => {
               first_name: result[0].first_name,
               picture_profil: result[0].picture_profil
             },
-            "process.env.jwtKey",
+            "process.env.JWT_SECRET",
             {
               expiresIn: 86400 // expires in 24 hours
             }
@@ -124,9 +122,9 @@ app.put("/users/:id", (req, res) => {
   }
 });
 
-app.delete("/users/:usersID", (req, res) => {
+app.delete("/users/:usersID", isTokenIsValid , (req, res) => {
   sql.query(
-    `DELETE artists_users FROM artists_users 
+    `DELETE artists_users , contents FROM artists_users 
     INNER JOIN contents ON artists_users.id_a = contents.id_user_a 
     WHERE id_a ='${req.params.usersID}'`,
     function(err, result) {
