@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="contain" v-for="content in ContentId" :key="content.id_user_a">
+    <div class="contain" v-for="content in ContentId" :key="content.id_c">
       <br />
       <br />
       <iframe :src="content.content" width="320" height="240" controls />

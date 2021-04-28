@@ -1,15 +1,10 @@
-const jwt = require("jsonwebtoken");
+const jwtPro = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-  if (req.headers.authorization) {
-    let tokenPro = req.headers.authorization;
-    jwt.verify(tokenPro, process.env.jwtKey, (err, decoded) => {
-       console.log(decoded)
-      if (decoded.id_p === req.body.id_p) {
+  if (req.headers['authorization']) {
+    let tokenPro = req.headers['authorization'];
+    jwtPro.verify(tokenPro, process.env.JWT_SECRET, (err, decoded) => {
         next();
-      } else {
-        res.status(400).send({ msg: "invalid token " });
-      }
     });
   }
 };

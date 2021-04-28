@@ -2,7 +2,7 @@ const express = require("express");
 const app = express.Router();
 const sql = require("../database/database.js");
 require("dotenv").config();
-// const isTokenProIsValid = require('../middlewares/authPro');
+const isTokenProIsValid = require('../middlewares/authPro');
 
 app.get("/comments", (req, res) => {
     sql.query("SELECT * FROM comments", (err, response) => {
@@ -13,7 +13,7 @@ app.get("/comments", (req, res) => {
     });
   });
   
-  app.post("/add-comments",  (req, res) => {
+  app.post("/add-comments", isTokenProIsValid, (req, res) => {
     try {
       let objet = {
         comments: req.body.comments,
@@ -32,18 +32,6 @@ app.get("/comments", (req, res) => {
       console.log(err);
     }
   })
-
-  // app.get("/comments/:id", (req, res) => {
-  //   sql.query(
-  //     `SELECT comments.id_com, comments.comments FROM comments INNER JOIN contents ON contents.id_c = comments.id_post WHERE comments.id_post = ${req.params.id}`,
-  //     (err, result) => {
-  //       if (err) {
-  //                 throw err;
-  //               }
-  //               res.send(result);
-  //             }
-  //           );
-  //         });
 
           app.delete("/comments/:commentsID", (req, res) => {
             sql.query(

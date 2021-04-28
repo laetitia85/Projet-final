@@ -138,15 +138,6 @@ export default {
             console.log(response);
             if (response.status === 200) {
               this.$store.dispatch("deleteToken", response.data.tokenId);
-              this.axios
-                .delete(`http://localhost:8000/contentsUser/${id}`)
-                .then(response => {
-                  console.log(response);
-                  console.log(id);
-                  if (response.status === 200) {
-                    this.$store.dispatch("deleteMyPosts", id);
-                  }
-                });
               alert("Votre compte et vos posts ont bien été supprimé");
               this.$router.push("/");
             }

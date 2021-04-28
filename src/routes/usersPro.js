@@ -10,6 +10,7 @@ require("dotenv").config();
 
 app.get("/usersPro", (req, res) => {
     sql.query("SELECT * FROM pro_users", (err, response) => {
+      
       if (err) {
         throw err;
       }
@@ -58,7 +59,7 @@ app.get("/usersPro", (req, res) => {
                   first_name: result[0].first_name,
                   picture: result[0].picture
                 },
-                "process.env.jwtKey",
+                "process.env.JWT_SECRET",
                 {
                   expiresIn: 86400 // expires in 24 hours
                 }

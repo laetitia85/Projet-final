@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-// const isTokenAdminIsValid = require('../middlewares/authAdmin');
+const isTokenAdminIsValid = require('../middlewares/authAdmin');
 
 app.get("/admin", (req, res) => {
   sql.query("SELECT * FROM admin", (err, response) => {
@@ -58,7 +58,7 @@ app.post("/admin/sign-in", (req, res) => {
               first_name: result[0].first_name,
               picture_profil_a: result[0].picture_profil_a
             },
-            "process.env.jwtKeyAdmin",
+            "process.env.JWT_SECRET",
             {
               expiresIn: 86400 // expires in 24 hours
             }
@@ -130,7 +130,7 @@ app.put("/admin/:id", (req, res) => {
     }
   });
   
-  app.delete("/admin/:adminID", (req, res) => {
+  app.delete("/admin/:adminID", isTokenAdminIsValid, (req, res) => {
     sql.query(
       `DELETE FROM admin WHERE id_admin ='${req.params.adminID}'`,
       function(err, result) {
@@ -143,7 +143,7 @@ app.put("/admin/:id", (req, res) => {
   });
   
   
-  app.delete("/adminA/:usersID", (req, res) => {
+  app.delete("/adminA/:usersID", isTokenAdminIsValid, (req, res) => {
     sql.query(
       `DELETE FROM artists_users WHERE id_a ='${req.params.usersID}'`,
       function(err, result) {
@@ -155,7 +155,7 @@ app.put("/admin/:id", (req, res) => {
     );
   });
   
-  app.delete("/adminP/:usersProID", (req, res) => {
+  app.delete("/adminP/:usersProID", isTokenAdminIsValid, (req, res) => {
     sql.query(
       `DELETE FROM pro_users WHERE id_p ='${req.params.usersProID}'`,
       function(err, result) {
@@ -179,7 +179,7 @@ app.put("/admin/:id", (req, res) => {
     );
   });
   
-  app.delete("/adminCom/:com", (req, res) => {
+  app.delete("/adminCom/:com", isTokenAdminIsValid,  (req, res) => {
     sql.query(`DELETE FROM comments WHERE id_com ='${req.params.com}'`, function(
       err,
       result

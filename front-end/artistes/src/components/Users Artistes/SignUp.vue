@@ -242,7 +242,7 @@ export default {
         this.user.passwordcheck === "" ||
         this.user.picture_profil === ""
       ) {
-        this.message = 'false';
+        this.message = "false";
       } else {
         this.axios
           .post("http://localhost:8000/users/sign-up", this.user)
@@ -253,7 +253,7 @@ export default {
               (this.user.email = ""),
               (this.user.password = ""),
               (this.user.picture_profil = ""),
-              (this.message = 'true');
+              (this.message = "true");
 
             this.$store.dispatch("recUsers", {
               name: "",
@@ -268,7 +268,7 @@ export default {
           })
           .catch(function(error) {
             console.log(error);
-            this.message = 'error';
+            this.message = "error";
           });
       }
     },

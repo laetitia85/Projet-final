@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import store from "../store/store.js";
 
 import Home from "../views/Home.vue";
+import MentionsLegales from "../views/MentionsLegales";
+import CGU from "../views/CGU";
+
 //ARTISTES
 import SignUp from "../components/Users Artistes/SignUp.vue";
 import SignIn from "../components/Users Artistes/SignIn.vue";
@@ -11,6 +14,7 @@ import Creations from "../components/Users Artistes/Creations.vue";
 import AddContent from "../components/Users Artistes/AddContent.vue";
 import MesPosts from "../components/Users Artistes/MesPosts.vue";
 import Contact from "../views/Contact.vue";
+
 //PRO
 import SignUpPro from "../components/Users Pro/SignUpPro.vue";
 import SignInPro from "../components/Users Pro/SignInPro.vue";
@@ -65,6 +69,16 @@ const routes = [
     path: "/contact",
     name: "Contact",
     component: Contact
+  },
+  {
+    path: "/mentions",
+    name: "MentionsLegales",
+    component: MentionsLegales
+  },
+  {
+    path: "/cgu",
+    name: "CGU",
+    component: CGU
   },
   {
     path: "/profil",
